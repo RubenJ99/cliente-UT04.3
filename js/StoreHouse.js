@@ -20,8 +20,3 @@ export default class StoreHouse {
   }
 }
 
-
-let inst = new StoreHouse('Almacen1');
-console.log(inst.getName)
-inst.setName = 1;
-console.log(inst.getName)
