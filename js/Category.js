@@ -3,10 +3,12 @@
 export default class Category{
     #title;
     #description;
+
     constructor(title,description){
         if(!title) throw new Error('empty value');
         this.#title = title;
         this.#description = description;
+
     }
 
     get getTitle(){
