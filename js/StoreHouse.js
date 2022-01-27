@@ -1,11 +1,15 @@
 "use strict";
 
+import Category from "./Category";
+
+
 export default class StoreHouse {
   #name;
   #categoriesList;
   constructor(name) {
     this.#name = name;
-    this.#categoriesList = [];
+    this.#categoriesList = new ObjectList(Category);
+
 
   }
 
