@@ -2,8 +2,11 @@
 
 export default class StoreHouse {
   #name;
+  #categoriesList;
   constructor(name) {
     this.#name = name;
+    this.#categoriesList = [];
+
   }
 
   get getName() {
@@ -17,6 +20,10 @@ export default class StoreHouse {
   set setName(name) {
     if(!name) throw new Error('Empty value');
     this.#name = name;
+  }
+
+  get categories(){
+
   }
 }
 
