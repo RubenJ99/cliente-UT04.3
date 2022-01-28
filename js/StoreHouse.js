@@ -19,7 +19,7 @@ export default class StoreHouse {
 
   }
 
-  get getName() {
+  get name() {
     return this.#name;
   }
 
@@ -27,7 +27,7 @@ export default class StoreHouse {
    * @param {string} name
    * 
    */
-  set setName(name) {
+  set name(name) {
     if(!name) throw new Error('Empty value');
     this.#name = name;
   }

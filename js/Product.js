@@ -10,36 +10,65 @@ export default class Product {
     #serialNumber;
     #name;
     #description;
-    constructor(serialNumber,name,description) {
+    #price;
+    #tax;
+    #images;
+    constructor(serialNumber,name,description,price,tax,images) {
         if(new.target === Product) throw new AbstractClassException('Product'); //Abstract check
+        if(!serialNumber) throw new InvalidValueException('serialNumber',serialNumber);
+        if(!name) throw new InvalidValueException('name',name);
+        if(!price) throw new InvalidValueException('price',price);
         this.#serialNumber = serialNumber;
         this.#name = name;
         this.#description = description;
+        this.#price = price;
+        this.#tax = tax;
+        this.#images = images;
+
     }
 
-    get getSerialNumber(){
+    get serialNumber(){
         return this.#serialNumber;
     }
 
-    set setSerialNumber(serialNumber){
-        this.#serialNumber = serialNumber;
-    }
-
-    get getName(){
+    get name(){
         return this.#name;
     }
 
-    set setName(name){
-        this.#name = name;
-    }
 
-    get getDescription(){
+    get description(){
         return this.#description;
     }
 
-    set setDescription(description){
+    set description(description){
+        if(!description) throw new InvalidValueException('description',description);
         this.#description = description;
     }
 
+    get price(){
+        return this.#price;
+    }
 
+    set price(price){
+        if(!price) throw new InvalidValueException('price',price);
+        this.#price = price;
+    }
+
+    get tax(){
+        return this.#tax;
+    }
+
+    set tax(tax){
+        if(!tax) throw new InvalidValueException('tax',tax);
+        this.#tax = tax;
+    }
+
+    get images(){
+        return this.#images;
+    }
+
+    set images(images){
+        if(!images) throw new InvalidValueException('images',images);
+        this.#images = images;
+    }
 }

@@ -17,20 +17,20 @@ export default class Category{
 
     }
 
-    get getTitle(){
+    get title(){
         return this.#title;
     }
 
-    set setTitle(title){
+    set title(title){
         if(!title) throw new EmptyValueException('title');
         this.#title = title;
     }
 
-    get getDescription(){
+    get description(){
         return this.#description;
     }
 
-    set setDescription(description){
+    set description(description){
         this.#description = description;
     }
 }
