@@ -1,4 +1,12 @@
 'use strict';
+import {InvalidAccessConstructorException,EmptyValueException,
+    InvalidValueException,AbstractClassException,
+    InvalidInstanceException,IndexOutOfBoundsException,
+    NonExistentMethodException,FullListException,
+    AbstractClassException,InvalidRegexException,
+    RepeatedArgumentException,NotFoundArgumentException} from "./ES6Errors";
+
+
 
 export class List{
     #storage;
@@ -169,7 +177,7 @@ export class OrderedObjectList extends ObjectList{
 
     add(elem){
         let length = super.add(elem);
-        super.peek().sort(this.order);
+        super.peek().sort(this.#order);
         return length;
     }
 

@@ -1,6 +1,12 @@
 "use strict";
 
 import Category from "./Category";
+import {InvalidAccessConstructorException,EmptyValueException,
+    InvalidValueException,AbstractClassException,
+    InvalidInstanceException,IndexOutOfBoundsException,
+    NonExistentMethodException,FullListException,
+    AbstractClassException,InvalidRegexException,
+    RepeatedArgumentException,NotFoundArgumentException} from "./ES6Errors";
 
 
 export default class StoreHouse {

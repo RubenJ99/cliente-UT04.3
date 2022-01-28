@@ -6,24 +6,31 @@ import {InvalidAccessConstructorException,EmptyValueException,
     AbstractClassException,InvalidRegexException,
     RepeatedArgumentException,NotFoundArgumentException} from "./ES6Errors";
 
-export default class Category{
-    #title;
+export default class Product {
+    #serialNumber;
+    #name;
     #description;
-
-    constructor(title,description){
-        if(!title) throw new EmptyValueException('title');
-        this.#title = title;
+    constructor(serialNumber,name,description) {
+        if(new.target === Product) throw new AbstractClassException('Product'); //Abstract check
+        this.#serialNumber = serialNumber;
+        this.#name = name;
         this.#description = description;
-
     }
 
-    get getTitle(){
-        return this.#title;
+    get getSerialNumber(){
+        return this.#serialNumber;
     }
 
-    set setTitle(title){
-        if(!title) throw new EmptyValueException('title');
-        this.#title = title;
+    set setSerialNumber(serialNumber){
+        this.#serialNumber = serialNumber;
+    }
+
+    get getName(){
+        return this.#name;
+    }
+
+    set setName(name){
+        this.#name = name;
     }
 
     get getDescription(){
@@ -33,4 +40,6 @@ export default class Category{
     set setDescription(description){
         this.#description = description;
     }
+
+
 }
