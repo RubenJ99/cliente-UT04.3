@@ -8,7 +8,9 @@ export class List{
         this.#storage = [];
         this.capacity = capacity;
     }
-
+    peek(){
+        return this.#storage;
+    }
     isEmpty(){
         return this.#storage.length === 0;
     }
@@ -166,7 +168,10 @@ export class OrderedObjectList extends ObjectList{
     }
 
     add(elem){
-        super.
+        let length = super.add(elem);
+        super.peek().sort(this.order);
+        return length;
     }
 
 }
+
