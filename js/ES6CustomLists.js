@@ -8,7 +8,7 @@ export class List{
         this.#storage = [];
         this.capacity = capacity;
     }
-    peek(){
+    get peek(){
         return this.#storage;
     }
     isEmpty(){
