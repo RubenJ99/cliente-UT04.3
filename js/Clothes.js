@@ -1,17 +1,17 @@
 'use strict';
 
-import Product from "./Product";
-import {InvalidValueException} from "./ES6Errors";
+import Product from "./Product.js";
+import {InvalidValueException} from "./ES6Errors.js";
 
 export default class Clothes extends Product{
     #size;
     #color;
-    #sex;
-    constructor(serialNumber,name,description,price,tax,images,size,color,sex) {
+    #gender;
+    constructor(serialNumber,name,description,price,tax,images,size,color,gender) {
         super(serialNumber,name,description,price,tax,images);
         this.#size = size;
         this.#color = color;
-        this.#sex = sex;
+        this.#gender = gender;
 
     }
 
@@ -31,14 +31,15 @@ export default class Clothes extends Product{
         this.#color = color;
     }
 
-    get sex(){
-        return this.#sex;
+    get gender(){
+        return this.#gender;
     }
 
-    set sex(sex){
-        if(sex !== 'W' || sex !== 'M' || sex !== 'U') throw new InvalidValueException('sex',sex);
-        this.#sex = sex;
+    set gender(gender){
+        if(gender !== 'W' || gender !== 'M' || gender !== 'U') throw new InvalidValueException('gender',gender);
+        this.#gender = gender;
     }
+
 
 
 }

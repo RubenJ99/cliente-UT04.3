@@ -2,9 +2,8 @@
 import {InvalidAccessConstructorException,EmptyValueException,
     InvalidValueException,AbstractClassException,
     InvalidInstanceException,IndexOutOfBoundsException,
-    NonExistentMethodException,FullListException,
-    AbstractClassException,InvalidRegexException,
-    RepeatedArgumentException,NotFoundArgumentException} from "./ES6Errors";
+    NonExistentMethodException,FullListException,InvalidRegexException,
+    RepeatedArgumentException,NotFoundArgumentException} from "./ES6Errors.js";
 
 export default class Category{
     #title;

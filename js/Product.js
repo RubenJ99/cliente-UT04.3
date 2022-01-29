@@ -3,8 +3,8 @@ import {InvalidAccessConstructorException,EmptyValueException,
     InvalidValueException,AbstractClassException,
     InvalidInstanceException,IndexOutOfBoundsException,
     NonExistentMethodException,FullListException,
-    AbstractClassException,InvalidRegexException,
-    RepeatedArgumentException,NotFoundArgumentException} from "./ES6Errors";
+    InvalidRegexException,
+    RepeatedArgumentException,NotFoundArgumentException} from "./ES6Errors.js";
 
 export default class Product {
     #serialNumber;

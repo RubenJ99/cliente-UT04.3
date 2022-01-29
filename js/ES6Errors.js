@@ -73,13 +73,6 @@ export class FullListException extends BaseException{
     }
 }
 
-export class AbstractClassException extends BaseException{
-    constructor(className,fileName,lineNumber) {
-        super(`Error: The class ${className} + is abstract`,fileName,lineNumber);
-        this.name = 'AbstractClassException';
-    }
-}
-
 export class InvalidRegexException extends BaseException{
     constructor(param,fileName,lineNumber) {
         super(`Error: the parameter ${param} does not match the specified regular expression`,fileName,lineNumber);
