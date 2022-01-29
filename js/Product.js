@@ -1,74 +1,74 @@
 'use strict';
 import {InvalidAccessConstructorException,EmptyValueException,
-    InvalidValueException,AbstractClassException,
-    InvalidInstanceException,IndexOutOfBoundsException,
-    NonExistentMethodException,FullListException,
-    InvalidRegexException,
-    RepeatedArgumentException,NotFoundArgumentException} from "./ES6Errors.js";
+  InvalidValueException,AbstractClassException,
+  InvalidInstanceException,IndexOutOfBoundsException,
+  NonExistentMethodException,FullListException,
+  InvalidRegexException,
+  RepeatedArgumentException,NotFoundArgumentException} from "./ES6Errors.js";
 
 export default class Product {
-    #serialNumber;
-    #name;
-    #description;
-    #price;
-    #tax;
-    #images;
-    constructor(serialNumber,name,description,price,tax,images) {
-        if(new.target === Product) throw new AbstractClassException('Product'); //Abstract check
-        if(!serialNumber) throw new InvalidValueException('serialNumber',serialNumber);
-        if(!name) throw new InvalidValueException('name',name);
-        if(!price) throw new InvalidValueException('price',price);
-        this.#serialNumber = serialNumber;
-        this.#name = name;
-        this.#description = description;
-        this.#price = price;
-        this.#tax = tax;
-        this.#images = images;
+  #serialNumber;
+  #name;
+  #description;
+  #price;
+  #tax;
+  #images;
+  constructor(serialNumber,name,description,price,tax,images) {
+    if(new.target === Product) throw new AbstractClassException('Product'); //Abstract check
+    if(!serialNumber) throw new InvalidValueException('serialNumber',serialNumber);
+    if(!name) throw new InvalidValueException('name',name);
+    if(!price) throw new InvalidValueException('price',price);
+    this.#serialNumber = serialNumber;
+    this.#name = name;
+    this.#description = description;
+    this.#price = price;
+    this.#tax = tax;
+    this.#images = images;
 
-    }
+  }
 
-    get serialNumber(){
-        return this.#serialNumber;
-    }
+  get serialNumber(){
+    return this.#serialNumber;
+  }
 
-    get name(){
-        return this.#name;
-    }
+  get name(){
+    return this.#name;
+  }
 
 
-    get description(){
-        return this.#description;
-    }
+  get description(){
+    return this.#description;
+  }
 
-    set description(description){
-        if(!description) throw new InvalidValueException('description',description);
-        this.#description = description;
-    }
+  set description(description){
+    if(!description) throw new InvalidValueException('description',description);
+    this.#description = description;
+  }
 
-    get price(){
-        return this.#price;
-    }
+  get price(){
+    return this.#price;
+  }
 
-    set price(price){
-        if(!price) throw new InvalidValueException('price',price);
-        this.#price = price;
-    }
+  set price(price){
+    if(!price) throw new InvalidValueException('price',price);
+    this.#price = price;
+  }
 
-    get tax(){
-        return this.#tax;
-    }
+  get tax(){
+    return this.#tax;
+  }
 
-    set tax(tax){
-        if(!tax) throw new InvalidValueException('tax',tax);
-        this.#tax = tax;
-    }
+  set tax(tax){
+    if(!tax) throw new InvalidValueException('tax',tax);
+    this.#tax = tax;
+  }
 
-    get images(){
-        return this.#images;
-    }
+  get images(){
+    return this.#images;
+  }
 
-    set images(images){
-        if(!images) throw new InvalidValueException('images',images);
-        this.#images = images;
-    }
+  set images(images){
+    if(!images) throw new InvalidValueException('images',images);
+    this.#images = images;
+  }
 }

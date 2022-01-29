@@ -1,35 +1,35 @@
 'use strict';
 import {InvalidAccessConstructorException,EmptyValueException,
-    InvalidValueException,AbstractClassException,
-    InvalidInstanceException,IndexOutOfBoundsException,
-    NonExistentMethodException,FullListException,InvalidRegexException,
-    RepeatedArgumentException,NotFoundArgumentException} from "./ES6Errors.js";
+  InvalidValueException,AbstractClassException,
+  InvalidInstanceException,IndexOutOfBoundsException,
+  NonExistentMethodException,FullListException,InvalidRegexException,
+  RepeatedArgumentException,NotFoundArgumentException} from "./ES6Errors.js";
 
 export default class Category{
-    #title;
-    #description;
+  #title;
+  #description;
 
-    constructor(title,description){
-        if(!title) throw new EmptyValueException('title');
-        this.#title = title;
-        this.#description = description;
+  constructor(title,description){
+    if(!title) throw new EmptyValueException('title');
+    this.#title = title;
+    this.#description = description;
 
-    }
+  }
 
-    get title(){
-        return this.#title;
-    }
+  get title(){
+    return this.#title;
+  }
 
-    set title(title){
-        if(!title) throw new EmptyValueException('title');
-        this.#title = title;
-    }
+  set title(title){
+    if(!title) throw new EmptyValueException('title');
+    this.#title = title;
+  }
 
-    get description(){
-        return this.#description;
-    }
+  get description(){
+    return this.#description;
+  }
 
-    set description(description){
-        this.#description = description;
-    }
+  set description(description){
+    this.#description = description;
+  }
 }

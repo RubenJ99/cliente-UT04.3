@@ -4,27 +4,27 @@ import Product from "./Product.js";
 import {EmptyValueException, InvalidValueException} from "./ES6Errors.js";
 
 export default class Perfume extends Product{
-    #odor;
-    #gender;
-    constructor(serialNumber,name,description,price,tax,images,odor,gender) {
-        super(serialNumber,name,description,price,tax,images);
-        this.#odor = odor;
-        this.#gender = gender;
-    }
+  #odor;
+  #gender;
+  constructor(serialNumber,name,description,price,tax,images,odor,gender) {
+    super(serialNumber,name,description,price,tax,images);
+    this.#odor = odor;
+    this.#gender = gender;
+  }
 
-    get odor(){
-        return this.#odor;
-    }
+  get odor(){
+    return this.#odor;
+  }
 
-    set odor(odor){
-        this.#odor = odor;
-    }
+  set odor(odor){
+    this.#odor = odor;
+  }
 
-    get gender(){
-        return this.#gender;
-    }
+  get gender(){
+    return this.#gender;
+  }
 
-    set gender(gender){
-        this.#gender = gender;
-    }
+  set gender(gender){
+    this.#gender = gender;
+  }
 }
