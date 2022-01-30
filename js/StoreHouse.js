@@ -1,11 +1,9 @@
 "use strict";
 
 import Category from "./Category.js";
-import Clothes from "./Clothes.js";
-import SmartWatch from "./SmartWatch.js";
-import Perfume from "./Perfume.js";
 import Store from "./Store.js";
 import {
+  DuplicatedProductException,
   EmptyValueException, IndexOutOfBoundsException,
   InvalidInstanceException,
   InvalidValueException,
@@ -73,7 +71,11 @@ class StoreHouse {
           return Object.entries(elem).toString() === Object.entries(newCategory).toString();
       });
       if(catCheck) throw new RepeatedArgumentException(newCategory);
-      this.#categories.push({category:newCategory,products:[]});
+      this.#categories.push(
+        {category:newCategory,
+          products:[]
+        }
+        );
       return this.#categories.length;
   }
 
@@ -128,8 +130,9 @@ class StoreHouse {
       return elem.serialNumber === newProduct.serialNumber;
     });
 
-    if(indexProd !== -1) throw new
-      this.#stores[indexStore].products.push({serialNumber: newProduct.serialNumber, stock: number});
+    if(indexProd !== -1) throw new DuplicatedProductException(newProduct.name);
+
+    this.#stores[indexStore].products.push({serialNumber: newProduct.serialNumber, stock: number});
       /*
      let oldStock =  this.#stores[indexStore].products[indexProd].stock;
      oldStock += number;
@@ -138,12 +141,36 @@ class StoreHouse {
     return number;
   }
 
-  addQuantityProductInShop(newProduct,newShop,number){
+  addQuantityProductInShop(newProduct,newShop,number = 1){
+    let indexStore = this.#stores.findIndex((elem) => {
+      return Object.entries(elem).toString() === Object.entries(newShop).toString();
+    });
 
+    if(indexStore === -1) throw new InvalidValueException('newShop',newShop);
+
+    let indexProd = this.#stores[indexStore].products.findIndex((elem)=>{
+      return elem.serialNumber === newProduct.serialNumber;
+    });
+
+    if(indexProd === -1) throw new InvalidValueException('newProduct',newProduct);
+
+    let oldStock =  this.#stores[indexStore].products[indexProd].stock;
+    oldStock += number;
+    this.#stores[indexStore].products[indexProd].stock = oldStock;
+
+    return oldStock;
   }
 
-  getCategoryProducts(){
+   * getCategoryProducts(category,product){
+    for(let i=0;i<this.#categories.length;i++){
+      if(!product) {
+        if (this.#categories[i].category.title === category.title) {
+          yield this.#categories[i].products;
+        }
+      }else{
 
+      }
+    }
   }
 
   addShop(newShop){

@@ -97,4 +97,11 @@ export class NotFoundArgumentException extends BaseException{
   }
 }
 
+export class DuplicatedProductException extends BaseException{
+  constructor(param,fileName,lineNumber) {
+    super(`Error: The product ${param} is already present on the given shop, use AddQuantityGivenShop to update`,fileName,lineNumber);
+    this.name = 'RepeatedArgumentException';
+    this.param = param;
+  }
+}
 
