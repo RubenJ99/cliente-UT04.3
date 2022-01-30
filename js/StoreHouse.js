@@ -6,16 +6,16 @@ import SmartWatch from "./SmartWatch.js";
 import Perfume from "./Perfume.js";
 import Store from "./Store.js";
 import {
-    EmptyValueException,
-    InvalidInstanceException,
-    InvalidValueException,
-    RepeatedArgumentException
+  EmptyValueException, IndexOutOfBoundsException,
+  InvalidInstanceException,
+  InvalidValueException,
+  RepeatedArgumentException
 } from "./ES6Errors.js";
 import Coords from "./Coords.js";
-import Product from "./Product";
+import Product from "./Product.js";
 
 
-export default class StoreHouse {
+class StoreHouse {
   #name;
   #categories;
   #stores;
@@ -35,7 +35,7 @@ export default class StoreHouse {
   }
 
   set name(name) {
-    if(!name) throw new Error('Empty value');
+    if(!name) throw new EmptyValueException('name');
     this.#name = name;
   }
 
@@ -93,7 +93,7 @@ export default class StoreHouse {
       let catIndex = this.#categories.findIndex((elem)=>{
           return Object.entries(elem.category).toString() === Object.entries(newCategory).toString();
       });
-    this.#categories[catIndex].products.push({product:newProduct,store:StoreHouse.#defStore});
+    this.#categories[catIndex].products.push({product:newProduct,store:StoreHouse.#defStore.cif});
     return this.#categories[catIndex].products.length;
   }
 
@@ -108,7 +108,81 @@ export default class StoreHouse {
     });
   }
 
-  
+  addProductInShop(newProduct,newShop,number){
+    if(!(newProduct instanceof Product)) throw new InvalidInstanceException('newProduct',Product);
+    if(!newShop) throw new EmptyValueException('newShop',newShop);
+    if(number < 0) throw new IndexOutOfBoundsException();
+
+    this.#categories.forEach((cat)=>{
+      let prodIndex = cat.products.findIndex((prod)=>{
+        return Object.entries(prod).toString() === Object.entries(newProduct).toString();
+      });
+      cat.products[prodIndex].store = newShop.cif;
+    });
+
+    let indexStore = this.#stores.findIndex((elem) => {
+      return Object.entries(elem).toString() === Object.entries(newShop).toString();
+    });
+
+    let indexProd = this.#stores[indexStore].products.findIndex((elem)=>{
+      return elem.serialNumber === newProduct.serialNumber;
+    });
+
+    if(indexProd !== -1) throw new
+      this.#stores[indexStore].products.push({serialNumber: newProduct.serialNumber, stock: number});
+      /*
+     let oldStock =  this.#stores[indexStore].products[indexProd].stock;
+     oldStock += number;
+     this.#stores[indexStore].products[indexProd].stock = oldStock;
+       */
+    return number;
+  }
+
+  addQuantityProductInShop(newProduct,newShop,number){
+
+  }
+
+  getCategoryProducts(){
+
+  }
+
+  addShop(newShop){
+    if(!newShop) throw new EmptyValueException('newShop',newShop);
+    if(this.#stores.find((elem)=>{
+      return Object.entries(elem).toString() === Object.entries(newShop).toString();
+    })) throw new RepeatedArgumentException();
+
+    this.#stores.push({store:newShop,products:[/*id:Product.id,stock:number*/]});
+    return this.#stores.length;
+  }
+
+  removeShop(){
+
+  }
+
+  getShopProducts(){
+
+  }
 
 }
 
+//Declaracion de singleton
+const StoreHouseSingle = (function (){
+  var instance;
+
+  function createInstance(name){
+    var classObj = new StoreHouse(name);
+    return classObj;
+  }
+
+  return {
+    getInstance: function (name){
+      if(!instance){
+        instance = createInstance(name);
+      }
+      return instance;
+    }
+  }
+})();
+
+export default StoreHouseSingle;

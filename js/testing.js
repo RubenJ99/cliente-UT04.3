@@ -1,8 +1,10 @@
 'use strict';
-import StoreHouse from "./StoreHouse.js";
+import StoreHouseSingle from "./StoreHouse.js";
 import Category from "./Category.js";
+import Store from "./Store.js";
+import Coords from "./Coords.js";
 
-let sh = new StoreHouse('Valdemoro');
+let sh = new StoreHouseSingle.getInstance('Valdemoro');
 sh.addCategory(new Category('Jumpers','aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'));
 sh.addCategory(new Category('Denim','aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'))
 sh.addCategory(new Category('Trucker Jacket','aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'))
@@ -17,3 +19,6 @@ for (const item of sh.categories) {
 for (const item of sh.shops) {
   console.log(item);
 }
+console.log('-------------------------');
+sh.addShop(new Store('H92482892','DefStore','RandomAddress','123456789',new Coords('1','1')));
+console.log(sh.removeShop());
