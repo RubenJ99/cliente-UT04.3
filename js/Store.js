@@ -2,6 +2,9 @@
 import {InvalidInstanceException, InvalidRegexException, InvalidValueException} from "./ES6Errors.js";
 import Coords  from "./Coords.js";
 
+/**
+ * Clase Store con getter y setter basicos
+ */
 export default class Store{
   #cif;
   #name;

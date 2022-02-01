@@ -5,6 +5,9 @@ import {InvalidAccessConstructorException,EmptyValueException,
   NonExistentMethodException,FullListException,InvalidRegexException,
   RepeatedArgumentException,NotFoundArgumentException} from "./ES6Errors.js";
 
+/**
+ * getters y setters de Categoria requeridos
+ */
 export default class Category{
   #title;
   #description;

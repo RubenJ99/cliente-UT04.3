@@ -4,7 +4,9 @@ import {InvalidAccessConstructorException,EmptyValueException,
   InvalidInstanceException,IndexOutOfBoundsException,
   NonExistentMethodException,FullListException,InvalidRegexException,
   RepeatedArgumentException,NotFoundArgumentException} from "./ES6Errors.js";
-
+/**
+ * Clase Coords con sus getter y setter segun se requiere
+ */
 export default class Coords{
   #latitude;
   #longitude;

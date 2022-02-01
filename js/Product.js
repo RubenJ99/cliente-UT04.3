@@ -6,6 +6,9 @@ import {InvalidAccessConstructorException,EmptyValueException,
   InvalidRegexException,
   RepeatedArgumentException,NotFoundArgumentException} from "./ES6Errors.js";
 
+/**
+ * Clase abstracta la cual usaremos para crear 3 productos
+ */
 export default class Product {
   #serialNumber;
   #name;

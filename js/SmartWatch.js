@@ -3,6 +3,9 @@
 import Product from "./Product.js";
 import {EmptyValueException, InvalidValueException} from "./ES6Errors.js";
 
+/**
+ * Clase que hereda de Product con unos getter y setter
+ */
 export default class SmartWatch extends Product{
   #model;
   #sphere;
