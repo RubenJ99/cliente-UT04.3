@@ -1,86 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital@1&display=swap');
+/*font-family: 'Nunito Sans', sans-serif;*/
+@import url('https://fonts.googleapis.com/css2?family=Heebo&display=swap');
+/*font-family: 'Heebo', sans-serif;*/
+
+*{
+  box-sizing: border-box;
+  font-family: 'Heebo', sans-serif;
+}
+
 body,
 html {
   width: 100%;
   height: 100%;
   padding: 0;
   margin: 0;
-  background-color: #202129;
+  font-size: 1.1rem;
 }
-main {
-  background-color: #202129;
+li, a, button{
+  text-decoration: none;
+}
+body{
+  display: grid;
+  grid-template: "header header header" 100px
+                  "message message message" 50px
+                  "ad1     main    ad2" auto
+                  "footer footer footer" 170px /
+                  200px auto 200px; 
 }
 
-.main__header__nav {
+.main__header{
+  grid-area: header;
+  background-color: black;
   display: flex;
-  justify-content: center;
-  align-items: baseline;
-  border-bottom: 3px solid black;
-  background-color: #727482;
-}
-
-
-
-.main__header--links {
-  display: flex;
+  font-size: 1.3rem;
   justify-content: space-between;
+  align-items: center;
+  padding: 30px 10%;
+}
+.main__header > button {
+  font-size: 1.3rem;
+  background-color: white;
+  transition: all 0.3s ease 0s;
+  border: none;
+  padding: 9px 25px;
+}
+.main__header > button:hover {
+  font-size: 1.3rem;
+  background-color:aquamarine;
+  transition: all 0.3s ease 0s;
 }
 
-.main__header--links > li {
-  margin: 1rem 2rem;
+.logo{
+  width: 30px;
+  cursor: pointer;
+}
+.nav__links{
   list-style: none;
-}
-.main__header--links > li > a {
-  color: white;
-  text-decoration: none;
+  cursor: pointer;
 }
 
-.main__header--links > li > a:hover {
-  color: white;
-  transform: scale(1.2);
-  text-decoration: none;
+.nav__links > li{
+  
+  display: inline-block;
+  padding: 0px 20px;
 }
-
-figure {
-  border: thin #c0c0c0 solid;
+.nav__links > li > a {
+  
+  color: white;
+  transition: all 0.3s ease 0s;
+}
+.nav__links > li > a:hover {
+  color:aquamarine;
+}
+.flash__message{
+  grid-area: message;
+  background-color: red;
+  animation: color-change 2s infinite;
   display: flex;
-  flex-flow: column;
-  padding: 5px;
-  max-width: 220px;
-  margin: auto;
-}
-
-aside > figure {
-  max-width: 410px;
-}
-
-img {
-  max-width: 400px;
-  max-height: 300px;
-}
-
-.contentS {
-  display: inline-grid;
-  width: 100%;
   justify-content: center;
   align-items: center;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: xx-large;
+}
+.ad1{
+  grid-area: ad1;
+  background-color: pink;
 }
 
-.contentS > .card {
-  margin-bottom: 50px;
+.ad1 > a{
   width: 100%;
-  min-width: 0;
-  margin-left: 100px;
+  height: 100%;
 }
 
-h3 {
-  color: white;
-  animation: color-change 2s infinite;
-  width: 300px;
-  margin-left: 800px;
-  margin-bottom: 40px;
+.ad1 > a > img {
+  width: 100%;
+  height: 100%;
 }
+
+.ad2 {
+  grid-area: ad2;
+  background-color: turquoise;
+}
+
+.ad2 > a{
+  width: 100%;
+  height: 100%;
+}
+
+.ad2 > a > img {
+  width: 100%;
+  height: 100%;
+}
+
+.main__container{
+  grid-area: main;
+  background-color: rgb(61, 60, 60);
+  display: flex;
+  flex-direction: row;
+}
+
+
 
 @keyframes color-change {
   0% {
@@ -89,7 +129,7 @@ h3 {
     color: white;
   }
   50% {
-    background-color: darkgreen;
+    background-color: darkred;
     font-style: italic;
     color: white;
   }
@@ -99,52 +139,28 @@ h3 {
     color: white;
   }
 }
-footer {
-  margin-top: 40px;
-  background-color: #e07110;
-  height: 130px;
-}
-aside > figure > figcaption {
-  background-color: red;
-  color: #fff;
-  font-style: normal;
-  font-family: sans-serif;
-  font-weight: bold;
-  text-decoration: underline;
-  padding: 3px;
-  text-align: center;
-}
 
-figcaption {
-  background-color: #222;
-  color: #fff;
-  font: italic smaller sans-serif;
-  padding: 3px;
-  text-align: center;
-}
-
-.footer__container {
+.main__footer{
+  grid-area: footer;
+  background-color: black;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-areas:
-    ". marca ."
-    "contacto contacto direccion";
+  grid-template: "contact domain location" auto /
+                  35% auto 35%;
 }
-
 .footer__marca {
-  grid-area: marca;
+  grid-area: domain;
   text-align: center;
 }
+.footer__contacto{
+  grid-area: contact;
+  text-align:left;
+}
 
-footer:hover {
-  cursor: pointer;
-}
-.footer__direccion {
-  grid-area: direccion;
+.footer__direccion{
+  grid-area: location;
   text-align: end;
-  margin-right: 10px;
 }
-.footer__contacto {
-  grid-area: contacto;
-  text-align: start;
+
+.main__footer > * {
+  color: gray;
 }
