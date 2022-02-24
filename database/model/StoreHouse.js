@@ -50,22 +50,32 @@ class StoreHouse {
    * @returns {{[Symbol.iterator](): {next(): {value: *, done: boolean}|{done: boolean}}}|{next(): {value: *, done: boolean}|{done: boolean}}|{value: *, done: boolean}|{done: boolean}}
    */
 
-  // * REFACTOR DEL ITERADOR A GENERADOR PARA LA V2 MVC
-  *categories() {
-    for (let cat of this.#categories) {
-      yield this.#categories.category;
-    }
+  // * REFACTOR DEL ITERADOR PARA LA V2 MVC
+  get categories() {
+    let categories = this.#categories;
+    return {
+      *[Symbol.iterator]() {
+        for (let cat of categories) {
+          yield cat;
+        }
+      },
+    };
   }
 
   /**
    * este getter es un iterador que usando Symbol.iterator nos permite que el resultado sea iterable por un forof
    * @returns {{[Symbol.iterator](): {next(): {value: *, done: boolean}|{done: boolean}}}|{next(): {value: *, done: boolean}|{done: boolean}}|{value: *, done: boolean}|{done: boolean}}
    */
-  // * REFACTOR DEL ITERADOR A GENERADOR PARA LA V2 MVC
-  *shops() {
-    for (let shop of this.#stores) {
-      yield this.#stores.store;
-    }
+  // * REFACTOR DEL ITERADOR PARA LA V2 MVC
+  get shops() {
+    let shops = this.#stores;
+    return {
+      *[Symbol.iterator]() {
+        for (let shop of shops) {
+          yield shop;
+        }
+      },
+    };
   }
 
   /**
@@ -226,10 +236,13 @@ class StoreHouse {
    * @returns {Generator<[]|*, void, *>}
    */
   // * REFACTOR GENERADORES PARA QUE FUNCIONEN CORRECTAMENTE Y NO MUESTREN COSAS DE MAS
-  *getCategoryProducts(category, product=Product) {
+  *getCategoryProducts(category, product = Product) {
     for (let cat of this.#category) {
       for (let prods of cat.products) {
-        if (cat.category.name === category.name && prods.product instanceof product) {
+        if (
+          cat.category.name === category.name &&
+          prods.product instanceof product
+        ) {
           yield prods.product;
         }
       }
@@ -289,7 +302,7 @@ class StoreHouse {
    * @param product
    * @returns {Generator<*, void, *>}
    */
-   // * REFACTOR GENERADORES PARA QUE FUNCIONEN CORRECTAMENTE Y NO MUESTREN COSAS DE MAS
+  // * REFACTOR GENERADORES PARA QUE FUNCIONEN CORRECTAMENTE Y NO MUESTREN COSAS DE MAS
   *getShopProducts(shop, product = Product) {
     for (let cat of this.#category) {
       for (let prods of cat.products) {
@@ -300,9 +313,6 @@ class StoreHouse {
     }
   }
 }
-
-
-
 
 //Declaracion de StoreHouse como singleton
 const StoreHouseSingle = (function () {
