@@ -1,7 +1,7 @@
 'use strict';
 
-import Product from "./Product.js";
-import {EmptyValueException, InvalidValueException} from "./ES6Errors.js";
+import Product from "../entities/Product.js";
+import {EmptyValueException, InvalidValueException} from "../../public/js/ES6Errors.js";
 
 /**
  * Clase que hereda de Product con unos getter y setter

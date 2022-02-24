@@ -3,7 +3,7 @@ import {InvalidAccessConstructorException,EmptyValueException,
   InvalidValueException,AbstractClassException,
   InvalidInstanceException,IndexOutOfBoundsException,
   NonExistentMethodException,FullListException,InvalidRegexException,
-  RepeatedArgumentException,NotFoundArgumentException} from "./ES6Errors.js";
+  RepeatedArgumentException,NotFoundArgumentException} from "../../public/js/ES6Errors.js";
 /**
  * Clase Coords con sus getter y setter segun se requiere
  */

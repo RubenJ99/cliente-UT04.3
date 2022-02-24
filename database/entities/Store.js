@@ -1,6 +1,6 @@
 'use strict';
-import {InvalidInstanceException, InvalidRegexException, InvalidValueException} from "./ES6Errors.js";
-import Coords  from "./Coords.js";
+import {InvalidInstanceException, InvalidRegexException, InvalidValueException} from "../../public/js/ES6Errors.js";
+import Coords  from "../entities/Coords.js";
 
 /**
  * Clase Store con getter y setter basicos

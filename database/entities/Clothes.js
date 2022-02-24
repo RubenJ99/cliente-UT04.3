@@ -1,7 +1,7 @@
 'use strict';
 
-import Product from "./Product.js";
-import {InvalidValueException} from "./ES6Errors.js";
+import Product from "../entities/Product.js";
+import {InvalidValueException} from "../../public/js/ES6Errors.js";
 
 /**
  * Clase que hereda de Product con unos getter y setter
@@ -39,7 +39,7 @@ export default class Clothes extends Product{
   }
 
   set gender(gender){
-    if(gender !== 'W' || gender !== 'M' || gender !== 'U') throw new InvalidValueException('gender',gender);
+    if(gender !== 'F' || gender !== 'M' || gender !== 'U') throw new InvalidValueException('gender',gender);
     this.#gender = gender;
   }
 
