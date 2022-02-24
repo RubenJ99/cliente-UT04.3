@@ -29,7 +29,7 @@ class StoreHouseController{
         let perfumeItem2 = new Perfume(555,'Eau de Rochas','Perfume from Rochas',54.00,21,[],'citric','F');
         let perfumeItem3 = new Perfume(444,'Acqua di Gioia','Perfume from Giorgio Armani',53.90,21,[],'flowers/fresh','F');
 
-
+        //TODO generar la precarga de datos
         let smartWatchItem1 =
         let smartWatchItem2 =
         let smartWatchItem3 =
