@@ -4,5 +4,8 @@ class StoreHouseController{
     constructor(modelStoreHouse,viewStoreHouse) {
         this.#modelStoreHouse = modelStoreHouse;
         this.#viewStoreHouse = viewStoreHouse;
+
+
+        
     }
 }
