@@ -176,7 +176,7 @@ const StoreHouse = (function () {
        * @param number
        * @returns {Number} stock number
        */
-      addProductInShop(newProduct, newShop, number) {
+      addProductInShop(newProduct, newShop, number = 1) {
         if (!(newProduct instanceof Product))
           throw new InvalidInstanceException("newProduct", Product);
         if (!newShop) throw new EmptyValueException("newShop", newShop);
