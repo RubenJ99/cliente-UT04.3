@@ -33,4 +33,13 @@ export default class SmartWatch extends Product{
   set sphere(sphere){
     this.#sphere = sphere;
   }
+
+  get bandColor(){
+    return this.#bandColor;
+  }
+
+  set bandColor(newColor){
+    if(!newColor) throw new InvalidValueException('newColor',newColor);
+    this.#bandColor = newColor;
+  }
 }
