@@ -87,6 +87,12 @@ const StoreHouse = (function () {
           },
         };
       }
+
+      test(){
+        for (const iterator of this.shops) {
+          console.log(iterator);
+        }
+      }
     
       /**
        * Dada una nueva categoria si es correcta insertamos en el array de categorias un objeto a forma JSON con los parametros requeridos
@@ -184,9 +190,12 @@ const StoreHouse = (function () {
     
         this.#categories.forEach((cat) => {
           let prodIndex = cat.products.findIndex((prod) => {
-            return prod.serialNumber === newProduct.serialNumber;
+            return prod.product.serialNumber === newProduct.serialNumber;
           });
-          cat.products[prodIndex].store = newShop.cif;
+          if(prodIndex !== -1 ) {
+            cat.products[prodIndex].store = newShop.cif;
+          }
+          
         });
     
         let indexStore = this.#stores.findIndex((elem) => {
@@ -247,7 +256,7 @@ const StoreHouse = (function () {
        */
       // * REFACTOR GENERADORES PARA QUE FUNCIONEN CORRECTAMENTE Y NO MUESTREN COSAS DE MAS
       *getCategoryProducts(category, product = Product) {
-        for (let cat of this.#category) {
+        for (let cat of this.#categories) {
           for (let prods of cat.products) {
             if (
               cat.category.name === category.name &&
@@ -314,7 +323,7 @@ const StoreHouse = (function () {
        */
       // * REFACTOR GENERADORES PARA QUE FUNCIONEN CORRECTAMENTE Y NO MUESTREN COSAS DE MAS
       *getShopProducts(shop, product = Product) {
-        for (let cat of this.#category) {
+        for (let cat of this.#categories) {
           for (let prods of cat.products) {
             if (prods.store === shop.cif && prods.product instanceof product) {
               yield prods.product;

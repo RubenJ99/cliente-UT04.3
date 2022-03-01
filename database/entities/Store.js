@@ -1,17 +1,17 @@
 'use strict';
 import {InvalidInstanceException, InvalidRegexException, InvalidValueException} from "../../public/js/ES6Errors.js";
-import Coords  from "../entities/Coords.js";
-
+import {Coords}  from "../entities/Coords.js";
 /**
  * Clase Store con getter y setter basicos
  */
-export default class Store{
+class Store{
   #cif;
   #name;
   #address;
   #phone;
   #coords;
-  constructor(cif,name,address,phone,coords) {
+  #img;
+  constructor(cif,name,address,phone,coords,img) {
     if(!this.#checkCif(cif)) throw new InvalidRegexException();
     if(!name) throw new InvalidValueException('name',name);
     this.#cif = cif;
@@ -19,12 +19,18 @@ export default class Store{
     this.#address = address;
     this.#coords = coords;
     this.#phone = phone;
+    this.#coords = coords;
+    this.#img = img;
+
   }
   #checkCif(cif){
     return /([a-z]|[A-Z]|[0-9])[0-9]{7}([a-z]|[A-Z]|[0-9])/g.test(cif);
   }
   get cif(){
     return this.#cif;
+  }
+  set cif(newCif){
+    this.#cif = newCif;
   }
 
   get name(){
@@ -63,4 +69,9 @@ export default class Store{
     if(!phone) throw new InvalidValueException('phone',phone);
     this.#phone = phone;
   }
+
+  get img(){
+    return this.#img;
+  }
 }
+export {Store};

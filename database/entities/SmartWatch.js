@@ -1,12 +1,12 @@
 'use strict';
 
-import Product from "../entities/Product.js";
+import {Product} from "../entities/Product.js";
 import {EmptyValueException, InvalidValueException} from "../../public/js/ES6Errors.js";
 
 /**
  * Clase que hereda de Product con unos getter y setter
  */
-export default class SmartWatch extends Product{
+class SmartWatch extends Product{
   #model;
   #sphere;
   #bandColor;
@@ -43,3 +43,5 @@ export default class SmartWatch extends Product{
     this.#bandColor = newColor;
   }
 }
+
+export {SmartWatch};

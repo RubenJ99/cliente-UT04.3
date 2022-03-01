@@ -7,7 +7,7 @@ import {InvalidAccessConstructorException,EmptyValueException,
 /**
  * Clase Coords con sus getter y setter segun se requiere
  */
-export default class Coords{
+ class Coords{
   #latitude;
   #longitude;
   constructor(latitude,longitude) {
@@ -32,3 +32,4 @@ export default class Coords{
     this.#longitude = longitude;
   }
 }
+export {Coords}

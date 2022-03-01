@@ -79,9 +79,44 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
-  text-decoration: underline;
   font-weight: bold;
   font-size: xx-large;
+  overflow: hidden;
+}
+.flash__message--text{
+  text-align: right;
+
+  -moz-transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+  
+  -moz-animation: my-animation 15s linear infinite;
+  -webkit-animation: my-animation 15s linear infinite;
+  animation: my-animation 15s linear infinite;
+}
+/* for Firefox */
+@-moz-keyframes my-animation {
+  from { -moz-transform: translateX(-100%); }
+  to { -moz-transform: translateX(100%); }
+}
+
+/* for Chrome */
+@-webkit-keyframes my-animation {
+  from { -webkit-transform: translateX(-100%); }
+  to { -webkit-transform: translateX(100%); }
+}
+
+@keyframes my-animation {
+  from {
+    -moz-transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+  to {
+    -moz-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
 }
 .ad1{
   grid-area: ad1;
@@ -114,11 +149,22 @@ body{
 }
 
 .main__container{
+  padding: 10px;
   grid-area: main;
   background-color: rgb(61, 60, 60);
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+
 }
+.card {
+  height: 70%;
+}
+
+.card > img {
+  height: 250px;
+}
+
 
 
 

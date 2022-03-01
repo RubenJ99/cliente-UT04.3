@@ -14,7 +14,7 @@ import {
   import {Clothes} from "../../database/entities/Clothes.js";
   import {Perfume} from "../../database/entities/Perfume.js";
   import {SmartWatch} from "../../database/entities/SmartWatch.js";
-class StoreHouseController{
+export default class StoreHouseController{
     #storeHouseModel;
     #storeHouseView;
 
@@ -77,9 +77,9 @@ class StoreHouseController{
         let store2;
         let store3;
         try {
-            store1 = new Store('S2447905G','Tienda Madrid','C/ Mayor 12',967899011,new Coords('50.4536','30.5164 50° 27′ 13″ North, 30° 30′ 59″ East'));
-            store2 = new Store('H50463439','Tienda Ciudad Real','C/ Menor 21',957899011,new Coords('50.4536','30.5164 50° 27′ 13″ North, 30° 30′ 59″ East'));
-            store3 = new Store('P0636988H','Tienda Barcelona','C/ Ramblas 2',997899011,new Coords('50.4536','30.5164 50° 27′ 13″ North, 30° 30′ 59″ East'));
+            store1 = new Store('S2447905G','Tienda Madrid','C/ Mayor 12',967899011,new Coords('50.4536','30.5164 50° 27′ 13″ North, 30° 30′ 59″ East'),'../../public/media/mmStore.jpg');
+            store2 = new Store('H50463439','Tienda Ciudad Real','C/ Menor 21',957899011,new Coords('50.4536','30.5164 50° 27′ 13″ North, 30° 30′ 59″ East'),'../../public/media/primorStore.jpg');
+            store3 = new Store('P0636988H','Tienda Barcelona','C/ Ramblas 2',997899011,new Coords('50.4536','30.5164 50° 27′ 13″ North, 30° 30′ 59″ East'),'../../public/media/zaraStore.png',);
         } catch (error) {
             console.error(error);
         }
@@ -119,7 +119,6 @@ class StoreHouseController{
 
         try {
             this.#storeHouseModel.addProductInShop(clothingItem2,store1);
-            this.#storeHouseModel.addProductInShop(clothingItem1,store1);
             this.#storeHouseModel.addProductInShop(clothingItem3,store1);
 
             this.#storeHouseModel.addProductInShop(perfumeItem1,store2);
@@ -137,10 +136,20 @@ class StoreHouseController{
         this.#storeHouseView = storeHouseView;
 
         this.onLoad();
+        this.#storeHouseView.bindStores(this.handlerStores);
         
     }
 
     onLoad = () => {
         this.#preLoadStoreHouseData();
+    }
+
+    handlerStores = () => {
+        this.#storeHouseModel.test();
+        let data = {
+            stores: this.#storeHouseModel.shops,
+        }
+
+        this.#storeHouseView.showStores(data);
     }
 }

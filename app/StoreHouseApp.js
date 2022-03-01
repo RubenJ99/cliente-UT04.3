@@ -6,7 +6,7 @@ import {
     InvalidInstanceException,
     InvalidValueException,
     RepeatedArgumentException,
-  } from "../database/model/StoreHouseModel.js";
+  } from "../public/js/ES6Errors.js";
 import {Product,Clothes,Perfume,SmartWatch,Coords,Category,Store} from '../database/model/StoreHouseModel.js';
 import StoreHouseController from '../app/controllers/StoreHouseController.js';
 import StoreHouseView from '../public/js/StoreHouseView.js';

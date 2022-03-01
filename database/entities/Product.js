@@ -11,12 +11,12 @@ import {
   InvalidRegexException,
   RepeatedArgumentException,
   NotFoundArgumentException,
-} from "./ES6Errors.js";
+} from "../../public/js/ES6Errors.js";
 
 /**
  * Clase abstracta la cual usaremos para crear 3 productos
  */
-export default class Product {
+class Product {
   #serialNumber;
   #name;
   #description;
@@ -89,3 +89,5 @@ export default class Product {
     this.#images.push(image);
   }
 }
+
+export {Product};

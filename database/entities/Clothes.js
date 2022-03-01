@@ -1,12 +1,12 @@
 'use strict';
 
-import Product from "../entities/Product.js";
+import {Product} from "../entities/Product.js";
 import {InvalidValueException} from "../../public/js/ES6Errors.js";
 
 /**
  * Clase que hereda de Product con unos getter y setter
  */
-export default class Clothes extends Product{
+class Clothes extends Product{
   #size;
   #color;
   #gender;
@@ -46,3 +46,5 @@ export default class Clothes extends Product{
 
 
 }
+
+export{Clothes};

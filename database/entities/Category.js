@@ -8,7 +8,7 @@ import {InvalidAccessConstructorException,EmptyValueException,
 /**
  * getters y setters de Categoria requeridos
  */
-export default class Category{
+class Category{
   #title;
   #description;
 
@@ -36,3 +36,5 @@ export default class Category{
     this.#description = description;
   }
 }
+
+export {Category};
