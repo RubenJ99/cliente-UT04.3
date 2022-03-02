@@ -38,9 +38,16 @@
           </li>
         </ul>
       </nav>
-      <button class="btn" data-bs-toggle="modal" data-bs-target="#loginMod">
+      <div>
+      <button class="btn" data-bs-toggle="modal" data-bs-target="">
         Iniciar Sesion
       </button>
+      <!-- DIW PACO -->
+      <button class="btn" data-bs-toggle="modal" data-bs-target="#loginMod">
+        Registrarse
+      </button>
+      </div>
+      
       <!-- Modal -->
       <div
         class="modal fade"
@@ -49,10 +56,10 @@
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Welcome Back!</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Bienvenido a RubenWarehouse! 😄</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -62,34 +69,130 @@
             </div>
             <div class="modal-body">
               <!-- form -->
-              <form>
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label"
-                    >Email address</label
-                  >
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                  />
+              <form class="row g-3 needs-validation" novalidate>
+                <div class="col-md-4">
+                  <label for="validationCustom01" class="form-label">Nombre</label>
+                  <input type="text" class="form-control" id="validationCustom01" value="" autofocus="autofocus" required>
+                  <div class="valid-feedback">
+                    🔥🔥🔥🔥
+                  </div>
                 </div>
-                <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label"
-                    >Password</label
-                  >
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="exampleInputPassword1"
-                  />
+
+                <div class="col-md-4">
+                  <label for="validationCustom02" class="form-label">Apellidos</label>
+                  <input type="text" class="form-control" id="validationCustom02" value="" required>
+                  <div class="valid-feedback">
+                    🔥🔥🔥🔥
+                  </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
+
+                <div class="col-md-4">
+                  <label for="validationCustom03" class="form-label">Nombre de usuario</label>
+                  <input type="text" class="form-control" id="validationCustom03" value="" required>
+                  <div class="valid-feedback">
+                    🔥🔥🔥🔥
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <label for="validationCustom04" class="form-label">Fecha nacimiento</label>
+                  <input type="date" class="form-control" id="validationCustom04" value="" required>
+                  <div class="valid-feedback">
+                    🔥🔥🔥🔥
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <label for="validationCustom05" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="validationCustom05" value="" required>
+                  <div class="valid-feedback">
+                    🔥🔥🔥🔥
+                  </div>
+                </div>
+
+
+                <div class="col-md-6">
+                  <label for="validationCustom06" class="form-label">Direccion</label>
+                  <input type="text" class="form-control" id="validationCustom06" required>
+                  <div class="invalid-feedback">
+                    ❌❌❌❌
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <label for="validationCustom07" class="form-label">Provincia</label>
+                  <select class="form-select" id="validationCustom07" required>
+                    <!-- LAS OPTIONS SON DINAMICAS /PUBLIC/JS/DIW-UTILS-->
+                    
+                  </select>
+                  <div class="invalid-feedback">
+                    ❌❌❌❌
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <label for="validationCustom08" class="form-label">Codigo Postal</label>
+                  <input type="text" class="form-control" id="validationCustom08" value="" required>
+                  <div class="valid-feedback">
+                    🔥🔥🔥🔥
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                    <label class="form-check-label" for="inlineRadio1">No tarjeta</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                    <label class="form-check-label" for="inlineRadio2">Si tarjeta</label>
+                  </div>
+                </div>
+
+                <div id="pagoContainer">
+                  <div class="col-md-6">
+                    <label for="validationCustom09" class="form-label">IBAN</label>
+                    <input type="text" class="form-control" id="validationCustom09" value="" required>
+                    <div class="valid-feedback">
+                      🔥🔥🔥🔥
+                    </div>
+                  </div>
+
+                  
+                <div class="col-md-2">
+                  <label for="validationCustom10" class="form-label">CVV</label>
+                  <input type="text" class="form-control" id="validationCustom10" value="" required>
+                  <div class="valid-feedback">
+                    🔥🔥🔥🔥
+                  </div>
+                </div>
+                
+                </div>
+
+                
+                
+
+
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                    <label class="form-check-label" for="invalidCheck">
+                      Agree to terms and conditions
+                    </label>
+                    <div class="invalid-feedback">
+                      You must agree before submitting.
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-primary" type="submit">Submit form</button>
+                </div>
               </form>
             </div>
           </div>
         </div>
       </div>
+      <!-- FIN DIW PACO -->
     </header>
 
     <div class="flash__message">
@@ -170,5 +273,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="../../app/StoreHouseApp.js" type="module"></script>
+    <script src="../../public/js/diw-utils.js"></script>
   </body>
 </html>
