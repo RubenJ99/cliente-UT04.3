@@ -232,6 +232,7 @@
       itemscope
       itemtype="https://schema.org/LocalBusiness"
     >
+    <div id="google_translate_element"></div>
       <div itemprop="name" class="footer__marca">RubenWarehouse®</div>
       <div class="footer__contacto">
         <div>
@@ -282,5 +283,15 @@
     ></script>
     <script src="../../app/StoreHouseApp.js" type="module"></script>
     <script src="../../public/js/diw-utils.js"></script>
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+          new google.translate.TranslateElement(
+              { pageLanguage: 'es' },
+              'google_translate_element'
+          );
+      } 
+  </script>
+  <script type="text/javascript"
+      src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   </body>
 </html>
