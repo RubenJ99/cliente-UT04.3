@@ -55,3 +55,11 @@ $('form').submit(function (evt) {
   })
  
 
+$('#bAbout').click(function(){
+    $('#main').empty();
+    $('#main').append(`<p style='color: white; font-family: sans-serif; font-weight: 30px'>Ruben Warehouse es una empresa especializada en la venta de productos de unas marcas especificas con las que 
+    trabajamos como partners.
+    
+    Aqui podras encontrar filtrado por tienda y tambien podras filtrar los productos por categoria independientemente de la 
+    tienda que quieras encontrar</p>`);
+})
