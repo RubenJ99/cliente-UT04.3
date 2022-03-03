@@ -8,6 +8,7 @@ const PROVS = ['Alava','Albacete','Alicante','Almería','Asturias','Avila','Bada
 
 $(document).ready(function(e){
     $('#pagoContainer').hide();
+    $('#userlogo').hide();
     provSel.empty();
     provSel.append(`<option selected disabled value="">--PROVINCIAS--</option>`)
    for (let prov of PROVS) {
@@ -17,7 +18,40 @@ $(document).ready(function(e){
 
 $('#inlineRadio1').click(function(){
     $('#pagoContainer').hide();
-})
+});
+
 $('#inlineRadio2').click(function(){
     $('#pagoContainer').show();
+});
+
+$('#bRegister').click(function(){
+    $('#bLoginForm').hide();
+    $('#bRegisterForm').hide();
+    $('#userlogo').show();
 })
+if($('#progressBar').val() == '100'){
+    $('#bRegister').prop('disabled',false);
+}
+
+
+$('#progressBar').change(function(){
+    
+})
+
+// $('#validationCustom01').change(function(){
+//     let input = $('#validationCustom01').val();
+//     if(!(input).match(/([A-Z]){1}([a-z]){2,}\w/g)){
+//         $('#validationCustom01').css('border','2px solid green');
+
+//     }else{
+//         $('#validationCustom01').css('border','2px solid red');
+//     }
+
+// })
+
+
+$('form').submit(function (evt) {
+    evt.preventDefault(); //prevents the default action
+  })
+ 
+

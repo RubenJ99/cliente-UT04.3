@@ -210,3 +210,13 @@ body{
 .main__footer > * {
   color: gray;
 }
+
+
+input:invalid{
+border-color: red;
+background-color: salmon;
+}
+input:valid{
+  border-color: green;
+  background-color: lightgreen;
+}
