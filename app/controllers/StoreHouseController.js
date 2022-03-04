@@ -137,6 +137,8 @@ export default class StoreHouseController{
 
         this.onLoad();
         this.#storeHouseView.bindStores(this.handlerStores);
+
+        
         this.#storeHouseView.bindProducts(this.handlerProducts);
         
     }
@@ -155,7 +157,8 @@ export default class StoreHouseController{
         this.#storeHouseView.showDrops(data);
     }
 
-    handlerProducts(){
+    handlerProducts = (cifStore) => {
+        let 
         let data = {
             
         }

@@ -7,6 +7,7 @@ export default class StoreHouseView{
     }
 
 
+   
     showStores(query){
         this.main.empty();
         for (let data of query.stores) {
@@ -15,7 +16,7 @@ export default class StoreHouseView{
             <div class="card-body">
               <h5 class="card-title">${data.store.name}</h5>
               <p class="card-text">${data.store.address}</p>
-              <a href="#" class="btn btn-primary bShowProds">Productos</a>
+              <a href="#" class="btn btn-primary bShowProds" value="${data.store.cif}">Productos</a>
             </div>
           </div>`);
         }
@@ -34,8 +35,12 @@ export default class StoreHouseView{
     }
 
     showProducts(query){
-
+        this.main.empty();
+        this.main.append(`${query}`);
     }
+    
+
+    
 
     bindStores(handler){
         $(document).ready((e) => {
@@ -48,9 +53,10 @@ export default class StoreHouseView{
     }
 
     bindProducts(handler){
-        $('.bShowProds').click(()=>{
+        $(document).on('click','.bShowProds',(e)=>{
             handler();
-        });
+        })
+        
     }
 
 }

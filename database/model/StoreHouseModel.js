@@ -250,13 +250,21 @@ const StoreHouse = (function () {
        */
       // * REFACTOR GENERADORES PARA QUE FUNCIONEN CORRECTAMENTE Y NO MUESTREN COSAS DE MAS
       *getCategoryProducts(category, product = Product) {
-        for (let cat of this.#categories) {
-          for (let prods of cat.products) {
-            if (
-              cat.category.name === category.name &&
-              prods.product instanceof product
-            ) {
-              yield prods.product;
+        if (!category) throw EmptyValueException(shop);
+        let i = this.#categories.findIndex((e) => {
+          return (
+            e.category.title === category.title &&
+            e.category.description === e.description
+          );
+        });
+        for (let products of this.#categories[i].products) {
+          if (products.product instanceof product) {
+            for (let store of this.#stores) {
+              for (let prod of store.products) {
+                if (prod.serialNumber === products.product.serialNumber) {
+                  yield { product: products.product, stock: prod.stock };
+                }
+              }
             }
           }
         }
@@ -317,10 +325,19 @@ const StoreHouse = (function () {
        */
       // * REFACTOR GENERADORES PARA QUE FUNCIONEN CORRECTAMENTE Y NO MUESTREN COSAS DE MAS
       *getShopProducts(shop, product = Product) {
+        if (!shop) throw EmptyValueException(shop);
+    
+        let i = this.#stores.findIndex((e) => {
+          return e.store.cif === shop.cif; 
+        });
+    
         for (let cat of this.#categories) {
           for (let prods of cat.products) {
             if (prods.store === shop.cif && prods.product instanceof product) {
-              yield prods.product;
+              for (let prodsStore of this.#stores[i].products) {
+                if(prods.product.serialNumber === prodsStore.serialNumber)
+                yield { product: prods.product, stock: prodsStore.stock };
+              }
             }
           }
         }
