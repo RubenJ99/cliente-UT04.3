@@ -36,7 +36,16 @@ export default class StoreHouseView{
 
     showProducts(query){
         this.main.empty();
-        this.main.append(`${query}`);
+        for (let data of query.storeProds) {
+            this.main.append(`<div class="card" id="${data.product.serialNumber}" style="width: 18rem;">
+            <img src="${data.product.images[0]}" class="card-img-top" alt="">
+            <div class="card-body">
+              <h5 class="card-title">${data.product.name}</h5>
+              <p class="card-text">${data.product.title}</p>
+              <a href="#" class="btn btn-primary bShowProds" value="${data.product.serialNumber}">Productos</a>
+            </div>
+          </div>`);
+        }
     }
     
 
@@ -53,8 +62,9 @@ export default class StoreHouseView{
     }
 
     bindProducts(handler){
-        $(document).on('click','.bShowProds',(e)=>{
-            handler();
+        //Delegacion de evento usando el on y los 3 parametros
+        $(document).on('click','.bShowProds',function(e){
+            handler($(this).attr('value'));
         })
         
     }

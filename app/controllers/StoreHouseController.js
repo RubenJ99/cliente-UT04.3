@@ -136,9 +136,9 @@ export default class StoreHouseController{
         this.#storeHouseView = storeHouseView;
 
         this.onLoad();
-        this.#storeHouseView.bindStores(this.handlerStores);
 
         
+        this.#storeHouseView.bindStores(this.handlerStores);
         this.#storeHouseView.bindProducts(this.handlerProducts);
         
     }
@@ -158,9 +158,12 @@ export default class StoreHouseController{
     }
 
     handlerProducts = (cifStore) => {
-        let 
+        let currentShop;
+        for (let st of this.#storeHouseModel.shops) {
+            if(st.store.cif == cifStore) currentShop = st.store;
+        }
         let data = {
-            
+            storeProds: this.#storeHouseModel.getShopProducts(currentShop),
         }
         this.#storeHouseView.showProducts(data);
     }
