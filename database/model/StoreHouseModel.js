@@ -87,12 +87,6 @@ const StoreHouse = (function () {
           },
         };
       }
-
-      test(){
-        for (const iterator of this.shops) {
-          console.log(iterator);
-        }
-      }
     
       /**
        * Dada una nueva categoria si es correcta insertamos en el array de categorias un objeto a forma JSON con los parametros requeridos

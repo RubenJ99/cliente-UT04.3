@@ -1,6 +1,9 @@
 export default class StoreHouseView{
     constructor() {
         this.main = $('#main');
+        this.dropSt = $('#storesDropUl');
+        this.dropCa = $('#categoriesDropUl');
+        
     }
 
 
@@ -12,10 +15,26 @@ export default class StoreHouseView{
             <div class="card-body">
               <h5 class="card-title">${data.store.name}</h5>
               <p class="card-text">${data.store.address}</p>
-              <a href="#" class="btn btn-primary">Productos</a>
+              <a href="#" class="btn btn-primary bShowProds">Productos</a>
             </div>
           </div>`);
         }
+    }
+
+    showDrops(query){
+        this.dropCa.empty();
+        this.dropSt.empty();
+        for (let data of query.cats) {
+            this.dropCa.append(`<li><a class="dropdown-item" href="" value="${data.category.title}">${data.category.title}</a></li>`);
+        }
+        for (let data of query.stores) {
+            this.dropSt.append(`<li><a class="dropdown-item" href="" value="${data.store.cif}">${data.store.name}</a></li>`);
+        }
+
+    }
+
+    showProducts(query){
+
     }
 
     bindStores(handler){
@@ -26,6 +45,12 @@ export default class StoreHouseView{
         $('#bInicio').click((e)=>{
             handler();
         })
+    }
+
+    bindProducts(handler){
+        $('.bShowProds').click(()=>{
+            handler();
+        });
     }
 
 }

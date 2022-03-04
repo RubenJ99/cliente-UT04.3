@@ -137,6 +137,7 @@ export default class StoreHouseController{
 
         this.onLoad();
         this.#storeHouseView.bindStores(this.handlerStores);
+        this.#storeHouseView.bindProducts(this.handlerProducts);
         
     }
 
@@ -145,11 +146,19 @@ export default class StoreHouseController{
     }
 
     handlerStores = () => {
-        this.#storeHouseModel.test();
         let data = {
             stores: this.#storeHouseModel.shops,
+            cats: this.#storeHouseModel.categories,
         }
 
         this.#storeHouseView.showStores(data);
+        this.#storeHouseView.showDrops(data);
+    }
+
+    handlerProducts(){
+        let data = {
+            
+        }
+        this.#storeHouseView.showProducts(data);
     }
 }
