@@ -11,7 +11,7 @@ import {
   import {Store} from "../../database/entities/Store.js";
   import {Coords} from "../../database/entities/Coords.js";
   import {Product} from "../../database/entities/Product.js";
-  import {Clothes} from "../../database/entities/Clothes.js";
+  import {Clothes} from "../../database/model/StoreHouseModel.js";
   import {Perfume} from "../../database/entities/Perfume.js";
   import {SmartWatch} from "../../database/entities/SmartWatch.js";
 export default class StoreHouseController{
@@ -140,6 +140,7 @@ export default class StoreHouseController{
         
         this.#storeHouseView.bindStores(this.handlerStores);
         this.#storeHouseView.bindProducts(this.handlerProducts);
+        this.#storeHouseView.bindInfo(this.handlerInfo);
         
     }
 
@@ -155,6 +156,7 @@ export default class StoreHouseController{
 
         this.#storeHouseView.showStores(data);
         this.#storeHouseView.showDrops(data);
+        
     }
 
     handlerProducts = (cifStore) => {
@@ -166,5 +168,33 @@ export default class StoreHouseController{
             storeProds: this.#storeHouseModel.getShopProducts(currentShop),
         }
         this.#storeHouseView.showProducts(data);
+    }
+
+    handlerInfo = (serialNumber)=>{
+        let currentProd;
+        for (let cat of this.#storeHouseModel.categories) {
+            for (let prod of cat.products) {
+                if(prod.product.serialNumber == serialNumber){
+                    currentProd = prod;
+                }
+            }
+        }
+        let type;
+        if(currentProd.product instanceof Clothes){
+            type = 'Clothes';
+        }
+        if(currentProd.product instanceof Perfume){
+            type = 'Perfume';
+        }
+        if(currentProd.product instanceof SmartWatch){
+            type = 'SmartWatch';
+        }
+        
+        let data = {
+            fullProduct: currentProd,
+            'type' : type,
+        }
+        
+        this.#storeHouseView.showProdInfo(data);
     }
 }

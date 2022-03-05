@@ -1,3 +1,5 @@
+import {Clothes} from "../../database/entities/Clothes.js";
+
 export default class StoreHouseView{
     constructor() {
         this.main = $('#main');
@@ -29,7 +31,7 @@ export default class StoreHouseView{
             this.dropCa.append(`<li><a class="dropdown-item" href="" value="${data.category.title}">${data.category.title}</a></li>`);
         }
         for (let data of query.stores) {
-            this.dropSt.append(`<li><a class="dropdown-item" href="" value="${data.store.cif}">${data.store.name}</a></li>`);
+            this.dropSt.append(`<li><a class="dropdown-item bShowProds" value="${data.store.cif}">${data.store.name}</a></li>`);
         }
 
     }
@@ -37,10 +39,7 @@ export default class StoreHouseView{
     showProducts(query){
         this.main.empty();
         for (let data of query.storeProds) {
-            console.log(data);
             let img = data.product.images[0];
-            console.log(img);
-            console.log(data.product.serialNumber)
             this.main.append(`<div class="card" id="${data.product.serialNumber}" style="width: 18rem;">
             <img src="${img}" class="card-img-top" alt="">
             <div class="card-body">
@@ -52,6 +51,31 @@ export default class StoreHouseView{
         }
     }
     
+    showProdInfo(data){
+        this.main.empty();
+        
+        if(data.type === 'Clothes'){
+            this.main.css({'background-color':'white',
+                            'align-items':'center',
+                            'justify-content':'center'});
+            this.main.append(`<form>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1">
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Comprar</button>
+          </form>`)
+        }
+    }
 
     
 
@@ -71,6 +95,12 @@ export default class StoreHouseView{
             handler($(this).attr('value'));
         })
         
+    }
+
+    bindInfo(handler){
+        $(document).on('click','.bShowInfo',function(e){
+            handler($(this).attr('value'));
+        })
     }
 
 }
