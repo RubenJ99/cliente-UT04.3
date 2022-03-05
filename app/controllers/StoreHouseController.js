@@ -27,9 +27,9 @@ export default class StoreHouseController{
 
 
         try {
-            clothingItem1 = new Clothes(111,'Blue Hoodie','A blue hoodie',30,21,[],'XL','Blue','M');
-            clothingItem2 = new Clothes(222,'Red Skirt','A red skirt',27,21,[],'S','Red','F');
-            clothingItem3 = new Clothes(333,'Black Trousers','A pair of black trousers',40,21,[],'M','Black','U');
+            clothingItem1 = new Clothes(111,'Blue Hoodie','A blue hoodie',30,21,['../../public/media/bluehoodie.jpg'],'XL','Blue','M');
+            clothingItem2 = new Clothes(222,'Red Skirt','A red skirt',27,21,['../../public/media/redskirt.jpg'],'S','Red','F');
+            clothingItem3 = new Clothes(333,'Black Trousers','A pair of black trousers',40,21,['../../public/media/chibianime.jpg'],'M','Black','U');
         } catch (error) {
             console.error(error);
         }
@@ -39,9 +39,9 @@ export default class StoreHouseController{
         let perfumeItem3;
 
         try {
-            perfumeItem1 = new Perfume(444,'CK One','Perfume from calvin klein',49.95,21,[],'flowers/citric','F');
-            perfumeItem2 = new Perfume(555,'Eau de Rochas','Perfume from Rochas',54.00,21,[],'citric','F');
-            perfumeItem3 = new Perfume(444,'Acqua di Gioia','Perfume from Giorgio Armani',53.90,21,[],'flowers/fresh','F');
+            perfumeItem1 = new Perfume(444,'CK One','Perfume from calvin klein',49.95,21,['../../public/media/ckone.jpg'],'flowers/citric','F');
+            perfumeItem2 = new Perfume(555,'Eau de Rochas','Perfume from Rochas',54.00,21,['../../public/media/eaurochas.png'],'citric','F');
+            perfumeItem3 = new Perfume(444,'Acqua di Gioia','Perfume from Giorgio Armani',53.90,21,['../../public/media/acquadigioia.jpg'],'flowers/fresh','F');
         } catch (error) {
             console.error(error);
         }
@@ -51,9 +51,9 @@ export default class StoreHouseController{
         let smartWatchItem3;
         
         try {
-            smartWatchItem1 = new SmartWatch(666,'Apple Watch','New apple watch model 12',800,21,[],'AW-12','Square','White');
-            smartWatchItem2 = new SmartWatch(777,'Samsung Watch','New samsung watch s8',650,21,[],'SMGW-S8','Round','White');
-            smartWatchItem3 = new SmartWatch(888,'Xiaomi Mi band 7','New mi band 7',30,21,[],'XMI7','Stretched','Black');
+            smartWatchItem1 = new SmartWatch(666,'Apple Watch','New apple watch model 12',800,21,['../../public/media/applewatch.jpg'],'AW-12','Square','White');
+            smartWatchItem2 = new SmartWatch(777,'Samsung Watch','New samsung watch s8',650,21,['../../public/media/samsungwatch.jpg'],'SMGW-S8','Round','White');
+            smartWatchItem3 = new SmartWatch(888,'Xiaomi Mi band 7','New mi band 7',30,21,['../../public/media/miband.png'],'XMI7','Stretched','Black');
         } catch (error) {
             console.error(error);
         }

@@ -37,12 +37,16 @@ export default class StoreHouseView{
     showProducts(query){
         this.main.empty();
         for (let data of query.storeProds) {
+            console.log(data);
+            let img = data.product.images[0];
+            console.log(img);
+            console.log(data.product.serialNumber)
             this.main.append(`<div class="card" id="${data.product.serialNumber}" style="width: 18rem;">
-            <img src="${data.product.images[0]}" class="card-img-top" alt="">
+            <img src="${img}" class="card-img-top" alt="">
             <div class="card-body">
               <h5 class="card-title">${data.product.name}</h5>
-              <p class="card-text">${data.product.title}</p>
-              <a href="#" class="btn btn-primary bShowProds" value="${data.product.serialNumber}">Productos</a>
+              <p class="card-text">${data.product.description}</p>
+              <a href="#" class="btn btn-primary bShowInfo" value="${data.product.serialNumber}">Info</a>
             </div>
           </div>`);
         }

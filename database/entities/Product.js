@@ -34,7 +34,7 @@ class Product {
     this.#description = description;
     this.#price = price;
     this.#tax = tax;
-    this.#images = [];
+    this.#images = images;
   }
 
   get serialNumber() {
@@ -74,14 +74,7 @@ class Product {
   }
 
   get images() {
-    let images = this.#images;
-    return {
-      *[Symbol.iterator]() {
-        for (let img of images) {
-          yield img;
-        }
-      },
-    };
+    return this.#images;
   }
 
   set images(image) {
