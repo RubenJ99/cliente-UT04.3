@@ -29,7 +29,7 @@ export default class StoreHouseController{
         try {
             clothingItem1 = new Clothes(111,'Blue Hoodie','A blue hoodie',30,21,['../../public/media/bluehoodie.jpg'],'XL','Blue','M');
             clothingItem2 = new Clothes(222,'Red Skirt','A red skirt',27,21,['../../public/media/redskirt.jpg'],'S','Red','F');
-            clothingItem3 = new Clothes(333,'Black Trousers','A pair of black trousers',40,21,['../../public/media/chibianime.jpg'],'M','Black','U');
+            clothingItem3 = new Clothes(333,'Black Trousers','A pair of black trousers',40,21,['../../public/media/blacktrousers.jpg'],'M','Black','U');
         } catch (error) {
             console.error(error);
         }

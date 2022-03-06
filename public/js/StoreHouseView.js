@@ -53,28 +53,121 @@ export default class StoreHouseView{
     
     showProdInfo(data){
         this.main.empty();
-        
-        if(data.type === 'Clothes'){
-            this.main.css({'background-color':'white',
+        this.main.css({'background-color':'white',
                             'align-items':'center',
                             'justify-content':'center'});
+        if(data.type === 'Clothes'){
+            
             this.main.append(`<form>
+            <div class="row">
             <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+              <input type="text" class="form-control" id="prodId" value="${data.fullProduct.product.serialNumber}" hidden>
             </div>
             <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label">Password</label>
-              <input type="password" class="form-control" id="exampleInputPassword1">
+            <label for="prodName">Name: </label>
+                <input type="text" class="form-control" id="prodName" value="${data.fullProduct.product.name}" disabled>
             </div>
-            <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            <div class="mb-3">
+            <label for="prodName">Price: </label>
+                <input type="text" class="form-control" id="prodPrice" value="${data.fullProduct.product.price}$" disabled>
+            </div>
+            </div>
+            <div class="row">
+            <div class="mb-3">
+            <label for="prodName">Tax: </label>
+                <input type="text" class="form-control" id="prodTax" value="${data.fullProduct.product.tax}%" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Size: </label>
+                <input type="text" class="form-control" id="prodSize" value="${data.fullProduct.product.size}" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Color: </label>
+                <input type="text" class="form-control" id="prodColor" value="${data.fullProduct.product.color}" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Gender: </label>
+                <input type="text" class="form-control" id="prodGender" value="${data.fullProduct.product.gender}" disabled>
+            </div>
             </div>
             <button type="submit" class="btn btn-primary">Comprar</button>
           </form>`)
         }
+
+        if(data.type === 'Perfume'){
+            
+            this.main.append(`<form>
+            <div class="row">
+            <div class="mb-3">
+              <input type="text" class="form-control" id="prodId" value="${data.fullProduct.product.serialNumber}" hidden>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Name: </label>
+                <input type="text" class="form-control" id="prodName" value="${data.fullProduct.product.name}" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Price: </label>
+                <input type="text" class="form-control" id="prodPrice" value="${data.fullProduct.product.price}$" disabled>
+            </div>
+            </div>
+            <div class="row">
+            <div class="mb-3">
+            <label for="prodName">Tax: </label>
+                <input type="text" class="form-control" id="prodTax" value="${data.fullProduct.product.tax}%" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Color: </label>
+                <input type="text" class="form-control" id="prodOdor" value="${data.fullProduct.product.odor}" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Gender: </label>
+                <input type="text" class="form-control" id="prodGender" value="${data.fullProduct.product.gender}" disabled>
+            </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Comprar</button>
+          </form>`)
+        }
+
+        if(data.type === 'SmartWatch'){
+            
+            this.main.append(`<form>
+            <div class="row">
+            <div class="mb-3">
+              <input type="text" class="form-control" id="prodId" value="${data.fullProduct.product.serialNumber}" hidden>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Name: </label>
+                <input type="text" class="form-control" id="prodName" value="${data.fullProduct.product.name}" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Price: </label>
+                <input type="text" class="form-control" id="prodPrice" value="${data.fullProduct.product.price}$" disabled>
+            </div>
+            </div>
+            <div class="row">
+            <div class="mb-3">
+            <label for="prodName">Tax: </label>
+                <input type="text" class="form-control" id="prodTax" value="${data.fullProduct.product.tax}%" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Color: </label>
+                <input type="text" class="form-control" id="prodModel" value="${data.fullProduct.product.model}" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Gender: </label>
+                <input type="text" class="form-control" id="prodSphere" value="${data.fullProduct.product.sphere}" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Size: </label>
+                <input type="text" class="form-control" id="prodBandColor" value="${data.fullProduct.product.bandColor}" disabled>
+            </div>
+            </div>
+            <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Comprar</button>
+          </form>`)
+        }
+
+
     }
 
     
