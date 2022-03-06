@@ -134,6 +134,7 @@ const StoreHouse = (function () {
        * @param newProduct
        * @returns {number} products length
        */
+      //TODO CAMBIAR ESTO PERO YA QUE ME UNE TODO A LA MISMA CAT
       addProduct(newCategory, newProduct) {
         if (!newCategory) throw new EmptyValueException("newCategory", newCategory);
         if (!newProduct) throw new EmptyValueException("newProduct", newProduct);
