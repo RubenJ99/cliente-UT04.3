@@ -64,9 +64,9 @@ export default class StoreHouseController{
         let cat2;
         let cat3;
         try {
-            cat1 = new Category('Bottom Clothing','Clothes that fit under the waist');
+            cat1 = new Category('Bottom-Clothing','Clothes that fit under the waist');
             cat2 = new Category('Props','');
-            cat3 = new Category('Perfume and Cologne','');
+            cat3 = new Category('Perfume-and-Cologne','');
         } catch (error) {
            console.error(error);
         }
@@ -164,8 +164,21 @@ export default class StoreHouseController{
         for (let st of this.#storeHouseModel.shops) {
             if(st.store.cif == cifStore) currentShop = st.store;
         }
+        let mp = new Map();
+        for (let cat of this.#storeHouseModel.getShopProducts(currentShop)) {
+            if(!(mp.has(cat.category.title))){
+                mp.set(cat.category.title,(`<fieldset class="border p-2">
+                <legend class="w-auto" id="${cat.category.title}">
+                ${cat.category.title}</legend>
+                </legend>`));
+            }
+        }
+        for (const a of this.#storeHouseModel.categories) {
+            console.log(a)
+        }
         let data = {
             storeProds: this.#storeHouseModel.getShopProducts(currentShop),
+            map: mp,
         }
         this.#storeHouseView.showProducts(data);
     }

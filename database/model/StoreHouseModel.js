@@ -336,7 +336,7 @@ const StoreHouse = (function () {
             if (prods.store === shop.cif && prods.product instanceof product) {
               for (let prodsStore of this.#stores[i].products) {
                 if(prods.product.serialNumber === prodsStore.serialNumber)
-                yield { product: prods.product, stock: prodsStore.stock };
+                yield { product: prods.product, stock: prodsStore.stock, category: cat.category  }; //modifico el modelo para que sea mas facil acceder a los datos en pla practica mvc
               }
             }
           }

@@ -13,7 +13,8 @@ export default class StoreHouseView{
     showStores(query){
         this.main.empty();
         for (let data of query.stores) {
-            this.main.append(`<div class="card" id="${data.store.cif}" style="width: 18rem;">
+          
+           this.main.append(`<div class="card" id="${data.store.cif}" style="width: 18rem;">
             <img src="${data.store.img}" class="card-img-top" alt="">
             <div class="card-body">
               <h5 class="card-title">${data.store.name}</h5>
@@ -38,9 +39,17 @@ export default class StoreHouseView{
 
     showProducts(query){
         this.main.empty();
+        for (let [key,val] of query.map.entries()) {
+            this.main.append(val);
+        }
+
+        
         for (let data of query.storeProds) {
+             
+            
             let img = data.product.images[0];
-            this.main.append(`<div class="card" id="${data.product.serialNumber}" style="width: 18rem;">
+
+            $(`#${data.category.title}`).append(`<div class="card" id="${data.product.serialNumber}" style="width: 18rem;">
             <img src="${img}" class="card-img-top" alt="">
             <div class="card-body">
               <h5 class="card-title">${data.product.name}</h5>
