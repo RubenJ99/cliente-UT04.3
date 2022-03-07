@@ -18,7 +18,9 @@ export default class StoreHouseController{
     #storeHouseModel;
     #storeHouseView;
 
-
+/**
+ * En este metodo privado vamos a generar las entidades y datos con los que trabajaremos a modo de base de datos
+ */
     #preLoadStoreHouseData(){
         //BLOQUE GENERACION DE PRODUCTOS
         let clothingItem1;
@@ -131,6 +133,12 @@ export default class StoreHouseController{
         }
     }
 
+    /**
+     * Para el constructor del controlador le pasamos la referencia del modelo y de la vista que hemos generado en StoreHouseApp que es el punto de entrada
+     * de nuestra app y el que tenemos colocado en index.html
+     * @param {*} storeHouseModel 
+     * @param {*} storeHouseView 
+     */
     constructor(storeHouseModel,storeHouseView) {
         this.#storeHouseModel = storeHouseModel;
         this.#storeHouseView = storeHouseView;
@@ -141,13 +149,35 @@ export default class StoreHouseController{
         this.#storeHouseView.bindStores(this.handlerStores);
         this.#storeHouseView.bindProducts(this.handlerProducts);
         this.#storeHouseView.bindInfo(this.handlerInfo);
+        this.#storeHouseView.bindCats(this.handlerCats);
         
     }
 
+    /**
+     * Con esto cargamos los datos en el momento en el que se inicializa la aplicacion
+     */
     onLoad = () => {
         this.#preLoadStoreHouseData();
     }
+    /**
+     * Dado el titulo de la categoria encontramos la que corresponde y almacenamos la categoria completa,luego retornamos el generador que nos da acceso a los productos
+     * dada cierta categoria
+     * @param {} catTitle 
+     */
+    handlerCats = (catTitle) => {
+        let currentCat;
+        for (let cat of this.#storeHouseModel.categories) {
+            if(cat.category.title == catTitle) currentCat = cat.category;
+        }
 
+        let data = {
+            catProds: this.#storeHouseModel.getCategoryProducts(currentCat),
+        }
+        this.#storeHouseView.showCatProd(data);
+    }
+    /**
+     * Retorna en un objeto literal tanto el iterador de tiendas como el de categorias
+     */
     handlerStores = () => {
         let data = {
             stores: this.#storeHouseModel.shops,
@@ -158,7 +188,12 @@ export default class StoreHouseController{
         this.#storeHouseView.showDrops(data);
         
     }
-
+    /**
+     * Este manejador obtiene el numero de serie de una tienda, dado ese cif obtenemos la tienda completa y generamos un mapa en el cual tendremos como clave
+     * el titulo de la categoria y como valor un elemento html con valores dinamicos dependiendo de la categoria en cuestion,
+     * retornamos un JSON con el generador que dada una tienda retorna los datos necesarios y el mapa que contiene los elementos html
+     * @param {*} cifStore 
+     */
     handlerProducts = (cifStore) => {
         let currentShop;
         for (let st of this.#storeHouseModel.shops) {
@@ -173,9 +208,7 @@ export default class StoreHouseController{
                 </legend>`));
             }
         }
-        for (const a of this.#storeHouseModel.categories) {
-            console.log(a)
-        }
+        
         let data = {
             storeProds: this.#storeHouseModel.getShopProducts(currentShop),
             map: mp,
@@ -183,6 +216,12 @@ export default class StoreHouseController{
         this.#storeHouseView.showProducts(data);
     }
 
+
+    /**
+     * Este manejador obtiene el numero de serie de un producto, luego dado ese serial number obtenemos el elemento producto completo y tambien el tipo de 
+     * producto que tenemos en nuestro negocio, retornando un a la vista un objeto literal como un JSON con el producto completo y su tipo
+     * @param {*} serialNumber 
+     */
     handlerInfo = (serialNumber)=>{
         let currentProd;
         for (let cat of this.#storeHouseModel.categories) {

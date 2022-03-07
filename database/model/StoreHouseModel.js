@@ -134,20 +134,20 @@ const StoreHouse = (function () {
        * @param newProduct
        * @returns {number} products length
        */
-      //TODO CAMBIAR ESTO PERO YA QUE ME UNE TODO A LA MISMA CAT
+      
       addProduct(newCategory, newProduct) {
         if (!newCategory) throw new EmptyValueException("newCategory", newCategory);
         if (!newProduct) throw new EmptyValueException("newProduct", newProduct);
         let catIndex = this.#categories.findIndex((elem) => {
-          return (
-            Object.entries(elem.category).toString() ===
-            Object.entries(newCategory).toString()
-          );
+          return elem.category.title == newCategory.title
         });
-        this.#categories[catIndex].products.push({
-          product: newProduct,
-          store: StoreHouse.#defStore.cif,
-        });
+        if(catIndex !== -1){
+          this.#categories[catIndex].products.push({
+            product: newProduct,
+            store: StoreHouse.#defStore.cif,
+          });
+        }
+        
         return this.#categories[catIndex].products.length;
       }
     
@@ -253,12 +253,13 @@ const StoreHouse = (function () {
       *getCategoryProducts(category, product = Product) {
         if (!category) throw EmptyValueException(shop);
         let i = this.#categories.findIndex((e) => {
-          return (
-            e.category.title === category.title &&
-            e.category.description === e.description
-          );
+          
+          return e.category.title == category.title;
+          
         });
+        
         for (let products of this.#categories[i].products) {
+          
           if (products.product instanceof product) {
             for (let store of this.#stores) {
               for (let prod of store.products) {

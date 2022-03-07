@@ -9,7 +9,10 @@ export default class StoreHouseView{
     }
 
 
-   
+   /**
+    * Recorre el iterador de tiendas y genera unas cards de bootstrap en el contenedor main
+    * @param {} query 
+    */
     showStores(query){
         this.main.empty();
         for (let data of query.stores) {
@@ -25,11 +28,16 @@ export default class StoreHouseView{
         }
     }
 
+    /**
+     * Dados los iteradores de categorias y de tiendas genera en los dropdowns de categorias y tiendas los enlaces para poder acceder desde esos submenus
+     * 
+     * @param {*} query 
+     */
     showDrops(query){
         this.dropCa.empty();
         this.dropSt.empty();
         for (let data of query.cats) {
-            this.dropCa.append(`<li><a class="dropdown-item" href="" value="${data.category.title}">${data.category.title}</a></li>`);
+            this.dropCa.append(`<li><a class="dropdown-item bShowCats" value="${data.category.title}">${data.category.title}</a></li>`);
         }
         for (let data of query.stores) {
             this.dropSt.append(`<li><a class="dropdown-item bShowProds" value="${data.store.cif}">${data.store.name}</a></li>`);
@@ -37,6 +45,12 @@ export default class StoreHouseView{
 
     }
 
+    /**
+     * Dado el objeto literal de la consulta al manejador teniendo el mapa con los contenedores por categoria y los productos primero asociamos 
+     * al elemento main estos contenedores de manera dinamica de tal manera que no se queden categorias sueltas y luego recorriendo el generador de 
+     * productos hacemos el append de estos sobre el contenedor de categorias en vez de directamente sobre main de tal forma que quedan clasificados
+     * @param {*} query 
+     */
     showProducts(query){
         this.main.empty();
         for (let [key,val] of query.map.entries()) {
@@ -60,6 +74,10 @@ export default class StoreHouseView{
         }
     }
     
+    /**
+     * Dado el tipo de producto y el producto generamos 3 elementos html distintos y enviamos al main el que sea correcto
+     * @param {} data 
+     */
     showProdInfo(data){
         this.main.empty();
         this.main.css({'background-color':'white',
@@ -179,6 +197,27 @@ export default class StoreHouseView{
 
     }
 
+    /**
+     * Dado el generador de la categoria en cuestion mostramos en el elemento main los productos de dicha categoria
+     * @param {*} query 
+     */
+    showCatProd(query){
+        this.main.empty();
+        
+        for (let data of query.catProds) {
+            let img = data.product.images[0];
+
+            this.main.append(`<div class="card" id="${data.product.serialNumber}" style="width: 18rem;">
+            <img src="${img}" class="card-img-top" alt="">
+            <div class="card-body">
+              <h5 class="card-title">${data.product.name}</h5>
+              <p class="card-text">${data.product.description}</p>
+              <a href="#" class="btn btn-primary bShowInfo" value="${data.product.serialNumber}">Info</a>
+            </div>
+          </div>`);
+        }
+    }
+
     
 
     bindStores(handler){
@@ -197,6 +236,12 @@ export default class StoreHouseView{
             handler($(this).attr('value'));
         })
         
+    }
+
+    bindCats(handler){
+        $(document).on('click','.bShowCats',function(){
+            handler($(this).attr('value'));
+        })
     }
 
     bindInfo(handler){
