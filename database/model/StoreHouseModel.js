@@ -1,7 +1,5 @@
 "use strict";
 
-import Category from "./Category.js";
-import Store from "./Store.js";
 import {
   DuplicatedProductException,
   EmptyValueException,
@@ -9,12 +7,19 @@ import {
   InvalidInstanceException,
   InvalidValueException,
   RepeatedArgumentException,
-} from "./ES6Errors.js";
-import Coords from "./Coords.js";
-import Product from "./Product.js";
+} from "../../public/js/ES6Errors.js";
+import {Category} from "../entities/Category.js";
+import {Store} from "../entities/Store.js";
+import {Coords} from "../entities/Coords.js";
+import {Product} from "../entities/Product.js";
+import {Clothes} from "../entities/Clothes.js";
+import {Perfume} from "../entities/Perfume.js";
+import {SmartWatch} from "../entities/SmartWatch.js";
+
+
 
 //Declaracion de StoreHouse como singleton
-const StoreHouseSingle = (function () {
+const StoreHouse = (function () {
   var instance;
 
   function init() {
@@ -54,6 +59,8 @@ const StoreHouseSingle = (function () {
        * este getter es realmente un iterador que usando Symbol.iterator nos da la capacidad de recorrerlo con un forof
        * @returns {{[Symbol.iterator](): {next(): {value: *, done: boolean}|{done: boolean}}}|{next(): {value: *, done: boolean}|{done: boolean}}|{value: *, done: boolean}|{done: boolean}}
        */
+    
+      // * REFACTOR DEL ITERADOR PARA LA V2 MVC
       get categories() {
         let categories = this.#categories;
         return {
@@ -69,6 +76,7 @@ const StoreHouseSingle = (function () {
        * este getter es un iterador que usando Symbol.iterator nos permite que el resultado sea iterable por un forof
        * @returns {{[Symbol.iterator](): {next(): {value: *, done: boolean}|{done: boolean}}}|{next(): {value: *, done: boolean}|{done: boolean}}|{value: *, done: boolean}|{done: boolean}}
        */
+      // * REFACTOR DEL ITERADOR PARA LA V2 MVC
       get shops() {
         let shops = this.#stores;
         return {
@@ -126,19 +134,20 @@ const StoreHouseSingle = (function () {
        * @param newProduct
        * @returns {number} products length
        */
+      
       addProduct(newCategory, newProduct) {
         if (!newCategory) throw new EmptyValueException("newCategory", newCategory);
         if (!newProduct) throw new EmptyValueException("newProduct", newProduct);
         let catIndex = this.#categories.findIndex((elem) => {
-          return (
-            Object.entries(elem.category).toString() ===
-            Object.entries(newCategory).toString()
-          );
+          return elem.category.title == newCategory.title
         });
-        this.#categories[catIndex].products.push({
-          product: newProduct,
-          store: StoreHouse.#defStore.cif,
-        });
+        if(catIndex !== -1){
+          this.#categories[catIndex].products.push({
+            product: newProduct,
+            store: StoreHouse.#defStore.cif,
+          });
+        }
+        
         return this.#categories[catIndex].products.length;
       }
     
@@ -168,7 +177,7 @@ const StoreHouseSingle = (function () {
        * @param number
        * @returns {Number} stock number
        */
-      addProductInShop(newProduct, newShop, number) {
+      addProductInShop(newProduct, newShop, number = 1) {
         if (!(newProduct instanceof Product))
           throw new InvalidInstanceException("newProduct", Product);
         if (!newShop) throw new EmptyValueException("newShop", newShop);
@@ -176,9 +185,9 @@ const StoreHouseSingle = (function () {
     
         this.#categories.forEach((cat) => {
           let prodIndex = cat.products.findIndex((prod) => {
-            return prod.serialNumber === newProduct.serialNumber;
+            return prod.product.serialNumber === newProduct.serialNumber;
           });
-          if(prodIndex !== -1){
+          if(prodIndex !== -1 ) {
             cat.products[prodIndex].store = newShop.cif;
           }
           
@@ -198,7 +207,11 @@ const StoreHouseSingle = (function () {
           serialNumber: newProduct.serialNumber,
           stock: number,
         });
-    
+        /*
+         let oldStock =  this.#stores[indexStore].products[indexProd].stock;
+         oldStock += number;
+         this.#stores[indexStore].products[indexProd].stock = oldStock;
+           */
         return number;
       }
     
@@ -236,15 +249,17 @@ const StoreHouseSingle = (function () {
        * @param product
        * @returns {Generator<[]|*, void, *>}
        */
+      // * REFACTOR GENERADORES PARA QUE FUNCIONEN CORRECTAMENTE Y NO MUESTREN COSAS DE MAS
       *getCategoryProducts(category, product = Product) {
         if (!category) throw EmptyValueException(shop);
         let i = this.#categories.findIndex((e) => {
-          return (
-            e.category.title === category.title &&
-            e.category.description === e.description
-          );
+          
+          return e.category.title == category.title;
+          
         });
+        
         for (let products of this.#categories[i].products) {
+          
           if (products.product instanceof product) {
             for (let store of this.#stores) {
               for (let prod of store.products) {
@@ -310,6 +325,7 @@ const StoreHouseSingle = (function () {
        * @param product
        * @returns {Generator<*, void, *>}
        */
+      // * REFACTOR GENERADORES PARA QUE FUNCIONEN CORRECTAMENTE Y NO MUESTREN COSAS DE MAS
       *getShopProducts(shop, product = Product) {
         if (!shop) throw EmptyValueException(shop);
     
@@ -322,7 +338,7 @@ const StoreHouseSingle = (function () {
             if (prods.store === shop.cif && prods.product instanceof product) {
               for (let prodsStore of this.#stores[i].products) {
                 if(prods.product.serialNumber === prodsStore.serialNumber)
-                yield { product: prods.product, stock: prodsStore.stock };
+                yield { product: prods.product, stock: prodsStore.stock, category: cat.category  }; //modifico el modelo para que sea mas facil acceder a los datos en pla practica mvc
               }
             }
           }
@@ -335,7 +351,6 @@ const StoreHouseSingle = (function () {
     Object.freeze(sh);
     return sh;
   }
-
   return {
     getInstance: function () {
       if (!instance) {
@@ -346,4 +361,21 @@ const StoreHouseSingle = (function () {
   };
 })();
 
-export default StoreHouseSingle;
+export {
+  DuplicatedProductException,
+  EmptyValueException,
+  IndexOutOfBoundsException,
+  InvalidInstanceException,
+  InvalidValueException,
+  RepeatedArgumentException,
+} from "../../public/js/ES6Errors.js";
+export {Category} from "../entities/Category.js";
+export {Store} from "../entities/Store.js";
+export {Coords} from "../entities/Coords.js";
+export {Product} from "../entities/Product.js";
+export {Clothes} from "../entities/Clothes.js";
+export {Perfume} from "../entities/Perfume.js";
+export {SmartWatch} from "../entities/SmartWatch.js";
+
+
+export default StoreHouse;

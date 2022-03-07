@@ -1,12 +1,12 @@
 'use strict';
 
-import Product from "./Product.js";
-import {EmptyValueException, InvalidValueException} from "./ES6Errors.js";
+import {Product} from "../entities/Product.js";
+import {EmptyValueException, InvalidValueException} from "../../public/js/ES6Errors.js";
 
 /**
  * Clase que hereda de Product con unos getter y setter
  */
-export default class Perfume extends Product{
+class Perfume extends Product{
   #odor;
   #gender;
   constructor(serialNumber,name,description,price,tax,images,odor,gender) {
@@ -31,3 +31,5 @@ export default class Perfume extends Product{
     this.#gender = gender;
   }
 }
+
+export {Perfume};

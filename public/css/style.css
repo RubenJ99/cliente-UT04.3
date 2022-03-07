@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital@1&display=swap');
+/*font-family: 'Nunito Sans', sans-serif;*/
+@import url('https://fonts.googleapis.com/css2?family=Heebo&display=swap');
+/*font-family: 'Heebo', sans-serif;*/
+
+*{
+  box-sizing: border-box;
+  font-family: 'Heebo', sans-serif;
+}
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-size: 1.1rem;
+}
+li, a, button{
+  text-decoration: none;
+}
+body{
+  display: grid;
+  grid-template: "header header header" 100px
+                  "message message message" 50px
+                  "ad1     main    ad2" auto
+                  "footer footer footer" 170px /
+                  200px auto 200px; 
+}
+
+.main__header{
+  grid-area: header;
+  background-color: black;
+  display: flex;
+  font-size: 1.3rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 10%;
+}
+.main__header > button {
+  font-size: 1.3rem;
+  background-color: white;
+  transition: all 0.3s ease 0s;
+  border: none;
+  padding: 9px 25px;
+}
+.main__header > button:hover {
+  font-size: 1.3rem;
+  background-color:aquamarine;
+  transition: all 0.3s ease 0s;
+}
+
+.logo{
+  width: 30px;
+  cursor: pointer;
+}
+.nav__links{
+  list-style: none;
+  cursor: pointer;
+}
+
+.nav__links > li{
+  
+  display: inline-block;
+  padding: 0px 20px;
+}
+.nav__links > li > a {
+  
+  color: white;
+  transition: all 0.3s ease 0s;
+}
+.nav__links > li > a:hover {
+  color:aquamarine;
+}
+.flash__message{
+  grid-area: message;
+  background-color: red;
+  animation: color-change 2s infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: xx-large;
+  overflow: hidden;
+}
+.flash__message--text{
+  text-align: right;
+
+  -moz-transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+  
+  -moz-animation: my-animation 15s linear infinite;
+  -webkit-animation: my-animation 15s linear infinite;
+  animation: my-animation 15s linear infinite;
+}
+/* for Firefox */
+@-moz-keyframes my-animation {
+  from { -moz-transform: translateX(-100%); }
+  to { -moz-transform: translateX(100%); }
+}
+
+/* for Chrome */
+@-webkit-keyframes my-animation {
+  from { -webkit-transform: translateX(-100%); }
+  to { -webkit-transform: translateX(100%); }
+}
+
+@keyframes my-animation {
+  from {
+    -moz-transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+  to {
+    -moz-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+}
+.ad1{
+  grid-area: ad1;
+  background-color: pink;
+}
+
+.ad1 > a{
+  width: 100%;
+  height: 100%;
+}
+
+.ad1 > a > img {
+  width: 100%;
+  height: 100%;
+}
+
+.ad2 {
+  grid-area: ad2;
+  background-color: turquoise;
+}
+
+.ad2 > a{
+  width: 100%;
+  height: 100%;
+}
+
+.ad2 > a > img {
+  width: 100%;
+  height: 100%;
+}
+
+.main__container{
+  padding: 10px;
+  grid-area: main;
+  background-color: rgb(61, 60, 60);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+.card {
+  height: 70%;
+}
+
+.card > img {
+  height: 250px;
+}
+
+
+
+
+@keyframes color-change {
+  0% {
+    background-color: red;
+    font-style: italic;
+    color: white;
+  }
+  50% {
+    background-color: darkred;
+    font-style: italic;
+    color: white;
+  }
+  100% {
+    background-color: red;
+    font-style: italic;
+    color: white;
+  }
+}
+
+.main__footer{
+  grid-area: footer;
+  background-color: black;
+  display: grid;
+  grid-template: "contact domain location" auto /
+                  35% auto 35%;
+}
+.footer__marca {
+  grid-area: domain;
+  text-align: center;
+}
+.footer__contacto{
+  grid-area: contact;
+  text-align:left;
+}
+
+.footer__direccion{
+  grid-area: location;
+  text-align: end;
+}
+
+.main__footer > * {
+  color: gray;
+}

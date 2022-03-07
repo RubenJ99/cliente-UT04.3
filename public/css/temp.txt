@@ -1,0 +1,202 @@
+main {
+  background-color: #202129;
+}
+
+.main__header__nav {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  border-bottom: 3px solid black;
+  background-color: #727482;
+}
+
+
+
+.main__header--links {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main__header--links > li {
+  margin: 1rem 2rem;
+  list-style: none;
+}
+.main__header--links > li > a {
+  color: white;
+  text-decoration: none;
+}
+
+.main__header--links > li > a:hover {
+  color: white;
+  transform: scale(1.2);
+  text-decoration: none;
+}
+
+figure {
+  border: thin #c0c0c0 solid;
+  display: flex;
+  flex-flow: column;
+  padding: 5px;
+  max-width: 220px;
+  margin: auto;
+}
+
+aside > figure {
+  max-width: 410px;
+}
+
+img {
+  max-width: 400px;
+  max-height: 300px;
+}
+
+.contentS {
+  display: inline-grid;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.contentS > .card {
+  margin-bottom: 50px;
+  width: 100%;
+  min-width: 0;
+  margin-left: 100px;
+}
+
+h3 {
+  color: white;
+  animation: color-change 2s infinite;
+  width: 300px;
+  margin-left: 800px;
+  margin-bottom: 40px;
+}
+
+@keyframes color-change {
+  0% {
+    background-color: red;
+    font-style: italic;
+    color: white;
+  }
+  50% {
+    background-color: darkgreen;
+    font-style: italic;
+    color: white;
+  }
+  100% {
+    background-color: red;
+    font-style: italic;
+    color: white;
+  }
+}
+footer {
+  margin-top: 40px;
+  background-color: #e07110;
+  height: 130px;
+}
+aside > figure > figcaption {
+  background-color: red;
+  color: #fff;
+  font-style: normal;
+  font-family: sans-serif;
+  font-weight: bold;
+  text-decoration: underline;
+  padding: 3px;
+  text-align: center;
+}
+
+figcaption {
+  background-color: #222;
+  color: #fff;
+  font: italic smaller sans-serif;
+  padding: 3px;
+  text-align: center;
+}
+
+.footer__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+    ". marca ."
+    "contacto contacto direccion";
+}
+
+.footer__marca {
+  grid-area: marca;
+  text-align: center;
+}
+
+footer:hover {
+  cursor: pointer;
+}
+.footer__direccion {
+  grid-area: direccion;
+  text-align: end;
+  margin-right: 10px;
+}
+.footer__contacto {
+  grid-area: contacto;
+  text-align: start;
+} */
+
+
+dentro del main
+
+ <section class="contentS">
+            <div class="card" style="width: 18rem;">
+                <img src="../../public/media/exprimidor.jpg" class="card-img-top" alt="Orange squeezer">
+                <div class="card-body">
+                  <p class="card-text">Exprimidor de Naranjas ultima generacion</p>
+                  <button type="button" class="btn btn-success" id="liveToastBtn1" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">Buy</button>
+                </div>
+              </div>
+              <div class="card" style="width: 18rem;">
+                <img src="../../public/media/sudadera.jpg" class="card-img-top" alt="Jumper">
+                <div class="card-body">
+                  <p class="card-text">Sudadera azul de alta calidad</p>
+                  <button type="button" class="btn btn-success" id="liveToastBtn2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">Buy</button>
+                </div>
+              </div>
+              <div class="card" style="width: 18rem;">
+                <img src="../../public/media/xps.jpg" class="card-img-top" alt="Dell XPS">
+                <div class="card-body">
+                  <p class="card-text">Ultimo modelo XPS15 2022</p>
+                  <button type="button" class="btn btn-success" id="liveToastBtn3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">Buy</button>
+                </div>
+              </div>
+              <div class="card" style="width: 18rem;">
+                <img src="../../public/media/chibianime.jpg" class="card-img-top" alt="Anime Chibi nezuko">
+                <div class="card-body">
+                  <p class="card-text">Figurita anime Nezuko:Guardianes de la noche</p>
+                  <button type="button" class="btn btn-success" id="liveToastBtn4" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">Buy</button>
+                </div>
+              </div>
+              <div class="card" style="width: 18rem;">
+                <img src="../../public/media/iphone13.jpg" class="card-img-top" alt="Iphone 13">
+                <div class="card-body">
+                  <p class="card-text">Ultimo Iphone 13 de Apple</p>
+                  <button type="button" class="btn btn-success" id="liveToastBtn5" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">Buy</button>
+                </div>
+              </div>
+              <div class="card" style="width: 18rem;">
+                <img src="../../public/media/pilares.jpg" class="card-img-top" alt="Pilares de la tierra, libro">
+                <div class="card-body">
+                  <p class="card-text">Los pilares de la tierra: Ken Follett</p>
+                  <button type="button" class="btn btn-success" id="liveToastBtn6" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">Buy</button>
+                </div>
+              </div>
+              <!-- aaa -->
+              <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                <div class="offcanvas-header">
+                  <h5 class="offcanvas-title" id="offcanvasExampleLabel">Carrito</h5>
+                  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                  <div>
+                    Añadido a su carrito
+                  </div>
+                  </div>
+                </div>
+        </section>
