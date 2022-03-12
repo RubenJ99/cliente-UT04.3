@@ -25,7 +25,7 @@ body{
                   "message message message" 50px
                   "ad1     main    ad2" auto
                   "footer footer footer" 170px /
-                  200px auto 200px; 
+                  400px auto 400px; 
 }
 
 .main__header{
@@ -220,3 +220,226 @@ input:valid{
   border-color: green;
   background-color: lightgreen;
 }
+
+@media (max-width: 1024px) and (max-height: 600px){
+  body{
+    display: grid;
+    grid-template: "header header " 10vw
+                    "ad1 ad1 " 30vw
+                    "main     main  " auto
+                    "message message" 50px
+                    "footer footer" 170px /
+                    1vh auto; 
+  }
+
+  #bLoginForm{
+    display: none;
+  }
+  #bAbout {
+    display: none;
+  }
+  .card {
+    height: 100%;
+  }
+  
+
+  .main__header{
+    grid-area: header;
+    background-color: black;
+    display: flex;
+    font-size: 1.3rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 10%;
+  }
+
+  .flash__message{
+    grid-area: message;
+    background-color: red;
+    animation: color-change 2s infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: xx-large;
+    overflow: hidden;
+  }
+
+  .ad1{
+    background-color: pink;
+  }
+  
+  .ad2 {
+    background-color: turquoise;
+    display: none;
+  }
+
+  .main__container{
+    padding: 10px;
+    grid-area: main;
+    background-color: rgb(61, 60, 60);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  
+  }
+
+  .main__footer{
+    grid-area: footer;
+    background-color: black;
+    display: grid;
+    grid-template: "contact domain location" auto /
+                    35% auto 35%;
+  }
+}
+
+@media (max-width: 700px) and (max-height: 1200px){
+
+  body{
+    display: grid;
+    grid-template: "header header " 20vw
+                    "ad1 main  " auto
+                    "ad2 ad2" 40vw
+                    "footer footer" 170px /
+                    50vh auto; 
+  }
+
+  #bLoginForm{
+    display: none;
+  }
+  #bAbout {
+    display: none;
+  }
+  #bInicio {
+    display: none;
+  }
+  .card {
+    height: 100%;
+    margin: 10px 10px 10px 10px;
+  }
+
+  .main__header{
+    grid-area: header;
+    background-color: black;
+    display: flex;
+    font-size: 1.3rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 10%;
+  }
+
+  .flash__message{
+    grid-area: message;
+    background-color: red;
+    animation: color-change 2s infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: xx-large;
+    overflow: hidden;
+  }
+
+  .ad1{
+    background-color: pink;
+  }
+  
+  .ad2 {
+    background-color: turquoise;
+  }
+
+  .main__container{
+    padding: 10px;
+    grid-area: main;
+    background-color: rgb(61, 60, 60);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items:center;
+  
+  }
+
+  .main__footer{
+    grid-area: footer;
+    background-color: black;
+    display: grid;
+    grid-template: "contact domain location" auto /
+                    35% auto 35%;
+  }
+
+
+}
+
+@media (max-width: 400px) and (max-height: 700px){
+  body{
+    display: grid;
+    grid-template: "header" 20vw
+                    "main  " auto
+                    "ad2" 40vw
+                    "footer" auto /
+                    auto; 
+  }
+  #bLoginForm{
+    display: none;
+  }
+  #bAbout {
+    display: none;
+  }
+
+  #bInicio {
+    display: none;
+  }
+  #categoriesDrop{
+    display: none;
+  }
+  .card {
+    height: 100%;
+    margin: 10px 10px 10px 10px;
+  }
+  .main__header{
+    grid-area: header;
+    background-color: black;
+    display: flex;
+    font-size: 1.3rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 10%;
+  }
+  .flash__message{
+    grid-area: message;
+    background-color: red;
+    animation: color-change 2s infinite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: xx-large;
+    overflow: hidden;
+    display: none;
+  }
+  .ad1{
+    display: none;
+    background-color: pink;
+  }
+  .ad2 {
+    background-color: turquoise;
+  }
+  .main__container{
+    padding: 10px;
+    grid-area: main;
+    background-color: rgb(61, 60, 60);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items:center;
+  
+  }
+  .main__footer{
+    grid-area: footer;
+    background-color: black;
+    display: grid;
+    grid-template: "contact domain location" auto /
+                    35% auto 35%;
+  }
+}
+

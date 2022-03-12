@@ -137,6 +137,7 @@ export default class StoreHouseController{
 
         this.onLoad();
         this.#storeHouseView.bindStores(this.handlerStores);
+        this.#storeHouseView.diwBindCarousel(this.handlerDiwCarousel);
         
     }
 
@@ -151,5 +152,9 @@ export default class StoreHouseController{
         }
 
         this.#storeHouseView.showStores(data);
+    }
+
+    handlerDiwCarousel = () => {
+        this.#storeHouseView.showDiwCarousel();
     }
 }
