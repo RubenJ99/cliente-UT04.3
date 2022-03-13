@@ -150,6 +150,8 @@ export default class StoreHouseController{
         this.#storeHouseView.bindProducts(this.handlerProducts);
         this.#storeHouseView.bindInfo(this.handlerInfo);
         this.#storeHouseView.bindCats(this.handlerCats);
+        this.#storeHouseView.bindPop(this.handlerPop);
+        this.#storeHouseView.bindClosePop(this.handlerClosePop);
         
     }
 
@@ -248,5 +250,47 @@ export default class StoreHouseController{
         }
         
         this.#storeHouseView.showProdInfo(data);
+    }
+
+    handlerPop = (serialNumber) =>{
+        let currentProd;
+        for (let cat of this.#storeHouseModel.categories) {
+            for (let prod of cat.products) {
+                if(prod.product.serialNumber == serialNumber){
+                    currentProd = prod;
+                }
+            }
+        }
+        let type;
+        if(currentProd.product instanceof Clothes){
+            type = 'Clothes';
+        }
+        if(currentProd.product instanceof Perfume){
+            type = 'Perfume';
+        }
+        if(currentProd.product instanceof SmartWatch){
+            type = 'SmartWatch';
+        }
+        
+        let data = {
+            fullProduct: currentProd,
+            'type' : type,
+        }
+        let nW;
+        if(!(this.#storeHouseView.activeWindows.find((e) => {return e.name == serialNumber}))){
+            nW = window.open("",`${serialNumber}`, "width=800,height=600,resizable,scrollbars,status");
+            nW.location =`../../resources/views/map.html`;
+            this.#storeHouseView.activeWindows.push(nW);
+            console.log(nW.name);
+        }
+        this.#storeHouseView.showPop(data,nW);
+      
+        
+    }
+
+    handlerClosePop = () => {
+        this.#storeHouseView.activeWindows.forEach((el) => {
+            el.close();
+        });
     }
 }
