@@ -150,6 +150,8 @@ export default class StoreHouseController{
         this.#storeHouseView.bindProducts(this.handlerProducts);
         this.#storeHouseView.bindInfo(this.handlerInfo);
         this.#storeHouseView.bindCats(this.handlerCats);
+        this.#storeHouseView.bindPop(this.handlerPop);
+        this.#storeHouseView.bindClosePop(this.handlerClosePop);
         
     }
 
@@ -169,11 +171,13 @@ export default class StoreHouseController{
         for (let cat of this.#storeHouseModel.categories) {
             if(cat.category.title == catTitle) currentCat = cat.category;
         }
-
+        console.log(currentCat)
         let data = {
             catProds: this.#storeHouseModel.getCategoryProducts(currentCat),
         }
+    
         this.#storeHouseView.showCatProd(data);
+
     }
     /**
      * Retorna en un objeto literal tanto el iterador de tiendas como el de categorias
@@ -213,6 +217,7 @@ export default class StoreHouseController{
             storeProds: this.#storeHouseModel.getShopProducts(currentShop),
             map: mp,
         }
+        
         this.#storeHouseView.showProducts(data);
     }
 
@@ -248,5 +253,57 @@ export default class StoreHouseController{
         }
         
         this.#storeHouseView.showProdInfo(data);
+    }
+    /**
+     * Tomando la misma funcionalidad que encontrabamos en el handler para mostrar la informacion de los productos de 
+     * manera unica dependiendo del tipo de producto ahora ademas añadimos la creacion de elementos window.
+     * Haciendo uso del array activeWindows que se encuentra en la vista comprobamos si el pop up de un producto ya existe,
+     * si es asi simplemente se pondra en primer plano y no se creara otro, en caso contrario se creara su pop up y se añadira al array
+     * @param {*} serialNumber 
+     */
+    handlerPop = (serialNumber) =>{
+        let currentProd;
+        for (let cat of this.#storeHouseModel.categories) {
+            for (let prod of cat.products) {
+                if(prod.product.serialNumber == serialNumber){
+                    currentProd = prod;
+                }
+            }
+        }
+        let type;
+        if(currentProd.product instanceof Clothes){
+            type = 'Clothes';
+        }
+        if(currentProd.product instanceof Perfume){
+            type = 'Perfume';
+        }
+        if(currentProd.product instanceof SmartWatch){
+            type = 'SmartWatch';
+        }
+        
+        let data = {
+            fullProduct: currentProd,
+            'type' : type,
+        }
+        let nW;
+        let i = this.#storeHouseView.activeWindows.findIndex((e) => {return e.name == serialNumber})
+        if(i == -1){
+            nW = window.open("",`${serialNumber}`, "width=800,height=600,resizable,scrollbars,status");
+            this.#storeHouseView.activeWindows.push(nW);
+        }
+        i = this.#storeHouseView.activeWindows.findIndex((e) => {return e.name == serialNumber})
+        this.#storeHouseView.activeWindows[i].focus();
+        this.#storeHouseView.showPop(data,nW);
+      
+        
+    }
+    //Recorremos el array de ventanas activas y usando el metodo close las cerramos, despues reiniciamos el array para
+    //que vuelva a estar vacio y operativo
+    handlerClosePop = () => {
+        this.#storeHouseView.activeWindows.forEach((el) => {
+            el.close();
+        });
+
+        this.#storeHouseView.activeWindows = [];
     }
 }

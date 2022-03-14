@@ -12,9 +12,12 @@ import StoreHouseController from '../app/controllers/StoreHouseController.js';
 import StoreHouseView from '../public/js/StoreHouseView.js';
 
 
-
 $(function(){
-    const StoreHouseApp = new StoreHouseController(
+const StoreHouseApp = new StoreHouseController(
         StoreHouse.getInstance(), new StoreHouseView()
     );
 });
+
+
+
+//export default StoreHouseApp;

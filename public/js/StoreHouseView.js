@@ -1,11 +1,21 @@
 import {Clothes} from "../../database/entities/Clothes.js";
 
 export default class StoreHouseView{
+    //No entiendo por que no me funciona correctamente el metodo pushState, parece que no toma correctamente
+    //los movimientos entre "paginas"
+    
+    // #excecuteHandler(handler, handlerArguments, scrollElement, data, url, event){
+	// 	handler(...handlerArguments);
+	// 	$(scrollElement).get(0).scrollIntoView();
+	// 	history.pushState(data, null, url);
+	// 	event.preventDefault();
+	// }
+
     constructor() {
         this.main = $('#main');
         this.dropSt = $('#storesDropUl');
         this.dropCa = $('#categoriesDropUl');
-        
+        this.activeWindows = [];
     }
 
 
@@ -22,7 +32,7 @@ export default class StoreHouseView{
             <div class="card-body">
               <h5 class="card-title">${data.store.name}</h5>
               <p class="card-text">${data.store.address}</p>
-              <a href="#" class="btn btn-primary bShowProds" value="${data.store.cif}">Productos</a>
+              <a class="btn btn-primary bShowProds" data-store="${data.store.cif}" >Productos</a>
             </div>
           </div>`);
         }
@@ -37,10 +47,10 @@ export default class StoreHouseView{
         this.dropCa.empty();
         this.dropSt.empty();
         for (let data of query.cats) {
-            this.dropCa.append(`<li><a class="dropdown-item bShowCats" value="${data.category.title}">${data.category.title}</a></li>`);
+            this.dropCa.append(`<li><a  class="dropdown-item bShowCats" value="${data.category.title}">${data.category.title}</a></li>`);
         }
         for (let data of query.stores) {
-            this.dropSt.append(`<li><a class="dropdown-item bShowProds" value="${data.store.cif}">${data.store.name}</a></li>`);
+            this.dropSt.append(`<li><a class="dropdown-item bShowProds" data-store="${data.store.cif}">${data.store.name}</a></li>`);
         }
 
     }
@@ -68,7 +78,8 @@ export default class StoreHouseView{
             <div class="card-body">
               <h5 class="card-title">${data.product.name}</h5>
               <p class="card-text">${data.product.description}</p>
-              <a href="#" class="btn btn-primary bShowInfo" value="${data.product.serialNumber}">Info</a>
+              <a class="btn btn-primary bShowInfo" value="${data.product.serialNumber}">Info</a>
+              <a class="btn btn-warning bPopInfo" value="${data.product.serialNumber}">Pop up</a>
             </div>
           </div>`);
         }
@@ -212,34 +223,173 @@ export default class StoreHouseView{
             <div class="card-body">
               <h5 class="card-title">${data.product.name}</h5>
               <p class="card-text">${data.product.description}</p>
-              <a href="#" class="btn btn-primary bShowInfo" value="${data.product.serialNumber}">Info</a>
+              <a class="btn btn-primary bShowInfo" data-info="${data.product.serialNumber}">Info</a>
             </div>
           </div>`);
         }
     }
 
-    
+    showPop(data,newWindow){
+        newWindow.document.write(`<link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+        crossorigin="anonymous"
+      />`);
 
+        if(data.type === 'Clothes'){
+            
+            newWindow.document.write(`<form>
+            <div class="row">
+            <div class="mb-3">
+              <input type="text" class="form-control" id="prodId" value="${data.fullProduct.product.serialNumber}" hidden>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Name: </label>
+                <input type="text" class="form-control" id="prodName" value="${data.fullProduct.product.name}" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Price: </label>
+                <input type="text" class="form-control" id="prodPrice" value="${data.fullProduct.product.price}$" disabled>
+            </div>
+            </div>
+            <div class="row">
+            <div class="mb-3">
+            <label for="prodName">Tax: </label>
+                <input type="text" class="form-control" id="prodTax" value="${data.fullProduct.product.tax}%" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Size: </label>
+                <input type="text" class="form-control" id="prodSize" value="${data.fullProduct.product.size}" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Color: </label>
+                <input type="text" class="form-control" id="prodColor" value="${data.fullProduct.product.color}" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Gender: </label>
+                <input type="text" class="form-control" id="prodGender" value="${data.fullProduct.product.gender}" disabled>
+            </div>
+            </div>
+          </form>`)
+        }
+
+        if(data.type === 'Perfume'){
+            
+            newWindow.document.write(`<form>
+            <div class="row">
+            <div class="mb-3">
+              <input type="text" class="form-control" id="prodId" value="${data.fullProduct.product.serialNumber}" hidden>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Name: </label>
+                <input type="text" class="form-control" id="prodName" value="${data.fullProduct.product.name}" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Price: </label>
+                <input type="text" class="form-control" id="prodPrice" value="${data.fullProduct.product.price}$" disabled>
+            </div>
+            </div>
+            <div class="row">
+            <div class="mb-3">
+            <label for="prodName">Tax: </label>
+                <input type="text" class="form-control" id="prodTax" value="${data.fullProduct.product.tax}%" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Color: </label>
+                <input type="text" class="form-control" id="prodOdor" value="${data.fullProduct.product.odor}" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Gender: </label>
+                <input type="text" class="form-control" id="prodGender" value="${data.fullProduct.product.gender}" disabled>
+            </div>
+            </div>
+          </form>`)
+        }
+
+        if(data.type === 'SmartWatch'){
+            
+           newWindow.document.write(`<form>
+            <div class="row">
+            <div class="mb-3">
+              <input type="text" class="form-control" id="prodId" value="${data.fullProduct.product.serialNumber}" hidden>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Name: </label>
+                <input type="text" class="form-control" id="prodName" value="${data.fullProduct.product.name}" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Price: </label>
+                <input type="text" class="form-control" id="prodPrice" value="${data.fullProduct.product.price}$" disabled>
+            </div>
+            </div>
+            <div class="row">
+            <div class="mb-3">
+            <label for="prodName">Tax: </label>
+                <input type="text" class="form-control" id="prodTax" value="${data.fullProduct.product.tax}%" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Color: </label>
+                <input type="text" class="form-control" id="prodModel" value="${data.fullProduct.product.model}" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Gender: </label>
+                <input type="text" class="form-control" id="prodSphere" value="${data.fullProduct.product.sphere}" disabled>
+            </div>
+            <div class="mb-3">
+            <label for="prodName">Size: </label>
+                <input type="text" class="form-control" id="prodBandColor" value="${data.fullProduct.product.bandColor}" disabled>
+            </div>
+            </div>
+            <div class="mb-3">
+          </form>`);
+        }
+
+        newWindow.document.write(`<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"
+      ></script>`);
+    }
+
+    
     bindStores(handler){
         $(document).ready((e) => {
+            //this.#excecuteHandler(handler,[],'body',{action: 'init'},'#',e)
             handler();
         })
 
         $('#bInicio').click((e)=>{
-            handler();
+            //this.#excecuteHandler(handler,[],'body',{action: 'init'},'#',e)
+             handler();
         })
     }
 
     bindProducts(handler){
         //Delegacion de evento usando el on y los 3 parametros
-        $(document).on('click','.bShowProds',function(e){
-            handler($(this).attr('value'));
+        $(document).on('click','.bShowProds',(e)=>{
+            // let cifStore =
+            
+            // this.#excecuteHandler(
+            //     handler, [cifStore],
+            //     this.main,
+            //     {action: 'store-prods', cifStore: cifStore},
+            //     '#prod-list-type', e
+            // );
+            handler($(e.target).closest($('.bShowProds')).get(0).dataset.store)
         })
         
     }
 
     bindCats(handler){
-        $(document).on('click','.bShowCats',function(){
+        $(document).on('click','.bShowCats',function(e){
+            // let catTitle =
+            // this.#excecuteHandler(
+            //     handler, [catTitle],
+            //     this.main,
+            //     {action: 'cat-prods', catTitle: catTitle},
+            //     '#prod-cat',e
+            // )
             handler($(this).attr('value'));
         })
     }
@@ -250,4 +400,17 @@ export default class StoreHouseView{
         })
     }
 
+    bindPop(handler){
+        $(document).on('click','.bPopInfo',function(e){
+            handler($(this).attr('value'));
+        })
+    }
+
+    bindClosePop(handler){
+        $('#bBorrarPop').click(function(e){
+            handler();
+        })
+    }
+
+    
 }

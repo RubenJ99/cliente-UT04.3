@@ -251,7 +251,7 @@ const StoreHouse = (function () {
        */
       // * REFACTOR GENERADORES PARA QUE FUNCIONEN CORRECTAMENTE Y NO MUESTREN COSAS DE MAS
       *getCategoryProducts(category, product = Product) {
-        if (!category) throw EmptyValueException(shop);
+        if (!category) throw new EmptyValueException(category);
         let i = this.#categories.findIndex((e) => {
           
           return e.category.title == category.title;
