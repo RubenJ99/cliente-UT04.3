@@ -1,6 +1,16 @@
 import {Clothes} from "../../database/entities/Clothes.js";
 
 export default class StoreHouseView{
+    //No entiendo por que no me funciona correctamente el metodo pushState, parece que no toma correctamente
+    //los movimientos entre "paginas"
+    
+    // #excecuteHandler(handler, handlerArguments, scrollElement, data, url, event){
+	// 	handler(...handlerArguments);
+	// 	$(scrollElement).get(0).scrollIntoView();
+	// 	history.pushState(data, null, url);
+	// 	event.preventDefault();
+	// }
+
     constructor() {
         this.main = $('#main');
         this.dropSt = $('#storesDropUl');
@@ -22,7 +32,7 @@ export default class StoreHouseView{
             <div class="card-body">
               <h5 class="card-title">${data.store.name}</h5>
               <p class="card-text">${data.store.address}</p>
-              <a class="btn btn-primary bShowProds" value="${data.store.cif}">Productos</a>
+              <a class="btn btn-primary bShowProds" data-store="${data.store.cif}" >Productos</a>
             </div>
           </div>`);
         }
@@ -37,10 +47,10 @@ export default class StoreHouseView{
         this.dropCa.empty();
         this.dropSt.empty();
         for (let data of query.cats) {
-            this.dropCa.append(`<li><a class="dropdown-item bShowCats" value="${data.category.title}">${data.category.title}</a></li>`);
+            this.dropCa.append(`<li><a  class="dropdown-item bShowCats" value="${data.category.title}">${data.category.title}</a></li>`);
         }
         for (let data of query.stores) {
-            this.dropSt.append(`<li><a class="dropdown-item bShowProds" value="${data.store.cif}">${data.store.name}</a></li>`);
+            this.dropSt.append(`<li><a class="dropdown-item bShowProds" data-store="${data.store.cif}">${data.store.name}</a></li>`);
         }
 
     }
@@ -213,14 +223,13 @@ export default class StoreHouseView{
             <div class="card-body">
               <h5 class="card-title">${data.product.name}</h5>
               <p class="card-text">${data.product.description}</p>
-              <a class="btn btn-primary bShowInfo" value="${data.product.serialNumber}">Info</a>
+              <a class="btn btn-primary bShowInfo" data-info="${data.product.serialNumber}">Info</a>
             </div>
           </div>`);
         }
     }
 
     showPop(data,newWindow){
-        newWindow.focus();
         newWindow.document.write(`<link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
@@ -346,24 +355,41 @@ export default class StoreHouseView{
     
     bindStores(handler){
         $(document).ready((e) => {
+            //this.#excecuteHandler(handler,[],'body',{action: 'init'},'#',e)
             handler();
         })
 
         $('#bInicio').click((e)=>{
-            handler();
+            //this.#excecuteHandler(handler,[],'body',{action: 'init'},'#',e)
+             handler();
         })
     }
 
     bindProducts(handler){
         //Delegacion de evento usando el on y los 3 parametros
-        $(document).on('click','.bShowProds',function(e){
-            handler($(this).attr('value'));
+        $(document).on('click','.bShowProds',(e)=>{
+            // let cifStore =
+            
+            // this.#excecuteHandler(
+            //     handler, [cifStore],
+            //     this.main,
+            //     {action: 'store-prods', cifStore: cifStore},
+            //     '#prod-list-type', e
+            // );
+            handler($(e.target).closest($('.bShowProds')).get(0).dataset.store)
         })
         
     }
 
     bindCats(handler){
-        $(document).on('click','.bShowCats',function(){
+        $(document).on('click','.bShowCats',function(e){
+            // let catTitle =
+            // this.#excecuteHandler(
+            //     handler, [catTitle],
+            //     this.main,
+            //     {action: 'cat-prods', catTitle: catTitle},
+            //     '#prod-cat',e
+            // )
             handler($(this).attr('value'));
         })
     }
@@ -385,5 +411,6 @@ export default class StoreHouseView{
             handler();
         })
     }
+
     
 }
