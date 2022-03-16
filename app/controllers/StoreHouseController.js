@@ -131,6 +131,15 @@ export default class StoreHouseController{
         } catch (error) {
             console.error(error);
         }
+
+        try {
+            this.#storeHouseModel.addProductInShop(clothingItem1,store1,3);
+            this.#storeHouseModel.addQuantityProductInShop(clothingItem3,store1,20);
+
+            this.#storeHouseModel.addProductInShop(smartWatchItem1,store3,400);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     /**
