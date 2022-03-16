@@ -138,6 +138,8 @@ export default class StoreHouseController{
         this.onLoad();
         this.#storeHouseView.bindStores(this.handlerStores);
         this.#storeHouseView.diwBindCarousel(this.handlerDiwCarousel);
+        this.#storeHouseView.bindWebMap(this.handlerWebMap);
+        this.#storeHouseView.bindGoogleMaps(this.handlerGoogleMaps);
         
     }
 
@@ -156,5 +158,13 @@ export default class StoreHouseController{
 
     handlerDiwCarousel = () => {
         this.#storeHouseView.showDiwCarousel();
+    }
+
+    handlerWebMap = () =>{
+        this.#storeHouseView.showWebMap();
+    }
+
+    handlerGoogleMaps = ()=> {
+        this.#storeHouseView.showGoogleMaps();
     }
 }

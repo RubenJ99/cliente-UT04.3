@@ -19,32 +19,50 @@
       <img class="logo" src="../../public/media/bitkub.svg" alt="site logo" />
       <nav>
         <ul class="nav__links">
-          <li><a href="" class="nav-link" id="bInicio">Inicio</a></li>
-          <li><a class="nav-link" id="bAbout">Sobre Nosotros</a></li>
+          <li><a href="" class="nav-link lang" key="navInicio"id="bInicio">Inicio</a></li>
+          <li><a class="nav-link lang" id="bAbout" key="about">Sobre Nosotros</a></li>
+          <li><a
+            href=""
+            class="nav-link dropdown-toggle lang"
+            id="LangDrop"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            key="Lang"
+            >Lenguaje</a
+          >
+          <ul class="dropdown-menu" aria-labelledby="LangDrop">
+            <li><a class="translate" id="es">Español</a></li>
+            <li><a class="translate" id="en">English</a></li>
+          </ul>
+          <li><a  class="nav-link lang" key="contraste" id="contraste">Cambiar Contraste</a></li>
+          </li>
           <li>
             <a
               href=""
-              class="nav-link dropdown-toggle"
+              class="nav-link dropdown-toggle lang"
               id="categoriesDrop"
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
+              key="cat"
               >Categorias</a
             >
             <ul class="dropdown-menu" aria-labelledby="categoriesDrop">
-              <li><a class="dropdown-item" href="#">Ropa</a></li>
-              <li><a class="dropdown-item" href="#">Perfumeria</a></li>
-              <li><a class="dropdown-item" href="#">Relojes inteligentes</a></li>
+              <li><a class="dropdown-item lang" key="ropa" href="#">Ropa</a></li>
+              <li><a class="dropdown-item lang" key="perfume" href="#">Perfumeria</a></li>
+              <li><a class="dropdown-item lang" key="reloj" href="#">Relojes inteligentes</a></li>
             </ul>
+            
           </li>
         </ul>
       </nav>
       <div id="buttonContainers">
-      <button id="bLoginForm" class="btn" data-bs-toggle="modal" data-bs-target="">
+      <button id="bLoginForm" class="btn lang" data-bs-toggle="modal" data-bs-target="" key="iniSe">
         Iniciar Sesion
       </button>
       <!-- DIW PACO -->
-      <button id="bRegisterForm" class="btn" data-bs-toggle="modal" data-bs-target="#loginMod">
+      <button id="bRegisterForm" class="btn lang" data-bs-toggle="modal" data-bs-target="#loginMod" key="reg">
         Registrarse
       </button>
       <img id="userlogo" class="logo" src="../../public/media/user.svg" alt="userlogo" />
@@ -62,7 +80,7 @@
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Bienvenido a RubenWarehouse! 😄</h5>
+              <h5 class="modal-title lang" id="exampleModalLabel" key="welcome">Bienvenido a RubenWarehouse! 😄</h5>
               <button
                 type="button"
                 class="btn-close"
@@ -74,7 +92,7 @@
               <!-- form -->
               <form class="row g-3 needs-validation" novalidate action="#">
                 <div class="col-md-4">
-                  <label for="validationCustom01" class="form-label">Nombre</label>
+                  <label for="validationCustom01" class="form-label lang" key="formNombre">Nombre</label>
                   <input type="text" class="form-control" id="validationCustom01" value="" autofocus="autofocus" pattern="([A-Z]){1}([a-z]){2,}" required>
                   <div class="valid-feedback">
                     🔥🔥🔥🔥
@@ -82,7 +100,7 @@
                 </div>
 
                 <div class="col-md-4">
-                  <label for="validationCustom02" class="form-label">Apellidos</label>
+                  <label for="validationCustom02" class="form-label lang" key="formApellidos">Apellidos</label>
                   <input type="text" class="form-control" id="validationCustom02" value="" required pattern="([A-Z]){1}([a-z]){2,}">
                   <div class="valid-feedback">
                     🔥🔥🔥🔥
@@ -90,7 +108,7 @@
                 </div>
 
                 <div class="col-md-4">
-                  <label for="validationCustom03" class="form-label">Nombre de usuario</label>
+                  <label for="validationCustom03" class="form-label lang" key="formUser">Nombre de usuario</label>
                   <input type="text" class="form-control" id="validationCustom03" value="" required pattern="[a-z,0-9]{2,}">
                   <div class="valid-feedback">
                     🔥🔥🔥🔥
@@ -98,7 +116,7 @@
                 </div>
 
                 <div class="col-md-4">
-                  <label for="validationCustom04" class="form-label">Fecha nacimiento</label>
+                  <label for="validationCustom04" class="form-label lang" key="formFecha">Fecha nacimiento</label>
                   <input type="date" class="form-control" id="validationCustom04" value="" required>
                   <div class="valid-feedback">
                     🔥🔥🔥🔥
@@ -106,7 +124,7 @@
                 </div>
 
                 <div class="col-md-6">
-                  <label for="validationCustom05" class="form-label">Email</label>
+                  <label for="validationCustom05" class="form-label lang" key="formEmail">Email</label>
                   <input type="email" class="form-control" id="validationCustom05" value="" required pattern="([a-z]){2,}@([a-z]){3,}.com"> 
                   <div class="valid-feedback">
                     🔥🔥🔥🔥
@@ -115,7 +133,7 @@
 
 
                 <div class="col-md-6">
-                  <label for="validationCustom06" class="form-label">Direccion</label>
+                  <label for="validationCustom06" class="form-label lang" key="formDireccion">Direccion</label>
                   <input type="text" class="form-control" id="validationCustom06" required>
                   <div class="invalid-feedback">
                     ❌❌❌❌
@@ -123,7 +141,7 @@
                 </div>
 
                 <div class="col-md-3">
-                  <label for="validationCustom07" class="form-label">Provincia</label>
+                  <label for="validationCustom07" class="form-label lang" key="formProvincia">Provincia</label>
                   <select class="form-select" id="validationCustom07" required>
                     <!-- LAS OPTIONS SON DINAMICAS /PUBLIC/JS/DIW-UTILS-->
                     
@@ -134,7 +152,7 @@
                 </div>
 
                 <div class="col-md-2">
-                  <label for="validationCustom08" class="form-label">Codigo Postal</label>
+                  <label for="validationCustom08" class="form-label lang" key="formCP">Codigo Postal</label>
                   <input type="text" class="form-control" id="validationCustom08" value="" required pattern="[0-9]{5}">
                   <div class="valid-feedback">
                     🔥🔥🔥🔥
@@ -143,18 +161,18 @@
 
                 <div class="col-md-2">
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                    <input class="form-check-input lang" key="formNoTarjeta" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
                     <label class="form-check-label" for="inlineRadio1">No tarjeta</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                    <input class="form-check-input lang" key="formSiTarjeta" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
                     <label class="form-check-label" for="inlineRadio2">Si tarjeta</label>
                   </div>
                 </div>
 
                 <div id="pagoContainer">
                   <div class="col-md-6">
-                    <label for="validationCustom09" class="form-label">IBAN</label>
+                    <label for="validationCustom09" class="form-label lang" key="formIBAN">IBAN</label>
                     <input type="text" class="form-control" id="validationCustom09" value="" required pattern="ES\d{2}[ ]\d{4}[ ]\d{4}[ ]\d{4}[ ]\d{4}[ ]\d{4}|ES\d{22}">
                     <div class="valid-feedback">
                       🔥🔥🔥🔥
@@ -163,7 +181,7 @@
 
                   
                 <div class="col-md-2">
-                  <label for="validationCustom10" class="form-label">CVV</label>
+                  <label for="validationCustom10" class="form-label lang" key="formCVV">CVV</label>
                   <input type="text" class="form-control" id="validationCustom10" value="" required pattern="[0-9]{3}">
                   <div class="valid-feedback">
                     🔥🔥🔥🔥
@@ -178,10 +196,10 @@
                 <div class="col-12">
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-                    <label class="form-check-label" for="invalidCheck">
+                    <label class="form-check-label lang" key="formTerms" for="invalidCheck">
                       Agree to terms and conditions
                     </label>
-                    <div class="invalid-feedback">
+                    <div class="invalid-feedback lang" key="formAgree">
                       You must agree before submitting.
                     </div>
                   </div>
@@ -193,7 +211,7 @@
 
 
                 <div class="col-12">
-                  <button id="bRegister" class="btn btn-primary" type="submit" disabled>Registrarse</button>
+                  <button id="bRegister" class="btn btn-primary lang" key="formReg" type="submit" disabled>Registrarse</button>
                 </div>
               </form>
             </div>
@@ -204,7 +222,7 @@
     </header>
 
     <div class="flash__message">
-      <div class="flash__message--text">
+      <div class="flash__message--text lang" key="message">
         AHORA EN REBAJAS! HASTA -40% DESCUENTO
       </div>
     </div>
@@ -232,28 +250,32 @@
       itemtype="https://schema.org/LocalBusiness"
     >
     <div id="google_translate_element"></div>
-      <div itemprop="name" class="footer__marca">RubenWarehouse®</div>
+      <div itemprop="name" class="footer__marca lang" key="footerName">RubenWarehouse®</div>
       <div class="footer__contacto">
         <div>
           Email:
           <span itemprop="email"
-            ><a href="mailto:admin@admin.com">admin@admin.com</a></span
+            ><a href="mailto:admin@admin.com" class="lang" key="footerMail">admin@admin.com</a></span
           >
         </div>
-        <div>Phone: <span itemprop="telephone">666 80 90 10</span></div>
+        <div class=" lang" key="footerPhone">Phone: <span itemprop="telephone">666 80 90 10</span></div>
         <div>
           Url:
           <span itemprop="url"
-            ><a href="https://rubenwarehouse.com"
+            ><a href="https://rubenwarehouse.com" class="lang" key="footerUrl"
               >https://rubenwarehouse.com</a
             ></span
           >
         </div>
         <div>
-          Site Map: <span><a href="./map.html">Web Map</a></span>
+          Site Map: <span><a id="bWebMap">Web Map</a></span>
+          
+        </div>
+        <div>
+          Google maps: <span><a id="bMaps">Location</a></span>
         </div>
       </div>
-      <div itemprop="paymentAccepted" style="display: none">
+      <div itemprop="paymentAccepted" style="display: none" class="lang" key="footerTipoPago">
         credit card, paypal
       </div>
       <div
@@ -262,11 +284,11 @@
         itemscope=""
         itemprop="address"
       >
-        <div class="" itemprop="streetAddress">Paseo Universidad, 1</div>
+        <div class="lang" key="footerAddr" itemprop="streetAddress">Paseo Universidad, 1</div>
         <div class="">
-          <span itemprop="addressLocality">Ciudad Real</span>,
-          <span itemprop="addressRegion">Cr</span>
-          <span itemprop="postalCode">13005</span>
+          <span class="lang" key="footerLocal"itemprop="addressLocality">Ciudad Real</span>,
+          <span class="lang" key="footerReg" itemprop="addressRegion">Cr</span>
+          <span class="lang" key="footerPostal"itemprop="postalCode">13005</span>
         </div>
       </div>
     </footer>
@@ -280,17 +302,10 @@
       integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
       crossorigin="anonymous"
     ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../../public/js/script.js" charset="utf-8"></script>  
     <script src="../../app/StoreHouseApp.js" type="module"></script>
     <script src="../../public/js/diw-utils.js"></script>
-    <script type="text/javascript">
-      function googleTranslateElementInit() {
-          new google.translate.TranslateElement(
-              { pageLanguage: 'es' },
-              'google_translate_element'
-          );
-      } 
-  </script>
-  <script type="text/javascript"
-      src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    
   </body>
 </html>

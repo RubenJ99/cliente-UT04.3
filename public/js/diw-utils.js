@@ -61,5 +61,29 @@ $('#bAbout').click(function(){
     trabajamos como partners.
     
     Aqui podras encontrar filtrado por tienda y tambien podras filtrar los productos por categoria independientemente de la 
-    tienda que quieras encontrar</p>`);
+    tienda que quieras encontrar</p>
+
+    <video class="video" width="600" height="400" controls>
+        <source src="../../public/media/promozara.mp4" type="video/mp4">
+    </video> `);
 })
+
+
+
+$('#contraste').click(function(){
+    if(sessionStorage.getItem('theme') == 'highC'){
+        sessionStorage.setItem('theme','def');
+        location.reload();
+    }else if(sessionStorage.getItem('theme') == 'def'){
+        sessionStorage.setItem('theme','highC');
+        $('html *:not(script, style, noscript)').each(function() {
+            $(this).css("background", "none");
+            $(this).css("background-color", "yellow");
+            $(this).css("color", "black");
+            $(this).css("box-shadow", "none");
+            $(this).css("text-shadow", "none");
+        });
+    }else{
+        sessionStorage.setItem('theme','def');
+    }
+});
