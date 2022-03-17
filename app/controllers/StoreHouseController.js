@@ -161,6 +161,8 @@ export default class StoreHouseController{
         this.#storeHouseView.bindCats(this.handlerCats);
         this.#storeHouseView.bindPop(this.handlerPop);
         this.#storeHouseView.bindClosePop(this.handlerClosePop);
+
+        this.#storeHouseView.bindFormAddStore(this.handlerFormAddStore);
         
     }
 
@@ -315,4 +317,21 @@ export default class StoreHouseController{
 
         this.#storeHouseView.activeWindows = [];
     }
+
+    handlerFormAddProduct = () => {
+
+    }
+    handlerFormRemoveProduct = () => {
+        
+    }
+    handlerFormAddCategory = () => {
+        
+    }
+    handlerFormRemoveCategory = () => {
+        
+    }
+    handlerFormAddStore = () => {
+        this.#storeHouseView.showFormAddStore();
+    }
+    
 }

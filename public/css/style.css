@@ -210,3 +210,18 @@ body{
 .main__footer > * {
   color: gray;
 }
+
+
+.input-control.is-valid {
+  border-color: green;
+}
+
+.input-control.is-invalid {
+  border-color: red;
+}
+
+.input-control .error {
+  color: red;
+  font-size: 9px;
+  height: 13px;
+}
