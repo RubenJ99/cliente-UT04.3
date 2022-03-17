@@ -42,8 +42,16 @@ const StoreHouse = (function () {
           "DefStore",
           "RandomAddress",
           "123456789",
-          new Coords("1", "1")
+          new Coords("1", "1"),
+          "defstore.png"
         );
+
+        this.#stores.push({
+          store: StoreHouse.#defStore,
+          products: [
+            /*id:Product.id,stock:number*/
+          ],
+        })
       }
       /*Getter & Setter basico name*/
       get name() {
@@ -296,7 +304,7 @@ const StoreHouse = (function () {
         });
         return this.#stores.length;
       }
-    
+      
       /**
        * Borramos la tienda requerida, pero antes de eso colocamos todos los productos que contenia en la tienda por defecto
        * @param shop
@@ -309,12 +317,21 @@ const StoreHouse = (function () {
           this.#stores[shopIndex].products.forEach((elem) => {
             this.#categories.forEach((cat) => {
               cat.products.forEach((prod) => {
-                if (prod.serialNumber === elem.serialNumber) {
-                  prod.store = StoreHouse.#defStore;
+                if (prod.product.serialNumber === elem.serialNumber) {
+                  prod.store = StoreHouse.#defStore.cif;
+                  //* EDITADO PARA MANTENER REFERENCIAS CORRECTAS PRACTICA FORMS
+                  this.#stores[0].products.push({
+                    serialNumber: elem.serialNumber,
+                    stock: elem.stock 
+                  });
                 }
               });
             });
           });
+
+
+
+
           this.#stores.splice(shopIndex, 1);
         }
       }
@@ -332,7 +349,7 @@ const StoreHouse = (function () {
         let i = this.#stores.findIndex((e) => {
           return e.store.cif === shop.cif; 
         });
-    
+        
         for (let cat of this.#categories) {
           for (let prods of cat.products) {
             if (prods.store === shop.cif && prods.product instanceof product) {

@@ -7,13 +7,44 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="container">
+    <div class="container" style="color: white;">
         <form action="" id="formAddStore">
-            <div class="input-control">
-                <label for="cifForm"></label>
-                <input type="text" name="cifForm" id="cifForm">
+            <div class="input-control col-md-4">
+                <label for="cifForm">Cif: </label>
+                <input class ="form-control" type="text" name="cifForm" id="cifForm">
                 <div class="error"></div>
             </div>
+
+            <div class="input-control col-md-4">
+                <label for="nameForm">Name: </label>
+                <input class ="form-control" type="text" name="nameForm" id="nameForm">
+                <div class="error"></div>
+            </div>
+
+            <div class="input-control col-md-4">
+                <label for="addressForm">Address: </label>
+                <input class ="form-control" type="text" name="addressForm" id="addressForm">
+                <div class="error"></div>
+            </div>
+
+            <div class="input-control col-md-4">
+                <label for="phoneForm">Phone: </label>
+                <input class ="form-control" type="text" name="phoneForm" id="phoneForm">
+                <div class="error"></div>
+            </div>
+
+            <div class="input-control col-md-4">
+                <label for="coordsForm">Coords: </label>
+                <input class ="form-control" type="text" name="coordsForm" id="coordsForm">
+                <div class="error"></div>
+            </div>
+
+            <div class="input-control col-md-4">
+                <label for="imgForm">Img: </label>
+                <input class ="form-control" type="file" name="imgForm" id="imgForm">
+                <div class="error"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button> 
         </form>
     </div>
 </body>

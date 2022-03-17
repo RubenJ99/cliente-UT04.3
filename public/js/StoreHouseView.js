@@ -1,5 +1,17 @@
 import {Clothes} from "../../database/entities/Clothes.js";
-
+        //* VARS ADD STORE
+        let validCif = false;
+        let validName = false;
+        let validAddress = false;
+        let validPhone = false;
+        let validImg = false;
+        let validCoords = false;
+        let cifValue;
+        let nameValue;
+        let addressValue;
+        let phoneValue;
+        let coordsValue;
+        let imgValue;
 export default class StoreHouseView{
     //No entiendo por que no me funciona correctamente el metodo pushState, parece que no toma correctamente
     //los movimientos entre "paginas"
@@ -16,6 +28,8 @@ export default class StoreHouseView{
         this.dropSt = $('#storesDropUl');
         this.dropCa = $('#categoriesDropUl');
         this.activeWindows = [];
+
+        
     }
 
 
@@ -33,6 +47,7 @@ export default class StoreHouseView{
               <h5 class="card-title">${data.store.name}</h5>
               <p class="card-text">${data.store.address}</p>
               <a class="btn btn-primary bShowProds" data-store="${data.store.cif}" >Productos</a>
+              <a class="btn btn-danger bRemStore" data-store="${data.store.cif}" >Eliminar Tienda</a>
             </div>
           </div>`);
         }
@@ -416,14 +431,44 @@ export default class StoreHouseView{
 
     showFormAddStore(){
         this.main.empty();
-        this.main.append(`    <div class="container" style="color: white;">
-        <form action="" id="formAddStore">
+        this.main.append(`   <div class="container" style="color: white;">
+        <form action="" id="formAddStore" method="POST">
             <div class="input-control col-md-4">
                 <label for="cifForm">Cif: </label>
                 <input class ="form-control" type="text" name="cifForm" id="cifForm">
                 <div class="error"></div>
             </div>
-            <button type="submit" class="btn btn-primary">Add</button> 
+
+            <div class="input-control col-md-4">
+                <label for="nameForm">Name: </label>
+                <input class ="form-control" type="text" name="nameForm" id="nameForm">
+                <div class="error"></div>
+            </div>
+
+            <div class="input-control col-md-4">
+                <label for="addressForm">Address: </label>
+                <input class ="form-control" type="text" name="addressForm" id="addressForm">
+                <div class="error"></div>
+            </div>
+
+            <div class="input-control col-md-4">
+                <label for="phoneForm">Phone: </label>
+                <input class ="form-control" type="text" name="phoneForm" id="phoneForm">
+                <div class="error"></div>
+            </div>
+
+            <div class="input-control col-md-4">
+                <label for="coordsForm">Coords: </label>
+                <input class ="form-control" type="text" name="coordsForm" id="coordsForm">
+                <div class="error"></div>
+            </div>
+
+            <div class="input-control col-md-4">
+                <label for="imgForm">Img: </label>
+                <input class ="form-control" type="file" name="imgForm" id="imgForm">
+                <div class="error"></div>
+            </div></br>
+            <button type="submit" class="btn btn-success">Add</button> <span>Keep trying until everthing is valid 😅</span>
         </form>
     </div>`);
     }
@@ -448,198 +493,130 @@ export default class StoreHouseView{
             handler();
         })
     }
+    //STORE
     bindFormAddStore(handler){
         $('#bFormAddS').click(function(event){
             handler();
         })
     }
+    bindFormRemoveStore(handler){
+        $(document).on('click','.bRemStore',(e)=>{
+            handler($(e.target).closest($('.bRemStore')).get(0).dataset.store);
+        })
+    }
+
+    //*VALIDACION
+
+    bindValidAddStore(handler){
+        $(document).on('submit','#formAddStore',(event)=>{
+            const cifForm = document.getElementById('cifForm');
+            const nameForm = document.getElementById('nameForm');
+            const addressForm = document.getElementById('addressForm');
+            const phoneForm = document.getElementById('phoneForm');
+            const coordsForm = document.getElementById('coordsForm');
+            const imgForm = document.getElementById('imgForm');
+
+            this.validateInputsAddStore();
+            if(!validCif || !validName || !validAddress 
+            || !validPhone || !validImg || !validCoords){
+                event.preventDefault();
+                event.stopPropagation();
+            }else{
+                event.preventDefault();
+                event.stopPropagation();
+                setTimeout(
+                    handler(cifValue,nameValue,addressValue,
+                        phoneValue,coordsValue,imgValue),
+                    3000
+                );
+            }
+        });
+    }
+
+
     
+    //*METODOS INTERNOS PARA VALIDACION
+
+    setError(element,message){
+        let inputControl = element.parentElement;
+        let error = inputControl.querySelector('.error');
+    
+        error.innerText = message;
+        element.classList.add('is-invalid');
+        element.classList.remove('is-valid');
+    }
+    
+    setSuccess(element){
+        let inputControl = element.parentElement;
+        let error = inputControl.querySelector('.error');
+    
+        error.innerText = '';
+        element.classList.add('is-valid');
+        element.classList.remove('is-invalid');
+    }
+    
+    //*VALIDACION INPUTS DE ADDSTORE
+
+    validateInputsAddStore(){
+        cifValue = cifForm.value;
+        nameValue = nameForm.value;
+        addressValue = addressForm.value;
+        phoneValue = phoneForm.value;
+        coordsValue = coordsForm.value;
+        imgValue = imgForm.files.item(0).name;
+    
+        
+        if(cifValue === ''){
+            this.setError(cifForm,'Cif is required');
+        }else if(!(/([a-z]|[A-Z]|[0-9])[0-9]{7}([a-z]|[A-Z]|[0-9])/g.test(cifValue))){
+            this.setError(cifForm,'Invalid cif format');
+        }else{
+            this.setSuccess(cifForm);
+            validCif = true;
+        }
+    
+        if(nameValue === " "){
+            this.setError(nameForm,"Name is required");
+        }else if(nameValue.legth < 2 || nameValue.legth > 20){
+            this.setError(nameForm,"Invalid length");
+        }else{
+            this.setSuccess(nameForm);
+            validName = true;
+        }
+    
+        if(addressValue === " "){
+            this.setError(addressForm,"Address is required");
+        }else if(addressValue.length < 2 || addressValue.legth > 50){
+            this.setError(addressForm,"Invalid length");
+        }else{
+            this.setSuccess(addressForm);
+            validAddress = true;
+        }
+    
+        if(phoneValue === " "){
+            this.setError(phoneForm,"Phone is required");
+        }else if(!(/^[679]{1}[0-9]{8}$/.test(phoneValue))){
+            this.setError(phoneForm,"Phone is not valid");
+        }else{
+            this.setSuccess(phoneForm);
+            validPhone = true;
+        }
+    
+        if(coordsValue === " "){
+            this.setError(coordsForm,"Coord is required");
+        }else{
+            this.setSuccess(coordsForm);
+            validCoords = true;
+        }
+    
+    
+        if(!(/(\.jpg|\.jpeg|\.png)$/i).test(imgValue)){
+            this.setError(imgForm,"Image is not valid");
+        }else{
+            this.setSuccess(imgForm);
+            validImg = true;
+        }
+    }
+
+    //fin view class
 }
-
-
-/**
- * <form name="fValidation" role="form">
-				<!-- Requiered -->
-				<div class="form-row">
-					<div class="col-md-4 mb-3">
-						<label for="vfName">Nombre *</label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="namePrepend"><i class="fas fa-user"></i></span>
-							</div>
-							<input type="text" class="form-control" id="vfName" name="vfName" placeholder="Nombre"
-								aria-describedby="namePrepend" value="" required>
-							<div class="invalid-feedback">El nombre es obligatorio.</div>
-							<div class="valid-feedback">Correcto.</div>
-						</div>
-					</div>
-					<div class="col-md-4 mb-3">
-						<label for="vfSurname1">Primer apellido *</label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="surname1Prepend"><i class="fas fa-user"></i></span>
-							</div>
-							<input type="text" class="form-control" id="vfSurname1" name="vfSurname1"
-								placeholder="Segundo apellido" aria-describedby="surname1Prepend" value="" required>
-							<div class="invalid-feedback">El primer apellido es obligatorio.</div>
-							<div class="valid-feedback">Correcto.</div>
-						</div>
-					</div>
-					<div class="col-md-4 mb-3">
-						<label for="vfSurname2">Segundo apellido</label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="surname2Prepend"><i class="fas fa-user"></i></span>
-							</div>
-							<input type="text" class="form-control" id="vfSurname2" name="vfSurname2"
-								placeholder="Segundo apellido" aria-describedby="surname2Prepend" value="">
-							<div class="valid-feedback">Correcto.</div>
-						</div>
-					</div>
-				</div>
-				<!-- Tipos de datos -->
-				<div class="form-row">
-					<div class="col-md-3 mb-3">
-						<label for="vfBirth">Fecha de nacimiento *</label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="birthPrepend"><i class="fas fa-calendar-alt"></i></span>
-							</div>
-							<input type="date" class="form-control" id="vfBirth" name="vfBirth"
-								aria-describedby="birthPrepend" value="" required>
-							<div class="invalid-feedback">La fecha de nacimiento es incorrecta.</div>
-							<div class="valid-feedback">Correcto.</div>
-						</div>
-					</div>
-					<div class="col-md-3 mb-3">
-						<label for="vfEmail">Correo electrónico *</label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="emailPrepend"><i
-										class="fas fa-envelope-open-text"></i></span>
-							</div>
-							<input type="email" class="form-control" id="vfEmail" name="vfEmail" placeholder="test@test.es"
-								aria-describedby="emailPrepend" value="" required>
-							<div class="invalid-feedback">El formato del correo electrónico no es correcto.</div>
-							<div class="valid-feedback">Correcto.</div>
-						</div>
-					</div>
-					<div class="col-md-3 mb-3">
-						<label for="vfUrl">URL *</label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="urlPrepend"><i
-										class="fas fa-envelope-open-text"></i></span>
-							</div>
-							<input type="url" class="form-control" id="vfUrl" name="vfUrl" placeholder="http://www.test.es"
-								aria-describedby="urlPrepend" value="" required>
-							<div class="invalid-feedback">La URL no es válida.</div>
-							<div class="valid-feedback">Correcto.</div>
-						</div>
-					</div>
-					<div class="col-md-3 mb-3">
-						<label for="vfNumber">Número entre 1 y 10. *</label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="numberPrepend"><i
-										class="fas fa-sort-numeric-up-alt"></i></span>
-							</div>
-							<input type="number" class="form-control" id="vfNumber" name="vfNumber"
-								aria-describedby="numberPrepend" value="" required min="1" max="10">
-							<div class="invalid-feedback">El número debe ser positivo entre 1 y 10.</div>
-							<div class="valid-feedback">Correcto.</div>
-						</div>
-					</div>
-				</div>
-				<!-- Patrones -->
-				<div class="form-row">
-					<div class="col-md-4 mb-3">
-						<label for="vfDni">DNI *</label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="dniPrepend"><i class="fas fa-user"></i></span>
-							</div>
-							<input type="text" class="form-control" id="vfDni" name="vfDni" placeholder="12345678A"
-								aria-describedby="dniPrepend" value="" required maxlength="9" pattern="^[0-9]{8}[A-Z]$">
-							<div class="invalid-feedback">El DNI debe estar formado por 8 digitos y una letra.</div>
-							<div class="valid-feedback">Correcto.</div>
-						</div>
-					</div>
-					<div class="col-md-4 mb-3">
-						<label for="vfPhone">Teléfono *</label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="phonePrepend"><i class="fas fa-phone"></i></span>
-							</div>
-							<input type="text" class="form-control" id="vfPhone" name="vfPhone" placeholder="(6-9)XXXXXXXX"
-								aria-describedby="phonePrepend" value="" required maxlength="9" pattern="^[96][0-9]{8}$">
-							<div class="invalid-feedback">El número de teléfono debe ser un móvil o un fijo.</div>
-							<div class="valid-feedback">Correcto.</div>
-						</div>
-					</div>
-					<div class="col-md-4 mb-3">
-						<label for="vfCreditCard">Tarjeta de crédito *</label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="cardPrepend"><i class="fas fa-phone"></i></span>
-							</div>
-							<input type="text" class="form-control" id="vfCreditCard" name="vfCreditCard"
-								placeholder="XXXX XXXX XXXX XXXX" aria-describedby="cardPrepend" value="" required maxlength="19"
-								pattern="^[0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}$">
-							<div class="invalid-feedback">La tarjeta de crédito no es válida.</div>
-							<div class="valid-feedback">Correcto.</div>
-						</div>
-					</div>
-				</div>
-				<!-- Contraseñas -->
-				<div class="form-row">
-					<div class="col-md-6 mb-3">
-						<label for="vfPwd">Contraseña *</label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="pwdPrepend"><i class="fas fa-key"></i></span>
-							</div>
-							<input type="password" class="form-control" id="vfPwd" name="vfPwd"
-								aria-describedby="pwdPrepend" value="" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" required>
-							<div class="invalid-feedback">La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula y al menos una mayúscula. Puede tener otros símbolos.</div>
-							<div class="valid-feedback">Correcto.</div>
-						</div>
-					</div>
-					<div class="col-md-6 mb-3">
-						<label for="vfConfirm">Confirmación de contraseña *</label>
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text" id="confirmPrepend"><i class="fas fa-key"></i></span>
-							</div>
-							<input type="password" class="form-control" id="vfConfirm" name="vfConfirm"
-								aria-describedby="confirmPrepend" value="" pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" required>
-							<div class="invalid-feedback">La contraseña y la confirmación deben ser iguales.</div>
-							<div class="valid-feedback">Correcto.</div>
-						</div>
-					</div>
-				</div>
-				<!-- Otros tipos de datos -->
-				<div class="form-group">
-					<label for="vfFile">Adjunta imagen con extenxión jpg, png o gif. *</label>
-					<div class="custom-file">
-						<input type="file" class="custom-file-input" id="vfFile" name="vfFile" required>
-						<label class="custom-file-label" for="file">Elige archivo</label>
-						<div class="invalid-feedback">Debe seleccionar un archivo con extensión jpg, png o gif.</div>
-						<div class="valid-feedback">Correcto.</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="vfTerms" name="vfTerms" required>
-						<label class="form-check-label" for="vfTerms">
-							Acepta los términos de uso.
-						</label>
-						<div class="invalid-feedback">Debe aceptar los términos de uso.</div>
-						<div class="valid-feedback">Correcto.</div>
-					</div>
-				</div>
-
-				<button class="btn btn-primary" type="submit">Enviar</button>
-				<button class="btn btn-primary" type="reset">Cancelar</button>
-			</form>
- */

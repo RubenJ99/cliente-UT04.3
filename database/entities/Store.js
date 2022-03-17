@@ -20,7 +20,7 @@ class Store{
     this.#coords = coords;
     this.#phone = phone;
     this.#coords = coords;
-    this.#img = img;
+    this.#img = "../../public/media/" +img;
 
   }
   #checkCif(cif){

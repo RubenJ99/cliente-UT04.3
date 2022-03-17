@@ -79,9 +79,9 @@ export default class StoreHouseController{
         let store2;
         let store3;
         try {
-            store1 = new Store('S2447905G','Tienda Madrid','C/ Mayor 12',967899011,new Coords('50.4536','30.5164 50° 27′ 13″ North, 30° 30′ 59″ East'),'../../public/media/mmStore.jpg');
-            store2 = new Store('H50463439','Tienda Ciudad Real','C/ Menor 21',957899011,new Coords('50.4536','30.5164 50° 27′ 13″ North, 30° 30′ 59″ East'),'../../public/media/primorStore.jpg');
-            store3 = new Store('P0636988H','Tienda Barcelona','C/ Ramblas 2',997899011,new Coords('50.4536','30.5164 50° 27′ 13″ North, 30° 30′ 59″ East'),'../../public/media/zaraStore.png',);
+            store1 = new Store('S2447905G','Tienda Madrid','C/ Mayor 12',967899011,new Coords('50.4536','30.5164 50° 27′ 13″ North, 30° 30′ 59″ East'),'mmStore.jpg');
+            store2 = new Store('H50463439','Tienda Ciudad Real','C/ Menor 21',957899011,new Coords('50.4536','30.5164 50° 27′ 13″ North, 30° 30′ 59″ East'),'primorStore.jpg');
+            store3 = new Store('P0636988H','Tienda Barcelona','C/ Ramblas 2',997899011,new Coords('50.4536','30.5164 50° 27′ 13″ North, 30° 30′ 59″ East'),'zaraStore.png',);
         } catch (error) {
             console.error(error);
         }
@@ -132,14 +132,16 @@ export default class StoreHouseController{
             console.error(error);
         }
 
-        try {
-            this.#storeHouseModel.addProductInShop(clothingItem1,store1,3);
-            this.#storeHouseModel.addQuantityProductInShop(clothingItem3,store1,20);
 
-            this.#storeHouseModel.addProductInShop(smartWatchItem1,store3,400);
-        } catch (error) {
-            console.error(error);
-        }
+        //TODO esto peta porque fatatas, error en el modelo
+        // try {
+        //     this.#storeHouseModel.addProductInShop(clothingItem1,store1,3);
+        //     this.#storeHouseModel.addQuantityProductInShop(clothingItem3,store1,20);
+
+        //     this.#storeHouseModel.addProductInShop(smartWatchItem1,store3,400);
+        // } catch (error) {
+        //     console.error(error);
+        // }
     }
 
     /**
@@ -162,7 +164,12 @@ export default class StoreHouseController{
         this.#storeHouseView.bindPop(this.handlerPop);
         this.#storeHouseView.bindClosePop(this.handlerClosePop);
 
+        //forms gen zone
         this.#storeHouseView.bindFormAddStore(this.handlerFormAddStore);
+        this.#storeHouseView.bindFormRemoveStore(this.handlerRemoveStore);
+
+        //valid check zone
+        this.#storeHouseView.bindValidAddStore(this.handlerCheckAddStore);
         
     }
 
@@ -214,8 +221,10 @@ export default class StoreHouseController{
         for (let st of this.#storeHouseModel.shops) {
             if(st.store.cif == cifStore) currentShop = st.store;
         }
+        
         let mp = new Map();
         for (let cat of this.#storeHouseModel.getShopProducts(currentShop)) {
+            console.log(cat);
             if(!(mp.has(cat.category.title))){
                 mp.set(cat.category.title,(`<fieldset class="border p-2">
                 <legend class="w-auto" id="${cat.category.title}">
@@ -333,5 +342,39 @@ export default class StoreHouseController{
     handlerFormAddStore = () => {
         this.#storeHouseView.showFormAddStore();
     }
+
+    //HANDLERS STORE
+    handlerCheckAddStore = (...formValues) => {
+        let newStore = new Store(formValues[0],formValues[1],
+            formValues[2],formValues[3],formValues[4],formValues[5]);
+        this.#storeHouseModel.addShop(newStore);
+        
+        let data = {
+            stores: this.#storeHouseModel.shops,
+            cats: this.#storeHouseModel.categories,
+        }
+
+        this.#storeHouseView.showStores(data);
+        this.#storeHouseView.showDrops(data);
+        
+    }
+    handlerRemoveStore = (cifStore)=>{
+        let currentShop;
+        for (let st of this.#storeHouseModel.shops) {
+            if(st.store.cif == cifStore) currentShop = st.store;
+        }
+
+        this.#storeHouseModel.removeShop(currentShop);
+
+
+        let data = {
+            stores: this.#storeHouseModel.shops,
+            cats: this.#storeHouseModel.categories,
+        }
+
+        this.#storeHouseView.showStores(data);
+        this.#storeHouseView.showDrops(data);
+    }
+
     
 }
