@@ -563,7 +563,12 @@ export default class StoreHouseView{
         addressValue = addressForm.value;
         phoneValue = phoneForm.value;
         coordsValue = coordsForm.value;
-        imgValue = imgForm.files.item(0).name;
+        if(imgForm.files.item(0).name){
+            imgValue = imgForm.files.item(0).name;
+        }else{
+            imgValue = "";
+        }
+        
     
         
         if(cifValue === ''){
