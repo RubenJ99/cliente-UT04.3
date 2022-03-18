@@ -95,6 +95,7 @@ export default class StoreHouseView{
               <p class="card-text">${data.product.description}</p>
               <a class="btn btn-primary bShowInfo" value="${data.product.serialNumber}">Info</a>
               <a class="btn btn-warning bPopInfo" value="${data.product.serialNumber}">Pop up</a>
+              <a class="btn btn-danger bRemProd" value="${data.product.serialNumber}">Eliminar</a>
             </div>
           </div>`);
         }
@@ -432,7 +433,7 @@ export default class StoreHouseView{
     showFormAddStore(){
         this.main.empty();
         this.main.append(`   <div class="container" style="color: white;">
-        <form action="" id="formAddStore" method="POST">
+        <form action="" id="formAddStore" method="POST" enctype=multipart/form-data>
             <div class="input-control col-md-4">
                 <label for="cifForm">Cif: </label>
                 <input class ="form-control" type="text" name="cifForm" id="cifForm">
@@ -479,9 +480,9 @@ export default class StoreHouseView{
         })
     }
     bindFormRemoveProduct(handler){
-        $('#bFormRemP').click(function(event){
-            handler();
-        })
+       $(document).on('click','.bRemProd',function(e){
+           handler($(this).attr('value'));
+       })
     }
     bindFormAddCategory(handler){
         $('#bFormAddC').click(function(event){
@@ -563,7 +564,7 @@ export default class StoreHouseView{
         addressValue = addressForm.value;
         phoneValue = phoneForm.value;
         coordsValue = coordsForm.value;
-        if(imgForm.files.item(0).name){
+        if(imgForm.value != ""){
             imgValue = imgForm.files.item(0).name;
         }else{
             imgValue = "";

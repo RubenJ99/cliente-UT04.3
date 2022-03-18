@@ -168,6 +168,8 @@ export default class StoreHouseController{
         this.#storeHouseView.bindFormAddStore(this.handlerFormAddStore);
         this.#storeHouseView.bindFormRemoveStore(this.handlerRemoveStore);
 
+        this.#storeHouseView.bindFormAddProduct(this.handlerAddProduct);
+        this.#storeHouseView.bindFormRemoveProduct(this.handlerRemoveProduct);
         //valid check zone
         this.#storeHouseView.bindValidAddStore(this.handlerCheckAddStore);
         
@@ -328,10 +330,7 @@ export default class StoreHouseController{
     }
 
     handlerFormAddProduct = () => {
-
-    }
-    handlerFormRemoveProduct = () => {
-        
+        this.#storeHouseView.showFormAddProduct()
     }
     handlerFormAddCategory = () => {
         
@@ -376,5 +375,28 @@ export default class StoreHouseController{
         this.#storeHouseView.showDrops(data);
     }
 
-    
+    //HANDLERS PRODUCT
+    handlerCheckAddProduct = () => {
+
+    }
+    handlerRemoveProduct = (serialNumber) => {
+        let currentProd;
+        for (let cat of this.#storeHouseModel.categories) {
+            for (let prod of cat.products) {
+                if(prod.product.serialNumber == serialNumber){
+                    currentProd = prod;
+                }
+            }
+        }
+        console.log(currentProd);
+        this.#storeHouseModel.removeProduct(currentProd);
+
+        let data = {
+            stores: this.#storeHouseModel.shops,
+            cats: this.#storeHouseModel.categories,
+        }
+
+        this.#storeHouseView.showStores(data);
+        this.#storeHouseView.showDrops(data);
+    }
 }

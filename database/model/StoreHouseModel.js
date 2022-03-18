@@ -52,6 +52,11 @@ const StoreHouse = (function () {
             /*id:Product.id,stock:number*/
           ],
         })
+
+        this.#categories.push({
+          category: StoreHouse.#defStore, 
+          products: [] 
+        })
       }
       /*Getter & Setter basico name*/
       get name() {
@@ -165,17 +170,34 @@ const StoreHouse = (function () {
        */
       removeProduct(newProduct) {
         if (!newProduct) throw new EmptyValueException("newProduct", newProduct);
-        if (!(newProduct instanceof Product))
-          throw new InvalidInstanceException("newProduct", Product);
+        // if (!(newProduct instanceof Product))
+        //   throw new InvalidInstanceException("newProduct", Product);
+        
         this.#categories.forEach((cat) => {
           let prodIndex = cat.products.findIndex((prod) => {
-            return (
-              Object.entries(prod).toString() ===
-              Object.entries(newProduct).toString()
-            );
+            return prod.product.serialNumber === newProduct.serialNumber;
           });
-          cat.products.splice(prodIndex, 1);
+          this.#categories[0].products.push({
+            product: cat.products[prodIndex].product,
+            store: cat.products[prodIndex].store
+          });
+
+          let stIndex = this.#stores.findIndex(st => {
+            return st.store.cif == prod.store;
+          })
+
+          let prodSIndex = this.#stores[stIndex].products.findIndex(prodI => {
+            return prodI.serialNumber === cat.products[prodIndex].product.serialNumber;
         });
+
+        this.#stores[0].products.push({
+          serialNumber: this.#stores[stIndex].products[prodSIndex].serialNumber,
+          stock: this.#stores[stIndex].products[prodSIndex].stock
+        })
+
+        this.#stores[stIndex].products.splice(prodSIndex,1) //borra de su tienda
+        cat.products.splice(prodIndex, 1); //borrar de la cat
+      })
       }
     
       /**
