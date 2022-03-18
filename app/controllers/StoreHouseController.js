@@ -164,14 +164,23 @@ export default class StoreHouseController{
         this.#storeHouseView.bindPop(this.handlerPop);
         this.#storeHouseView.bindClosePop(this.handlerClosePop);
 
+
+
+        this.#storeHouseView.bindTypeAddProduct(this.handlerFormTypeProduct);
         //forms gen zone
         this.#storeHouseView.bindFormAddStore(this.handlerFormAddStore);
         this.#storeHouseView.bindFormRemoveStore(this.handlerRemoveStore);
+        this.#storeHouseView.bindRemoveStore(this.handlerRemoveStoreNow);
 
-        this.#storeHouseView.bindFormAddProduct(this.handlerAddProduct);
+        this.#storeHouseView.bindFormAddCategory(this.handlerFormAddCategory);
+
+        this.#storeHouseView.bindFormAddProduct(this.handlerFormAddProduct);
         this.#storeHouseView.bindFormRemoveProduct(this.handlerRemoveProduct);
         //valid check zone
         this.#storeHouseView.bindValidAddStore(this.handlerCheckAddStore);
+        this.#storeHouseView.bindValidAddCategory(this.handlerCheckAddCategory);
+
+
         
     }
 
@@ -328,12 +337,14 @@ export default class StoreHouseController{
 
         this.#storeHouseView.activeWindows = [];
     }
-
-    handlerFormAddProduct = () => {
-        this.#storeHouseView.showFormAddProduct()
+    handlerFormTypeProduct = () =>{
+        this.#storeHouseView.showTypesProds();
+    }
+    handlerFormAddProduct = (type) => {
+        this.#storeHouseView.showFormAddProduct(type);
     }
     handlerFormAddCategory = () => {
-        
+        this.#storeHouseView.showFormAddCategory();
     }
     handlerFormRemoveCategory = () => {
         
@@ -357,14 +368,21 @@ export default class StoreHouseController{
         this.#storeHouseView.showDrops(data);
         
     }
-    handlerRemoveStore = (cifStore)=>{
+    handlerRemoveStore = ()=>{
+      
+        let data = {
+            stores: this.#storeHouseModel.shops,
+        }
+        
+        this.#storeHouseView.showFormRemoveStore(data);
+    }
+    handlerRemoveStoreNow = (cifStore)=>{
         let currentShop;
         for (let st of this.#storeHouseModel.shops) {
             if(st.store.cif == cifStore) currentShop = st.store;
         }
 
         this.#storeHouseModel.removeShop(currentShop);
-
 
         let data = {
             stores: this.#storeHouseModel.shops,
@@ -373,6 +391,7 @@ export default class StoreHouseController{
 
         this.#storeHouseView.showStores(data);
         this.#storeHouseView.showDrops(data);
+
     }
 
     //HANDLERS PRODUCT
@@ -390,6 +409,20 @@ export default class StoreHouseController{
         }
         console.log(currentProd);
         this.#storeHouseModel.removeProduct(currentProd);
+
+        let data = {
+            stores: this.#storeHouseModel.shops,
+            cats: this.#storeHouseModel.categories,
+        }
+
+        this.#storeHouseView.showStores(data);
+        this.#storeHouseView.showDrops(data);
+    }
+
+    //HANDLERS CAT
+    handlerCheckAddCategory = (...dataCat) =>{
+        let newCat = new Category(dataCat[0],dataCat[1]);
+        this.#storeHouseModel.addCategory(newCat);
 
         let data = {
             stores: this.#storeHouseModel.shops,

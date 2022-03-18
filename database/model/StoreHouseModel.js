@@ -100,7 +100,10 @@ const StoreHouse = (function () {
           },
         };
       }
-    
+      
+      peek(){
+        return this.#stores;
+      }
       /**
        * Dada una nueva categoria si es correcta insertamos en el array de categorias un objeto a forma JSON con los parametros requeridos
        * @param newCategory

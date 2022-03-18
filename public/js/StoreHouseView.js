@@ -12,6 +12,32 @@ import {Clothes} from "../../database/entities/Clothes.js";
         let phoneValue;
         let coordsValue;
         let imgValue;
+
+        //* VARS ADD CAT
+        let validTitle = false;
+        let validDesc = false;
+        let titleValue;
+        let descValue;
+
+        //* VARS ADD PERFUME
+
+        let validProdSN = false;
+        let validProdName = false;
+        let validProdDesc = false;
+        let validProdPrice = false;
+        let validProdTax = false;
+        let validProdImg = false;
+        let validProdOdor = false;
+        let validProdGender = false;
+        let serialNumberValue;
+        let nameProdValue;
+        let descProdValue;
+        let priceValue;
+        let taxValue;
+        let imgProdValue;
+        let odorValue;
+        let genderValue;
+
 export default class StoreHouseView{
     //No entiendo por que no me funciona correctamente el metodo pushState, parece que no toma correctamente
     //los movimientos entre "paginas"
@@ -47,7 +73,7 @@ export default class StoreHouseView{
               <h5 class="card-title">${data.store.name}</h5>
               <p class="card-text">${data.store.address}</p>
               <a class="btn btn-primary bShowProds" data-store="${data.store.cif}" >Productos</a>
-              <a class="btn btn-danger bRemStore" data-store="${data.store.cif}" >Eliminar Tienda</a>
+              <!--<a class="btn btn-danger bRemStore" data-store="${data.store.cif}" >Eliminar Tienda</a>-->
             </div>
           </div>`);
         }
@@ -473,58 +499,217 @@ export default class StoreHouseView{
         </form>
     </div>`);
     }
+
+    showFormRemoveStore(query){
+        this.main.empty();
+        this.main.append(`<div id="a" class="container">
+            <select id="StoreToDelete">`);
+            for (let shop of query.stores) {
+                if(!(shop.store.cif === "H92482892")){
+                    $('#StoreToDelete').append(`<option class="optDelStore" value="${shop.store.cif}">${shop.store.name}</option>`);
+                }
+              
+            }
+            this.main.append(`</select>
+        </div>`);
+        $('#a').append(` <button class="btn btn-danger" type="button" id="bDeleteStore">Borrar</button>`)
+    }
+
+    showFormAddCategory(){
+        this.main.empty();
+        this.main.append(`<div class="container" style="color: white;">
+        <form action="" id="formAddCategory" method="POST" enctype=multipart/form-data>
+            <div class="input-control col-md-4">
+                <label for="titleForm">Title: </label>
+                <input class ="form-control" type="text" name="titleForm" id="titleForm">
+                <div class="error"></div>
+            </div>
+
+            <div class="input-control col-md-4">
+                <label for="descForm">Description: </label>
+                <input class ="form-control" type="text" name="descForm" id="descForm">
+                <div class="error"></div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Add</button> <span>Keep trying until everthing is valid 😅</span>
+        </form>
+    </div>`);
+    }
     
-    bindFormAddProduct(handler){
-        $('#bFormAddP').click(function(event){
+    showFormAddProduct(type){
+        this.main.empty();
+        if(type == "Perfume"){
+            this.main.append(`<div class="container" style="color: white;">
+        <form action="" id="formAddPerfume" method="POST" enctype=multipart/form-data>
+
+            <div class="input-control col-md-4">
+                <label for="serialNumberForm">Serial Number: </label>
+                <input class ="form-control" type="text" name="titleForm" id="serialNumberForm">
+                <div class="error"></div>
+            </div>
+
+            <div class="input-control col-md-4">
+                <label for="nameProdForm">Nombre: </label>
+                <input class ="form-control" type="text" name="descForm" id="nameProdForm">
+                <div class="error"></div>
+            </div>
+
+            <div class="input-control col-md-4">
+                <label for="descProdForm">Description: </label>
+                <input class ="form-control" type="text" name="descForm" id="descProdForm">
+                <div class="error"></div>
+            </div>
+
+            <div class="input-control col-md-4">
+                <label for="priceForm">Price: </label>
+                <input class ="form-control" type="number" name="descForm" id="priceForm">
+                <div class="error"></div>
+            </div>
+
+            <div class="input-control col-md-4">
+                <label for="taxForm">Tax: </label>
+                <input class ="form-control" type="number" name="descForm" id="taxForm">
+                <div class="error"></div>
+            </div>
+
+            <div class="input-control col-md-4">
+                <label for="imgProdForm">Img: </label>
+                <input class ="form-control" type="file" name="imgForm" id="imgProdForm">
+                <div class="error"></div>
+            </div>
+
+            <div class="input-control col-md-4">
+                <label for="odorForm">Odor: </label>
+                <input class ="form-control" type="number" name="descForm" id="odorForm">
+                <div class="error"></div>
+            </div>
+
+            <div class="input-control col-md-4">
+                <label for="genderForm">Gender: </label>
+                <input class ="form-control" type="number" name="descForm" id="genderForm">
+                <div class="error"></div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Add</button> <span>Keep trying until everthing is valid 😅</span>
+        </form>
+    </div>`);
+        }
+        if(type == "Clothes"){
+
+        }
+        if(type == "SmartWatch"){
+
+        }
+        
+    }
+
+    showTypesProds(){
+        this.main.empty();
+        this.main.append(`<div class="container">
+            <select id="TypeProdS">
+                <option class="bFormAddP" value="Perfume">Perfume</option>
+                <option class="bFormAddP" value="Clothes">Clothe</option>
+                <option class="bFormAddP" value="SmartWatch">SmartWatch</option>
+            </select>
+        </div>`);
+    }
+
+    //! DONE
+    bindTypeAddProduct(handler){
+        $('#bTypeAddP').click(function(event){
             handler();
         })
     }
+
+    //! DONE
+    bindFormAddProduct(handler){
+        $(document).on('click','.bFormAddP',function(event){
+            handler($(this).attr("value"));
+        })
+    }
+
     bindFormRemoveProduct(handler){
        $(document).on('click','.bRemProd',function(e){
            handler($(this).attr('value'));
        })
     }
+    //! DONE
     bindFormAddCategory(handler){
         $('#bFormAddC').click(function(event){
             handler();
         })
     }
+    //? MAIL PAB
     bindFormRemoveCategory(handler){
         $('#bFormRemC').click(function(event){
             handler();
         })
     }
-    //STORE
+    //STORE //! DONE
     bindFormAddStore(handler){
         $('#bFormAddS').click(function(event){
             handler();
         })
     }
+    //? MAIL PAB
     bindFormRemoveStore(handler){
-        $(document).on('click','.bRemStore',(e)=>{
-            handler($(e.target).closest($('.bRemStore')).get(0).dataset.store);
+        $(document).on('click','#bFormRemS',(e)=>{
+            //$(e.target).closest($('#bFormRemS')).get(0).dataset.store
+            handler();
         })
+    }
+    bindRemoveStore(handler){
+        $(document).on('click','#bDeleteStore',(e)=>{
+
+        handler($('#StoreToDelete').val())
+        });
     }
 
     //*VALIDACION
+    bindValidAddPerfume(handler){
+        $(document).on('submit','#formAddPerfume',(event)=>{
+            var serialNumberForm = document.getElementById('serialNumberForm');
+            var nameProdForm = document.getElementById('nameProdForm');
+            var descProdForm = document.getElementById('descProdForm');
+            var priceForm = document.getElementById('priceForm');
+            var taxForm = document.getElementById('taxForm');
+            var imgProdForm = document.getElementById('imgProdForm');
+            var odorForm = document.getElementById('odorForm');
+            var genderForm = document.getElementById('genderForm');
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            this.validateInputsAddPerfume();
+            if(validProdSN && validProdName && validProdDesc 
+            && validProdPrice && validProdTax && validProdImg
+            && validProdOdor && validProdGender){
+                // setTimeout(
+                //     handler(cifValue,nameValue,addressValue,
+                //         phoneValue,coordsValue,imgValue),
+                //     3000
+                // );
+                //TODO
+            }
+        });
+    }
+
 
     bindValidAddStore(handler){
         $(document).on('submit','#formAddStore',(event)=>{
-            const cifForm = document.getElementById('cifForm');
-            const nameForm = document.getElementById('nameForm');
-            const addressForm = document.getElementById('addressForm');
-            const phoneForm = document.getElementById('phoneForm');
-            const coordsForm = document.getElementById('coordsForm');
-            const imgForm = document.getElementById('imgForm');
+            var cifForm = document.getElementById('cifForm');
+            var nameForm = document.getElementById('nameForm');
+            var addressForm = document.getElementById('addressForm');
+            var phoneForm = document.getElementById('phoneForm');
+            var coordsForm = document.getElementById('coordsForm');
+            var imgForm = document.getElementById('imgForm');
+
+            event.preventDefault();
+            event.stopPropagation();
 
             this.validateInputsAddStore();
-            if(!validCif || !validName || !validAddress 
-            || !validPhone || !validImg || !validCoords){
-                event.preventDefault();
-                event.stopPropagation();
-            }else{
-                event.preventDefault();
-                event.stopPropagation();
+            if(validCif && validName && validAddress 
+            && validPhone && validImg && validCoords){
                 setTimeout(
                     handler(cifValue,nameValue,addressValue,
                         phoneValue,coordsValue,imgValue),
@@ -534,6 +719,23 @@ export default class StoreHouseView{
         });
     }
 
+    bindValidAddCategory(handler){
+        $(document).on('submit','#formAddCategory',(event)=>{
+            var titleForm = document.getElementById('titleForm');
+            var descForm = document.getElementById('descForm');
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            this.validateInputsAddCategory();
+            if(validTitle && validDesc){
+                setTimeout(
+                    handler(titleValue,descValue),
+                    3000
+                );
+            }
+        })
+    }
 
     
     //*METODOS INTERNOS PARA VALIDACION
@@ -556,6 +758,116 @@ export default class StoreHouseView{
         element.classList.remove('is-invalid');
     }
     
+    //* VALIDACION INPUTS DE ADDCAT
+    validateInputsAddPerfume(){
+        serialNumberValue = serialNumberForm.value;
+        nameProdValue = nameProdForm.value;
+        descProdValue = descProdForm.value;
+        priceValue = priceForm.value;
+        taxValue = taxForm.value;
+        odorValue = odorForm.value;
+        genderValue = genderForm.value;
+
+        if(imgProdForm.value != ""){
+            imgProdValue = imgProdForm.files.item(0).name;
+        }else{
+            imgProdValue = "";
+        }
+
+
+        if(!serialNumberValue){
+            this.setError(serialNumberForm,'Title can not be empty');
+
+        }else if(serialNumberValue <= 0 || serialNumberValue > 3){
+            this.setError(serialNumberForm,'Serial number must be 3 digits');
+        }else{
+            this.setSuccess(serialNumberForm);
+            validProdSN = true;
+        }
+
+        if(!nameProdValue){
+            this.setError(nameProdForm,'Title can not be empty');
+
+        }else{
+            this.setSuccess(nameProdForm);
+            validProdName = true;
+        }
+
+        if(!descProdValue){
+            this.setError(descProdForm,'Title can not be empty');
+
+        }else{
+            this.setSuccess(descProdForm);
+            validProdDesc = true;
+        }
+
+        if(!priceValue){
+            this.setError(priceForm,'Title can not be empty');
+
+        }else if(Number.parseFloat(priceValue) <= 0){
+            this.setError(priceForm,'Price must be bigger than 0');
+
+        }else{
+            this.setSuccess(priceForm);
+            validProdPrice = true;
+        }
+
+        if(!taxValue){
+            this.setError(taxForm,'Title can not be empty');
+
+        }else if(Number.parseInt(taxValue) <= 0){
+            this.setError(taxForm,'Tax must be bigger than 0');
+
+        }else{
+            this.setSuccess(taxForm);
+            validProdTax = true;
+        }
+
+        if(!odorValue){
+            this.setError(odorForm,'Title can not be empty');
+
+        }else{
+            this.setSuccess(odorForm);
+            validProdOdor = true;
+        }
+
+        if(!genderValue){
+            this.setError(genderForm,'Title can not be empty');
+
+        }else{
+            this.setSuccess(genderForm);
+            validProdGender = true;
+        }
+
+        if(!(/(\.jpg|\.jpeg|\.png|\.svg|\.jiff|\.gif)$/i).test(imgProdValue)){
+            this.setError(imgProdForm,"Image is not valid");
+        }else{
+            this.setSuccess(imgProdForm);
+            validProdImg = true;
+        }
+    }
+    validateInputsAddCategory(){
+        titleValue = titleForm.value;
+        descValue = descForm.value;
+
+        if(!titleValue){
+            this.setError(titleForm,'Title can not be empty');
+        }else if(titleValue.length < 2 || titleValue.length > 20){
+            this.setError(titleForm,'Wrong length');
+        }else{
+            this.setSuccess(titleForm);
+            validTitle = true;
+        }
+
+        if(descValue.length > 100){
+            this.setError(descForm,'Max char length 100');
+        }else{
+            this.setSuccess(descForm);
+            validDesc = true;
+        }
+    }
+
+
     //*VALIDACION INPUTS DE ADDSTORE
 
     validateInputsAddStore(){
@@ -564,6 +876,7 @@ export default class StoreHouseView{
         addressValue = addressForm.value;
         phoneValue = phoneForm.value;
         coordsValue = coordsForm.value;
+
         if(imgForm.value != ""){
             imgValue = imgForm.files.item(0).name;
         }else{
@@ -616,7 +929,7 @@ export default class StoreHouseView{
         }
     
     
-        if(!(/(\.jpg|\.jpeg|\.png)$/i).test(imgValue)){
+        if(!(/(\.jpg|\.jpeg|\.png|\.svg|\.jiff|\.gif)$/i).test(imgValue)){
             this.setError(imgForm,"Image is not valid");
         }else{
             this.setSuccess(imgForm);
