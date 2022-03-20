@@ -34,16 +34,27 @@ const StoreHouse = (function () {
         this.#name = name;
         this.#stores = [];
         this.#categories = [];
-        StoreHouse.#defCategory = {
-          category: new Category("Def", "DefaultCategory"),
-        };
+        StoreHouse.#defCategory = new Category("Def", "DefaultCategory")
         StoreHouse.#defStore = new Store(
           "H92482892",
           "DefStore",
           "RandomAddress",
           "123456789",
-          new Coords("1", "1")
+          new Coords("1", "1"),
+          "defstore.png"
         );
+
+        this.#stores.push({
+          store: StoreHouse.#defStore,
+          products: [
+            /*id:Product.id,stock:number*/
+          ],
+        })
+
+        this.#categories.push({
+          category: StoreHouse.#defCategory, 
+          products: [] 
+        })
       }
       /*Getter & Setter basico name*/
       get name() {
@@ -87,7 +98,10 @@ const StoreHouse = (function () {
           },
         };
       }
-    
+      
+      peek(){
+        return this.#categories;
+      }
       /**
        * Dada una nueva categoria si es correcta insertamos en el array de categorias un objeto a forma JSON con los parametros requeridos
        * @param newCategory
@@ -116,13 +130,12 @@ const StoreHouse = (function () {
         if (!(newCategory instanceof Category))
           throw new InvalidInstanceException(newCategory, Category);
         let index = this.#categories.findIndex((elem) => {
-          return (
-            Object.entries(elem.category).toString() ===
-            Object.entries(newCategory).toString()
-          );
+          return elem.category.title === newCategory.title; 
         });
-        if (index === -1)
-          throw new InvalidValueException("newCategory", newCategory);
+        if (index === -1) throw new InvalidValueException("newCategory", newCategory);
+        this.#categories[index].products.forEach((e)=>{
+          this.#categories[0].products.push(e);
+        })
         this.#categories.splice(index, 1);
         return this.#categories.length;
       }
@@ -135,18 +148,23 @@ const StoreHouse = (function () {
        * @returns {number} products length
        */
       
-      addProduct(newCategory, newProduct) {
-        if (!newCategory) throw new EmptyValueException("newCategory", newCategory);
+      addProduct(newProduct,newCategory) {
+        // if (!newCategory) throw new EmptyValueException("newCategory", newCategory);
         if (!newProduct) throw new EmptyValueException("newProduct", newProduct);
-        let catIndex = this.#categories.findIndex((elem) => {
-          return elem.category.title == newCategory.title
-        });
-        if(catIndex !== -1){
-          this.#categories[catIndex].products.push({
-            product: newProduct,
-            store: StoreHouse.#defStore.cif,
+
+       
+          let catIndex = this.#categories.findIndex((elem) => {
+            return elem.category.title == newCategory.title;
           });
-        }
+
+
+          if(catIndex !== -1){
+            this.#categories[catIndex].products.push({
+              product: newProduct,
+              store: StoreHouse.#defStore.cif,
+            });
+          }
+        
         
         return this.#categories[catIndex].products.length;
       }
@@ -157,18 +175,33 @@ const StoreHouse = (function () {
        */
       removeProduct(newProduct) {
         if (!newProduct) throw new EmptyValueException("newProduct", newProduct);
-        if (!(newProduct instanceof Product))
-          throw new InvalidInstanceException("newProduct", Product);
+        // if (!(newProduct instanceof Product))
+        //   throw new InvalidInstanceException("newProduct", Product);
+        
         this.#categories.forEach((cat) => {
-          let prodIndex = cat.products.findIndex((prod) => {
-            return (
-              Object.entries(prod).toString() ===
-              Object.entries(newProduct).toString()
-            );
+          cat.products.forEach((prod,idxProd)=>{
+            if(prod.product.serialNumber == newProduct.serialNumber){
+              this.#categories[0].products.push({
+                product: prod.product,
+                store: prod.store
+              });
+              cat.products.splice(idxProd,1);
+            }
           });
-          cat.products.splice(prodIndex, 1);
         });
-      }
+          this.#stores.forEach((str)=>{
+            str.products.forEach((prod,idxProd)=>{
+              if(prod.serialNumber == newProduct.serialNumber){
+                this.#stores[0].products.push({
+                  serialNumber: prod.serialNumber,
+                  stock: prod.stock
+                })
+                str.products.splice(idxProd,1);
+              }
+            })
+          });
+      
+    }
     
       /**
        * Dados un producto, una tienda y un numero de stock si los parametros son correctos insertamos el producto en la tienda con el stock pasado
@@ -296,7 +329,7 @@ const StoreHouse = (function () {
         });
         return this.#stores.length;
       }
-    
+      
       /**
        * Borramos la tienda requerida, pero antes de eso colocamos todos los productos que contenia en la tienda por defecto
        * @param shop
@@ -309,12 +342,21 @@ const StoreHouse = (function () {
           this.#stores[shopIndex].products.forEach((elem) => {
             this.#categories.forEach((cat) => {
               cat.products.forEach((prod) => {
-                if (prod.serialNumber === elem.serialNumber) {
-                  prod.store = StoreHouse.#defStore;
+                if (prod.product.serialNumber === elem.serialNumber) {
+                  prod.store = StoreHouse.#defStore.cif;
+                  //* EDITADO PARA MANTENER REFERENCIAS CORRECTAS PRACTICA FORMS
+                  this.#stores[0].products.push({
+                    serialNumber: elem.serialNumber,
+                    stock: elem.stock 
+                  });
                 }
               });
             });
           });
+
+
+
+
           this.#stores.splice(shopIndex, 1);
         }
       }
@@ -332,7 +374,7 @@ const StoreHouse = (function () {
         let i = this.#stores.findIndex((e) => {
           return e.store.cif === shop.cif; 
         });
-    
+        
         for (let cat of this.#categories) {
           for (let prods of cat.products) {
             if (prods.store === shop.cif && prods.product instanceof product) {

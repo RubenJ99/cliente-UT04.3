@@ -151,7 +151,7 @@ body{
 .main__container{
   padding: 10px;
   grid-area: main;
-  background-color: rgb(61, 60, 60);
+  background-color: #6761ab;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -209,4 +209,19 @@ body{
 
 .main__footer > * {
   color: gray;
+}
+
+
+.input-control.is-valid {
+  border-color: green;
+}
+
+.input-control.is-invalid {
+  border-color: red;
+}
+
+.input-control .error {
+  color: red;
+  font-size: 20px;
+  height: 20px;
 }

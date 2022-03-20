@@ -79,9 +79,9 @@ export default class StoreHouseController{
         let store2;
         let store3;
         try {
-            store1 = new Store('S2447905G','Tienda Madrid','C/ Mayor 12',967899011,new Coords('50.4536','30.5164 50° 27′ 13″ North, 30° 30′ 59″ East'),'../../public/media/mmStore.jpg');
-            store2 = new Store('H50463439','Tienda Ciudad Real','C/ Menor 21',957899011,new Coords('50.4536','30.5164 50° 27′ 13″ North, 30° 30′ 59″ East'),'../../public/media/primorStore.jpg');
-            store3 = new Store('P0636988H','Tienda Barcelona','C/ Ramblas 2',997899011,new Coords('50.4536','30.5164 50° 27′ 13″ North, 30° 30′ 59″ East'),'../../public/media/zaraStore.png',);
+            store1 = new Store('S2447905G','Tienda Madrid','C/ Mayor 12',967899011,new Coords('50.4536','30.5164 50° 27′ 13″ North, 30° 30′ 59″ East'),'mmStore.jpg');
+            store2 = new Store('H50463439','Tienda Ciudad Real','C/ Menor 21',957899011,new Coords('50.4536','30.5164 50° 27′ 13″ North, 30° 30′ 59″ East'),'primorStore.jpg');
+            store3 = new Store('P0636988H','Tienda Barcelona','C/ Ramblas 2',997899011,new Coords('50.4536','30.5164 50° 27′ 13″ North, 30° 30′ 59″ East'),'zaraStore.png',);
         } catch (error) {
             console.error(error);
         }
@@ -97,16 +97,16 @@ export default class StoreHouseController{
         }
 
         try {
-            this.#storeHouseModel.addProduct(cat1,clothingItem2);
-            this.#storeHouseModel.addProduct(cat1,clothingItem3);
+            this.#storeHouseModel.addProduct(clothingItem2,cat1);
+            this.#storeHouseModel.addProduct(clothingItem3,cat1);
 
-            this.#storeHouseModel.addProduct(cat2,smartWatchItem1);
-            this.#storeHouseModel.addProduct(cat2,smartWatchItem2);
-            this.#storeHouseModel.addProduct(cat2,smartWatchItem3);
+            this.#storeHouseModel.addProduct(smartWatchItem1,cat2);
+            this.#storeHouseModel.addProduct(smartWatchItem2,cat2);
+            this.#storeHouseModel.addProduct(smartWatchItem3,cat2);
 
-            this.#storeHouseModel.addProduct(cat3,perfumeItem1);
-            this.#storeHouseModel.addProduct(cat3,perfumeItem2);
-            this.#storeHouseModel.addProduct(cat3,perfumeItem3);
+            this.#storeHouseModel.addProduct(perfumeItem1,cat3);
+            this.#storeHouseModel.addProduct(perfumeItem2,cat3);
+            this.#storeHouseModel.addProduct(perfumeItem3,cat3);
         } catch (error) {
             console.error(error);
         }
@@ -131,6 +131,17 @@ export default class StoreHouseController{
         } catch (error) {
             console.error(error);
         }
+
+
+        //TODO esto peta porque fatatas, error en el modelo
+        // try {
+        //     this.#storeHouseModel.addProductInShop(clothingItem1,store1,3);
+        //     this.#storeHouseModel.addQuantityProductInShop(clothingItem3,store1,20);
+
+        //     this.#storeHouseModel.addProductInShop(smartWatchItem1,store3,400);
+        // } catch (error) {
+        //     console.error(error);
+        // }
     }
 
     /**
@@ -152,6 +163,34 @@ export default class StoreHouseController{
         this.#storeHouseView.bindCats(this.handlerCats);
         this.#storeHouseView.bindPop(this.handlerPop);
         this.#storeHouseView.bindClosePop(this.handlerClosePop);
+
+
+
+        this.#storeHouseView.bindTypeAddProduct(this.handlerFormTypeProduct);
+        //forms gen zone
+        this.#storeHouseView.bindFormAddStore(this.handlerFormAddStore);
+        this.#storeHouseView.bindFormRemoveStore(this.handlerRemoveStore);
+        this.#storeHouseView.bindRemoveStore(this.handlerRemoveStoreNow);
+       
+
+        this.#storeHouseView.bindFormAddCategory(this.handlerFormAddCategory);
+        this.#storeHouseView.bindFormRemoveCategory(this.handlerRemoveCat);
+        this.#storeHouseView.bindRemoveCategory(this.handlerRemoveCatNow);
+
+        this.#storeHouseView.bindFormAddProduct(this.handlerFormAddProduct);
+
+
+        this.#storeHouseView.bindValidAddPerfume(this.handlerCheckAddPerfume);
+        this.#storeHouseView.bindValidAddClothe(this.handlerCheckAddClothe);
+        this.#storeHouseView.bindValidAddSmartWatch(this.handlerCheckAddSmartWatch);
+        
+        this.#storeHouseView.bindFormRemoveProduct(this.handlerRemoveProduct);
+        this.#storeHouseView.bindRemoveProductBtn(this.handlerRemoveProductNow);
+        //valid check zone
+        this.#storeHouseView.bindValidAddStore(this.handlerCheckAddStore);
+        this.#storeHouseView.bindValidAddCategory(this.handlerCheckAddCategory);
+
+
         
     }
 
@@ -203,8 +242,10 @@ export default class StoreHouseController{
         for (let st of this.#storeHouseModel.shops) {
             if(st.store.cif == cifStore) currentShop = st.store;
         }
+        
         let mp = new Map();
         for (let cat of this.#storeHouseModel.getShopProducts(currentShop)) {
+            console.log(cat);
             if(!(mp.has(cat.category.title))){
                 mp.set(cat.category.title,(`<fieldset class="border p-2">
                 <legend class="w-auto" id="${cat.category.title}">
@@ -305,5 +346,196 @@ export default class StoreHouseController{
         });
 
         this.#storeHouseView.activeWindows = [];
+    }
+    handlerFormTypeProduct = () =>{
+        this.#storeHouseView.showTypesProds();
+    }
+    handlerFormAddProduct = (type) => {
+        let data = {
+            categories : this.#storeHouseModel.categories
+        }
+        this.#storeHouseView.showFormAddProduct(type,data);
+    }
+    handlerFormAddCategory = () => {
+        this.#storeHouseView.showFormAddCategory();
+    }
+    handlerFormRemoveCategory = () => {
+        
+    }
+    handlerFormAddStore = () => {
+        this.#storeHouseView.showFormAddStore();
+    }
+
+    //HANDLERS STORE
+    handlerCheckAddStore = (...formValues) => {
+        let newStore = new Store(formValues[0],formValues[1],
+            formValues[2],formValues[3],formValues[4],formValues[5]);
+        this.#storeHouseModel.addShop(newStore);
+        
+        let data = {
+            stores: this.#storeHouseModel.shops,
+            cats: this.#storeHouseModel.categories,
+        }
+
+        this.#storeHouseView.showStores(data);
+        this.#storeHouseView.showDrops(data);
+        
+    }
+    handlerRemoveStore = ()=>{
+      
+        let data = {
+            stores: this.#storeHouseModel.shops,
+        }
+        
+        this.#storeHouseView.showFormRemoveStore(data);
+    }
+    handlerRemoveStoreNow = (cifStore)=>{
+        let currentShop;
+        for (let st of this.#storeHouseModel.shops) {
+            if(st.store.cif == cifStore) currentShop = st.store;
+        }
+
+        this.#storeHouseModel.removeShop(currentShop);
+
+        let data = {
+            stores: this.#storeHouseModel.shops,
+            cats: this.#storeHouseModel.categories,
+        }
+
+        this.#storeHouseView.showStores(data);
+        this.#storeHouseView.showDrops(data);
+
+    }
+
+    //HANDLERS PRODUCT
+    handlerCheckAddPerfume = (...vals) => {
+        
+        let newPerfume = new Perfume(vals[0],vals[1],vals[2],vals[3],vals[4],vals[5],vals[6],vals[7]);
+        
+      
+       vals[8].forEach((catName)=>{
+        for (let cat of this.#storeHouseModel.categories) {
+            if(catName == cat.category.title){
+                let thisCat = cat.category;
+                this.#storeHouseModel.addProduct(newPerfume,thisCat);
+            }
+        }
+       })
+        
+
+        let data = {
+            stores: this.#storeHouseModel.shops,
+            cats: this.#storeHouseModel.categories,
+        }
+
+        
+        this.#storeHouseView.showStores(data);
+        this.#storeHouseView.showDrops(data);
+    }
+    handlerCheckAddClothe = (...vals) => {
+        let newPerfume = new Clothes(vals[0],vals[1],vals[2],vals[3],vals[4],vals[5],vals[6],vals[7],vals[8]);
+        vals[9].forEach((catName)=>{
+            for (let cat of this.#storeHouseModel.categories) {
+                if(catName == cat.category.title){
+                    let thisCat = cat.category;
+                    this.#storeHouseModel.addProduct(newPerfume,thisCat);
+                }
+            }
+        });
+
+        let data = {
+            stores: this.#storeHouseModel.shops,
+            cats: this.#storeHouseModel.categories,
+        }
+
+        this.#storeHouseView.showStores(data);
+        this.#storeHouseView.showDrops(data);
+    }
+    handlerCheckAddSmartWatch = (...vals) => {
+        let newPerfume = new SmartWatch(vals[0],vals[1],vals[2],vals[3],vals[4],vals[5],vals[6],vals[7],vals[8]);
+        vals[9].forEach((catName)=>{
+            for (let cat of this.#storeHouseModel.categories) {
+                if(catName == cat.category.title){
+                    let thisCat = cat.category;
+                    this.#storeHouseModel.addProduct(newPerfume,thisCat);
+                }
+            }
+        });
+
+        let data = {
+            stores: this.#storeHouseModel.shops,
+            cats: this.#storeHouseModel.categories,
+        }
+
+        this.#storeHouseView.showStores(data);
+        this.#storeHouseView.showDrops(data);
+    }
+    
+
+
+    handlerRemoveProduct = () => {
+        let data = {
+            categories : this.#storeHouseModel.categories
+        }
+        this.#storeHouseView.showFormRemoveProd(data);
+    }
+
+    //HANDLERS CAT
+    handlerCheckAddCategory = (...dataCat) =>{
+        let newCat = new Category(dataCat[0],dataCat[1]);
+        this.#storeHouseModel.addCategory(newCat);
+
+        let data = {
+            stores: this.#storeHouseModel.shops,
+            cats: this.#storeHouseModel.categories,
+        }
+
+        this.#storeHouseView.showStores(data);
+        this.#storeHouseView.showDrops(data);
+    }
+
+    handlerRemoveCat = ()=>{
+
+        let data = {
+            categories: this.#storeHouseModel.categories
+        }
+
+        this.#storeHouseView.showFormRemoveCat(data);
+    }
+
+    handlerRemoveCatNow = (CatTitle) => {
+        let currentCat;
+        for (let cats of this.#storeHouseModel.categories) {
+            if(cats.category.title == CatTitle) currentCat = cats.category;
+        }
+        this.#storeHouseModel.removeCategory(currentCat);
+
+        let data = {
+            stores: this.#storeHouseModel.shops,
+            cats: this.#storeHouseModel.categories,
+        }
+
+        this.#storeHouseView.showStores(data);
+        this.#storeHouseView.showDrops(data);
+    }
+
+    handlerRemoveProductNow = (serialNumber)=>{
+        let currentProd;
+        for (let c of this.#storeHouseModel.categories) {
+            for (let p of c.products) {
+                if(p.product.serialNumber == serialNumber)currentProd = p.product;
+                
+            }
+        }
+
+        this.#storeHouseModel.removeProduct(currentProd);
+        
+        let data = {
+            stores: this.#storeHouseModel.shops,
+            cats: this.#storeHouseModel.categories,
+        }
+
+        this.#storeHouseView.showStores(data);
+        this.#storeHouseView.showDrops(data);
     }
 }
