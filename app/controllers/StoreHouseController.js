@@ -26,30 +26,19 @@ export default class StoreHouseController {
     //BLOQUE GENERACION DE PRODUCTOS
    
     let cats;
-    let prods;
+    let clothes;
+    let smartW;
+    let perfume;
     let stores;
-
-    let rq = new Request("../../database/model/data.json");
-
-    //ASYNC FETCH
-
-
-
-    console.log('a');
-
-
-
-
 
     $.ajax({
         url: "../../database/model/data.json",
         method: 'GET',
-        async: false,
+        async: false, //si true, hay que darle al boton inicio porque el ready event de jquery carga antes que la peticion
       }).done((data)=> {
         cats = data.categories;
         cats.forEach(elem => {
             let tmp = new Category(elem.title,elem.description);
-            
             this.#storeHouseModel.addCategory(tmp);
         });
 
@@ -59,65 +48,45 @@ export default class StoreHouseController {
             this.#storeHouseModel.addShop(tmp);
         });
 
-      }).fail(function(){
-          
-      });
+        clothes = data.products.clothes;
+        clothes.forEach(elem =>{
+          let tmp = new Clothes(elem.serialNumber,elem.name,elem.description,elem.price,
+          elem.tax,elem.images,elem.size,elem.color,elem.gender);
+            for (let i of this.#storeHouseModel.categories) {
+              if(i.category.title === "Bottom-Clothing"){
+                this.#storeHouseModel.addProduct(tmp,i.category)
+                this.#storeHouseModel.addProductInShop(tmp,stores[2])
+              }
+            }
+        })
+
+        smartW = data.products.smartWatch;
+        smartW.forEach(elem =>{
+          let tmp = new SmartWatch(elem.serialNumber,elem.name,elem.description,elem.price,
+          elem.tax,elem.images,elem.model,elem.sphere,elem.bandColor);
+            for (let i of this.#storeHouseModel.categories) {
+              if(i.category.title === "Props"){
+                this.#storeHouseModel.addProduct(tmp,i.category)
+                this.#storeHouseModel.addProductInShop(tmp,stores[0])
+              }
+            }
+        })
+
+        perfume = data.products.perfume;
+        perfume.forEach(elem =>{
+          let tmp = new Perfume(elem.serialNumber,elem.name,elem.description,elem.price,
+          elem.tax,elem.images,elem.odor,elem.gender);
+            for (let i of this.#storeHouseModel.categories) {
+              if(i.category.title === "Perfume-and-Cologne"){
+                this.#storeHouseModel.addProduct(tmp,i.category)
+                this.#storeHouseModel.addProductInShop(tmp,stores[1])
+              }
+            }
+        })
         
-   
-
-
-    // try {
-    //   this.#storeHouseModel.addCategory(cat1);
-    //   this.#storeHouseModel.addCategory(cat2);
-    //   this.#storeHouseModel.addCategory(cat3);
-    // } catch (error) {
-    //   console.error(error);
-    // }
-
-    // try {
-    //   this.#storeHouseModel.addProduct(clothingItem2, cat1);
-    //   this.#storeHouseModel.addProduct(clothingItem3, cat1);
-
-    //   this.#storeHouseModel.addProduct(smartWatchItem1, cat2);
-    //   this.#storeHouseModel.addProduct(smartWatchItem2, cat2);
-    //   this.#storeHouseModel.addProduct(smartWatchItem3, cat2);
-
-    //   this.#storeHouseModel.addProduct(perfumeItem1, cat3);
-    //   this.#storeHouseModel.addProduct(perfumeItem2, cat3);
-    //   this.#storeHouseModel.addProduct(perfumeItem3, cat3);
-    // } catch (error) {
-    //   console.error(error);
-    // }
-
-    // try {
-    //   this.#storeHouseModel.addShop(store1);
-    //   this.#storeHouseModel.addShop(store2);
-    //   this.#storeHouseModel.addShop(store3);
-    // } catch (error) {
-    //   console.error(error);
-    // }
-
-    // try {
-    //   this.#storeHouseModel.addProductInShop(clothingItem2, store1);
-    //   this.#storeHouseModel.addProductInShop(clothingItem3, store1);
-
-    //   this.#storeHouseModel.addProductInShop(perfumeItem1, store2);
-
-    //   this.#storeHouseModel.addProductInShop(perfumeItem2, store3);
-    //   this.#storeHouseModel.addProductInShop(smartWatchItem1, store3);
-    //   this.#storeHouseModel.addProductInShop(smartWatchItem2, store3);
-    // } catch (error) {
-    //   console.error(error);
-    // }
-
-    // try {
-    //     this.#storeHouseModel.addProductInShop(clothingItem1,store1,3);
-    //     this.#storeHouseModel.addQuantityProductInShop(clothingItem3,store1,20);
-
-    //     this.#storeHouseModel.addProductInShop(smartWatchItem1,store3,400);
-    // } catch (error) {
-    //     console.error(error);
-    // }
+      }).fail(function(res){
+          console.log(res)
+      });
   }
 
   /**
@@ -174,7 +143,7 @@ export default class StoreHouseController {
   onLoad = () => {
 
     this.#preLoadStoreHouseData();
-
+      
     let cName = getCookie("user");
     let cPass = getCookie("pass");
 

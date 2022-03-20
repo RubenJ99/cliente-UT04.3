@@ -79,7 +79,7 @@ class Product {
 
   set images(image) {
     if (!image) throw new InvalidValueException("images", image);
-    this.#images.push(image);
+    this.#images = image;
   }
 }
 

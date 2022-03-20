@@ -1,7 +1,7 @@
 {
     "products" : {
         "clothes" : [
-            {"serialNumber":"111","name":"Blue Hoodie","description":"A blue hoodie","price":"30","tax":"21","images":"../../public/media/bluehoodie.jpg","size":"XL","color":"Blue","gender":"M"},
+            {"serialNumber":"111","name":"Blue Hoodie","description":"A blue hoodie","price":"30","tax":"21","images":"/public/media/bluehoodie.jpg","size":"XL","color":"Blue","gender":"M"},
             {"serialNumber":"222","name":"Red Skirt","description":"A red skirt","price":"27","tax":"21","images":"../../public/media/redskirt.jpg","size":"S","color":"Red","gender":"F"},
             {"serialNumber":"333","name":"Black Trousers","description":"A pair of black trousers","price":"40","tax":"21","images":"../../public/media/blacktrousers.jpg","size":"M","color":"Black","gender":"U"}  
         ],
