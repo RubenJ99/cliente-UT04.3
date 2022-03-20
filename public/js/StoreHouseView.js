@@ -56,6 +56,11 @@ import {Clothes} from "../../database/entities/Clothes.js";
         let sphereValue;
         let bandValue;
 
+        //* VARS LOG
+        let validUser = false;
+        let validPass = false;
+        let userValue;
+        let passValue;
 
 export default class StoreHouseView{
     //No entiendo por que no me funciona correctamente el metodo pushState, parece que no toma correctamente
@@ -1030,7 +1035,26 @@ export default class StoreHouseView{
         })
     }
 
-    
+    bindValidLogIn(handler){
+        $(document).on('submit','#formLogin',(event)=>{
+            var userForm = document.getElementById('userForm');
+            var passForm = document.getElementById('passForm');
+            
+            event.preventDefault();
+            event.stopPropagation();
+
+            this.validateInputsLogin();
+            if(validUser && validPass){
+                handler(userValue,passValue);
+            }
+        })
+    }
+
+    bindCloseSession(handler){
+        $('#bCloseS').click(function(){
+            handler();
+        })
+    }
     //*METODOS INTERNOS PARA VALIDACION
 
     setError(element,message){
@@ -1049,6 +1073,24 @@ export default class StoreHouseView{
         error.innerText = '';
         element.classList.add('is-valid');
         element.classList.remove('is-invalid');
+    }
+    validateInputsLogin(){
+        userValue = userForm.value;
+        passValue = passForm.value;
+
+        if(!userValue){
+            this.setError(userForm,'User is empty');
+        }else{
+            this.setSuccess(userForm);
+            validUser = true;
+        }
+
+        if(!passValue){
+            this.setError(passForm,'Pass is empty');
+        }else{
+            this.setSuccess(passForm);
+            validPass = true;
+        }
     }
     //* VALIDACION INPUTS DE ADDSMARTWATCH
     validateInputsAddSphere(){

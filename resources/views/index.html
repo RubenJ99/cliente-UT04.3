@@ -74,8 +74,11 @@
           </li>
         </ul>
       </nav>
-      <button class="btn" data-bs-toggle="modal" data-bs-target="#loginMod">
+      <button class="btn" data-bs-toggle="modal" data-bs-target="#loginMod" id="bModalIni">
         Iniciar Sesion
+      </button>
+      <button class="btn" id="bCloseS">
+       CIERRA SESION
       </button>
       <!-- Modal -->
       <div
@@ -98,27 +101,29 @@
             </div>
             <div class="modal-body">
               <!-- form -->
-              <form>
+              <form name="f1" id="formLogin" action="" method="post">
                 <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label"
+                  <label for="userForm" class="form-label"
                     >Email address</label
                   >
                   <input
-                    type="email"
+                    type="text"
                     class="form-control"
-                    id="exampleInputEmail1"
+                    id="userForm"
                     aria-describedby="emailHelp"
                   />
+                  <div class="error"></div>
                 </div>
                 <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label"
+                  <label for="passForm" class="form-label"
                     >Password</label
                   >
                   <input
                     type="password"
                     class="form-control"
-                    id="exampleInputPassword1"
+                    id="passForm"
                   />
+                  <div class="error"></div>
                 </div>
                 <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
               </form>
