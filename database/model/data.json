@@ -32,7 +32,7 @@
         },
         {"cif":"P0636988H","name":"Tienda Barcelona","address":"C/ Ramblas 2","phone":"997899011",
             "coords":{"latitude":"39.717222","longitude":"-3.321083"},
-            "img":"zaraStore.jpg"
+            "img":"zaraStore.png"
         }
     ]
 }
