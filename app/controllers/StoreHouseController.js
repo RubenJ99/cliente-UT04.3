@@ -92,7 +92,7 @@ export default class StoreHouseController {
         "F"
       );
       perfumeItem3 = new Perfume(
-        444,
+        999,
         "Acqua di Gioia",
         "Perfume from Giorgio Armani",
         53.9,
