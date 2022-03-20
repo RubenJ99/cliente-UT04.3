@@ -34,9 +34,7 @@ const StoreHouse = (function () {
         this.#name = name;
         this.#stores = [];
         this.#categories = [];
-        StoreHouse.#defCategory = {
-          category: new Category("Def", "DefaultCategory"),
-        };
+        StoreHouse.#defCategory = new Category("Def", "DefaultCategory")
         StoreHouse.#defStore = new Store(
           "H92482892",
           "DefStore",
@@ -54,7 +52,7 @@ const StoreHouse = (function () {
         })
 
         this.#categories.push({
-          category: StoreHouse.#defStore, 
+          category: StoreHouse.#defCategory, 
           products: [] 
         })
       }
@@ -102,7 +100,7 @@ const StoreHouse = (function () {
       }
       
       peek(){
-        return this.#stores;
+        return this.#categories;
       }
       /**
        * Dada una nueva categoria si es correcta insertamos en el array de categorias un objeto a forma JSON con los parametros requeridos
@@ -132,13 +130,12 @@ const StoreHouse = (function () {
         if (!(newCategory instanceof Category))
           throw new InvalidInstanceException(newCategory, Category);
         let index = this.#categories.findIndex((elem) => {
-          return (
-            Object.entries(elem.category).toString() ===
-            Object.entries(newCategory).toString()
-          );
+          return elem.category.title === newCategory.title; 
         });
-        if (index === -1)
-          throw new InvalidValueException("newCategory", newCategory);
+        if (index === -1) throw new InvalidValueException("newCategory", newCategory);
+        this.#categories[index].products.forEach((e)=>{
+          this.#categories[0].products.push(e);
+        })
         this.#categories.splice(index, 1);
         return this.#categories.length;
       }
@@ -151,18 +148,23 @@ const StoreHouse = (function () {
        * @returns {number} products length
        */
       
-      addProduct(newCategory, newProduct) {
-        if (!newCategory) throw new EmptyValueException("newCategory", newCategory);
+      addProduct(newProduct,newCategory) {
+        // if (!newCategory) throw new EmptyValueException("newCategory", newCategory);
         if (!newProduct) throw new EmptyValueException("newProduct", newProduct);
-        let catIndex = this.#categories.findIndex((elem) => {
-          return elem.category.title == newCategory.title
-        });
-        if(catIndex !== -1){
-          this.#categories[catIndex].products.push({
-            product: newProduct,
-            store: StoreHouse.#defStore.cif,
+
+       
+          let catIndex = this.#categories.findIndex((elem) => {
+            return elem.category.title == newCategory.title;
           });
-        }
+
+
+          if(catIndex !== -1){
+            this.#categories[catIndex].products.push({
+              product: newProduct,
+              store: StoreHouse.#defStore.cif,
+            });
+          }
+        
         
         return this.#categories[catIndex].products.length;
       }
@@ -177,31 +179,29 @@ const StoreHouse = (function () {
         //   throw new InvalidInstanceException("newProduct", Product);
         
         this.#categories.forEach((cat) => {
-          let prodIndex = cat.products.findIndex((prod) => {
-            return prod.product.serialNumber === newProduct.serialNumber;
+          cat.products.forEach((prod,idxProd)=>{
+            if(prod.product.serialNumber == newProduct.serialNumber){
+              this.#categories[0].products.push({
+                product: prod.product,
+                store: prod.store
+              });
+              cat.products.splice(idxProd,1);
+            }
           });
-          this.#categories[0].products.push({
-            product: cat.products[prodIndex].product,
-            store: cat.products[prodIndex].store
-          });
-
-          let stIndex = this.#stores.findIndex(st => {
-            return st.store.cif == prod.store;
-          })
-
-          let prodSIndex = this.#stores[stIndex].products.findIndex(prodI => {
-            return prodI.serialNumber === cat.products[prodIndex].product.serialNumber;
         });
-
-        this.#stores[0].products.push({
-          serialNumber: this.#stores[stIndex].products[prodSIndex].serialNumber,
-          stock: this.#stores[stIndex].products[prodSIndex].stock
-        })
-
-        this.#stores[stIndex].products.splice(prodSIndex,1) //borra de su tienda
-        cat.products.splice(prodIndex, 1); //borrar de la cat
-      })
-      }
+          this.#stores.forEach((str)=>{
+            str.products.forEach((prod,idxProd)=>{
+              if(prod.serialNumber == newProduct.serialNumber){
+                this.#stores[0].products.push({
+                  serialNumber: prod.serialNumber,
+                  stock: prod.stock
+                })
+                str.products.splice(idxProd,1);
+              }
+            })
+          });
+      
+    }
     
       /**
        * Dados un producto, una tienda y un numero de stock si los parametros son correctos insertamos el producto en la tienda con el stock pasado

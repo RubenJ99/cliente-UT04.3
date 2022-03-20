@@ -97,16 +97,16 @@ export default class StoreHouseController{
         }
 
         try {
-            this.#storeHouseModel.addProduct(cat1,clothingItem2);
-            this.#storeHouseModel.addProduct(cat1,clothingItem3);
+            this.#storeHouseModel.addProduct(clothingItem2,cat1);
+            this.#storeHouseModel.addProduct(clothingItem3,cat1);
 
-            this.#storeHouseModel.addProduct(cat2,smartWatchItem1);
-            this.#storeHouseModel.addProduct(cat2,smartWatchItem2);
-            this.#storeHouseModel.addProduct(cat2,smartWatchItem3);
+            this.#storeHouseModel.addProduct(smartWatchItem1,cat2);
+            this.#storeHouseModel.addProduct(smartWatchItem2,cat2);
+            this.#storeHouseModel.addProduct(smartWatchItem3,cat2);
 
-            this.#storeHouseModel.addProduct(cat3,perfumeItem1);
-            this.#storeHouseModel.addProduct(cat3,perfumeItem2);
-            this.#storeHouseModel.addProduct(cat3,perfumeItem3);
+            this.#storeHouseModel.addProduct(perfumeItem1,cat3);
+            this.#storeHouseModel.addProduct(perfumeItem2,cat3);
+            this.#storeHouseModel.addProduct(perfumeItem3,cat3);
         } catch (error) {
             console.error(error);
         }
@@ -171,11 +171,21 @@ export default class StoreHouseController{
         this.#storeHouseView.bindFormAddStore(this.handlerFormAddStore);
         this.#storeHouseView.bindFormRemoveStore(this.handlerRemoveStore);
         this.#storeHouseView.bindRemoveStore(this.handlerRemoveStoreNow);
+       
 
         this.#storeHouseView.bindFormAddCategory(this.handlerFormAddCategory);
+        this.#storeHouseView.bindFormRemoveCategory(this.handlerRemoveCat);
+        this.#storeHouseView.bindRemoveCategory(this.handlerRemoveCatNow);
 
         this.#storeHouseView.bindFormAddProduct(this.handlerFormAddProduct);
+
+
+        this.#storeHouseView.bindValidAddPerfume(this.handlerCheckAddPerfume);
+        this.#storeHouseView.bindValidAddClothe(this.handlerCheckAddClothe);
+        this.#storeHouseView.bindValidAddSmartWatch(this.handlerCheckAddSmartWatch);
+        
         this.#storeHouseView.bindFormRemoveProduct(this.handlerRemoveProduct);
+        this.#storeHouseView.bindRemoveProductBtn(this.handlerRemoveProductNow);
         //valid check zone
         this.#storeHouseView.bindValidAddStore(this.handlerCheckAddStore);
         this.#storeHouseView.bindValidAddCategory(this.handlerCheckAddCategory);
@@ -341,7 +351,10 @@ export default class StoreHouseController{
         this.#storeHouseView.showTypesProds();
     }
     handlerFormAddProduct = (type) => {
-        this.#storeHouseView.showFormAddProduct(type);
+        let data = {
+            categories : this.#storeHouseModel.categories
+        }
+        this.#storeHouseView.showFormAddProduct(type,data);
     }
     handlerFormAddCategory = () => {
         this.#storeHouseView.showFormAddCategory();
@@ -395,20 +408,82 @@ export default class StoreHouseController{
     }
 
     //HANDLERS PRODUCT
-    handlerCheckAddProduct = () => {
-
-    }
-    handlerRemoveProduct = (serialNumber) => {
-        let currentProd;
+    handlerCheckAddPerfume = (...vals) => {
+        
+        let newPerfume = new Perfume(vals[0],vals[1],vals[2],vals[3],vals[4],vals[5],vals[6],vals[7]);
+        
+      
+       vals[8].forEach((catName)=>{
         for (let cat of this.#storeHouseModel.categories) {
-            for (let prod of cat.products) {
-                if(prod.product.serialNumber == serialNumber){
-                    currentProd = prod;
-                }
+            if(catName == cat.category.title){
+                let thisCat = cat.category;
+                this.#storeHouseModel.addProduct(newPerfume,thisCat);
             }
         }
-        console.log(currentProd);
-        this.#storeHouseModel.removeProduct(currentProd);
+       })
+        
+
+        let data = {
+            stores: this.#storeHouseModel.shops,
+            cats: this.#storeHouseModel.categories,
+        }
+
+        
+        this.#storeHouseView.showStores(data);
+        this.#storeHouseView.showDrops(data);
+    }
+    handlerCheckAddClothe = (...vals) => {
+        let newPerfume = new Clothes(vals[0],vals[1],vals[2],vals[3],vals[4],vals[5],vals[6],vals[7],vals[8]);
+        vals[9].forEach((catName)=>{
+            for (let cat of this.#storeHouseModel.categories) {
+                if(catName == cat.category.title){
+                    let thisCat = cat.category;
+                    this.#storeHouseModel.addProduct(newPerfume,thisCat);
+                }
+            }
+        });
+
+        let data = {
+            stores: this.#storeHouseModel.shops,
+            cats: this.#storeHouseModel.categories,
+        }
+
+        this.#storeHouseView.showStores(data);
+        this.#storeHouseView.showDrops(data);
+    }
+    handlerCheckAddSmartWatch = (...vals) => {
+        let newPerfume = new SmartWatch(vals[0],vals[1],vals[2],vals[3],vals[4],vals[5],vals[6],vals[7],vals[8]);
+        vals[9].forEach((catName)=>{
+            for (let cat of this.#storeHouseModel.categories) {
+                if(catName == cat.category.title){
+                    let thisCat = cat.category;
+                    this.#storeHouseModel.addProduct(newPerfume,thisCat);
+                }
+            }
+        });
+
+        let data = {
+            stores: this.#storeHouseModel.shops,
+            cats: this.#storeHouseModel.categories,
+        }
+
+        this.#storeHouseView.showStores(data);
+        this.#storeHouseView.showDrops(data);
+    }
+    
+
+
+    handlerRemoveProduct = () => {
+        let data = {
+            categories : this.#storeHouseModel.categories
+        }
+        this.#storeHouseView.showFormRemoveProd(data);
+    }
+
+    //HANDLERS CAT
+    handlerCheckAddCategory = (...dataCat) =>{
+        let newCat = new Category(dataCat[0],dataCat[1]);
+        this.#storeHouseModel.addCategory(newCat);
 
         let data = {
             stores: this.#storeHouseModel.shops,
@@ -419,11 +494,42 @@ export default class StoreHouseController{
         this.#storeHouseView.showDrops(data);
     }
 
-    //HANDLERS CAT
-    handlerCheckAddCategory = (...dataCat) =>{
-        let newCat = new Category(dataCat[0],dataCat[1]);
-        this.#storeHouseModel.addCategory(newCat);
+    handlerRemoveCat = ()=>{
 
+        let data = {
+            categories: this.#storeHouseModel.categories
+        }
+
+        this.#storeHouseView.showFormRemoveCat(data);
+    }
+
+    handlerRemoveCatNow = (CatTitle) => {
+        let currentCat;
+        for (let cats of this.#storeHouseModel.categories) {
+            if(cats.category.title == CatTitle) currentCat = cats.category;
+        }
+        this.#storeHouseModel.removeCategory(currentCat);
+
+        let data = {
+            stores: this.#storeHouseModel.shops,
+            cats: this.#storeHouseModel.categories,
+        }
+
+        this.#storeHouseView.showStores(data);
+        this.#storeHouseView.showDrops(data);
+    }
+
+    handlerRemoveProductNow = (serialNumber)=>{
+        let currentProd;
+        for (let c of this.#storeHouseModel.categories) {
+            for (let p of c.products) {
+                if(p.product.serialNumber == serialNumber)currentProd = p.product;
+                
+            }
+        }
+
+        this.#storeHouseModel.removeProduct(currentProd);
+        
         let data = {
             stores: this.#storeHouseModel.shops,
             cats: this.#storeHouseModel.categories,
