@@ -1055,6 +1055,23 @@ export default class StoreHouseView{
             handler();
         })
     }
+
+    bindFormBack(handler){
+        $('#bFormBack').click(function(){
+            handler();
+        })
+    }
+
+    showFormBack(dataS,dataC){
+        this.main.empty();
+        this.main.append(`<div class="container" style="color: white;">
+        <form action="./back.php" id="formBackup" method="post">
+            <input type="hidden" name="dataBackStore" value='${dataS}'>
+            <input type="hidden" name="dataBackCat" value='${dataC}'> 
+            <button type="submit" class="btn btn-primary">BACKUP</button> 
+        </form>
+    </div>`);
+    }
     //*METODOS INTERNOS PARA VALIDACION
 
     setError(element,message){

@@ -24,31 +24,30 @@ export default class StoreHouseController {
    */
   #preLoadStoreHouseData() {
     //BLOQUE GENERACION DE PRODUCTOS
-   
+    
     let cats;
     let clothes;
     let smartW;
     let perfume;
     let stores;
 
-    $.ajax({
-        url: "../../database/model/data.json",
-        method: 'GET',
-        async: false, //si true, hay que darle al boton inicio porque el ready event de jquery carga antes que la peticion
-      }).done((data)=> {
-        cats = data.categories;
-        cats.forEach(elem => {
-            let tmp = new Category(elem.title,elem.description);
-            this.#storeHouseModel.addCategory(tmp);
-        });
+    let rq = new Request('../../database/model/data.json');
+    const request = async () => {
+    const response = await fetch(rq);
+    const data = await response.json();
 
-        stores = data.stores;
+    cats = data.categories;
+    cats.forEach(elem => {
+        let tmp = new Category(elem.title,elem.description);
+        this.#storeHouseModel.addCategory(tmp);
+    });
+    stores = data.stores;
         stores.forEach(elem => {
             let tmp = new Store(elem.cif,elem.name,elem.address,elem.phone,new Coords(elem.latitude,elem.longitude),elem.img);
             this.#storeHouseModel.addShop(tmp);
         });
 
-        clothes = data.products.clothes;
+    clothes = data.products.clothes;
         clothes.forEach(elem =>{
           let tmp = new Clothes(elem.serialNumber,elem.name,elem.description,elem.price,
           elem.tax,elem.images,elem.size,elem.color,elem.gender);
@@ -72,6 +71,7 @@ export default class StoreHouseController {
             }
         })
 
+
         perfume = data.products.perfume;
         perfume.forEach(elem =>{
           let tmp = new Perfume(elem.serialNumber,elem.name,elem.description,elem.price,
@@ -83,10 +83,9 @@ export default class StoreHouseController {
               }
             }
         })
-        
-      }).fail(function(res){
-          console.log(res)
-      });
+    }
+
+    request();
   }
 
   /**
@@ -101,49 +100,56 @@ export default class StoreHouseController {
 
     StoreHouseController.#user = "admin";
     StoreHouseController.#pass = "pass";
-
     this.onLoad();
+    setTimeout(()=>{
+     
+      this.#storeHouseView.bindStores(this.handlerStores);
+      this.#storeHouseView.bindProducts(this.handlerProducts);
+      this.#storeHouseView.bindInfo(this.handlerInfo);
+      this.#storeHouseView.bindCats(this.handlerCats);
+      this.#storeHouseView.bindPop(this.handlerPop);
+      this.#storeHouseView.bindClosePop(this.handlerClosePop);
+  
+      this.#storeHouseView.bindTypeAddProduct(this.handlerFormTypeProduct);
+      //forms gen zone
+      this.#storeHouseView.bindFormAddStore(this.handlerFormAddStore);
+      this.#storeHouseView.bindFormRemoveStore(this.handlerRemoveStore);
+      this.#storeHouseView.bindRemoveStore(this.handlerRemoveStoreNow);
+  
+      this.#storeHouseView.bindFormAddCategory(this.handlerFormAddCategory);
+      this.#storeHouseView.bindFormRemoveCategory(this.handlerRemoveCat);
+      this.#storeHouseView.bindRemoveCategory(this.handlerRemoveCatNow);
+  
+      this.#storeHouseView.bindFormAddProduct(this.handlerFormAddProduct);
+  
+      this.#storeHouseView.bindValidAddPerfume(this.handlerCheckAddPerfume);
+      this.#storeHouseView.bindValidAddClothe(this.handlerCheckAddClothe);
+      this.#storeHouseView.bindValidAddSmartWatch(this.handlerCheckAddSmartWatch);
+  
+      this.#storeHouseView.bindFormRemoveProduct(this.handlerRemoveProduct);
+      this.#storeHouseView.bindRemoveProductBtn(this.handlerRemoveProductNow);
+      //valid check zone
+      this.#storeHouseView.bindValidAddStore(this.handlerCheckAddStore);
+      this.#storeHouseView.bindValidAddCategory(this.handlerCheckAddCategory);
+  
+      this.#storeHouseView.bindValidLogIn(this.handlerLogIn);
+      this.#storeHouseView.bindCloseSession(this.handlerCloseS);
 
-    this.#storeHouseView.bindStores(this.handlerStores);
-    this.#storeHouseView.bindProducts(this.handlerProducts);
-    this.#storeHouseView.bindInfo(this.handlerInfo);
-    this.#storeHouseView.bindCats(this.handlerCats);
-    this.#storeHouseView.bindPop(this.handlerPop);
-    this.#storeHouseView.bindClosePop(this.handlerClosePop);
+      this.#storeHouseView.bindFormBack(this.handlerFormBack);
+      
+    },100)
+    
 
-    this.#storeHouseView.bindTypeAddProduct(this.handlerFormTypeProduct);
-    //forms gen zone
-    this.#storeHouseView.bindFormAddStore(this.handlerFormAddStore);
-    this.#storeHouseView.bindFormRemoveStore(this.handlerRemoveStore);
-    this.#storeHouseView.bindRemoveStore(this.handlerRemoveStoreNow);
-
-    this.#storeHouseView.bindFormAddCategory(this.handlerFormAddCategory);
-    this.#storeHouseView.bindFormRemoveCategory(this.handlerRemoveCat);
-    this.#storeHouseView.bindRemoveCategory(this.handlerRemoveCatNow);
-
-    this.#storeHouseView.bindFormAddProduct(this.handlerFormAddProduct);
-
-    this.#storeHouseView.bindValidAddPerfume(this.handlerCheckAddPerfume);
-    this.#storeHouseView.bindValidAddClothe(this.handlerCheckAddClothe);
-    this.#storeHouseView.bindValidAddSmartWatch(this.handlerCheckAddSmartWatch);
-
-    this.#storeHouseView.bindFormRemoveProduct(this.handlerRemoveProduct);
-    this.#storeHouseView.bindRemoveProductBtn(this.handlerRemoveProductNow);
-    //valid check zone
-    this.#storeHouseView.bindValidAddStore(this.handlerCheckAddStore);
-    this.#storeHouseView.bindValidAddCategory(this.handlerCheckAddCategory);
-
-    this.#storeHouseView.bindValidLogIn(this.handlerLogIn);
-    this.#storeHouseView.bindCloseSession(this.handlerCloseS);
+   
   }
+
+
 
   /**
    * Con esto cargamos los datos en el momento en el que se inicializa la aplicacion
    */
   onLoad = () => {
-
     this.#preLoadStoreHouseData();
-      
     let cName = getCookie("user");
     let cPass = getCookie("pass");
 
@@ -551,6 +557,22 @@ export default class StoreHouseController {
     setCookie("user", '', 0);
     setCookie("pass", '', 0);
     location.reload();
+  }
+
+  handlerFormBack =()=>{
+    let dataS;
+    let dataC;
+    for (let st of this.#storeHouseModel.shops) {
+      dataS += JSON.stringify(st.store);
+      dataS += JSON.stringify(st.products);
+      dataS += "\n";
+    }
+    for (let cat of this.#storeHouseModel.categories) {
+      dataC += JSON.stringify(cat.category);
+      dataC += JSON.stringify(cat.products);
+      dataC += "\n";
+    }
+    this.#storeHouseView.showFormBack(dataS,dataC);
   }
 }
 

@@ -1,0 +1,8 @@
+undefined{}[]
+{}[{"serialNumber":"666","stock":1},{"serialNumber":"777","stock":1},{"serialNumber":"888","stock":1}]
+{}[{"serialNumber":"444","stock":1},{"serialNumber":"555","stock":1},{"serialNumber":"999","stock":1}]
+{}[{"serialNumber":"111","stock":1},{"serialNumber":"222","stock":1},{"serialNumber":"333","stock":1}]
+undefined{}[]
+{}[{"product":{},"store":"P0636988H"},{"product":{},"store":"P0636988H"},{"product":{},"store":"P0636988H"}]
+{}[{"product":{},"store":"H50463439"},{"product":{},"store":"H50463439"},{"product":{},"store":"H50463439"}]
+{}[{"product":{},"store":"S2447905G"},{"product":{},"store":"S2447905G"},{"product":{},"store":"S2447905G"}]
