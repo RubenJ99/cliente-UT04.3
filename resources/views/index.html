@@ -13,6 +13,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="../../public/css/style.css" />
+    
   </head>
   <body>
     <header class="main__header">
@@ -61,7 +62,7 @@
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
-              >Forms</a
+              >Zona admin</a
             >
             <ul class="dropdown-menu" id="formsDropUl" aria-labelledby="formsDrop">
               <li><a class="dropdown-item" href="#" id="bTypeAddP">Add product</a></li>
@@ -70,12 +71,16 @@
               <li><a class="dropdown-item" href="#" id="bFormRemC">Remove category</a></li>
               <li><a class="dropdown-item" href="#" id="bFormAddS">Add store</a></li>
               <li><a class="dropdown-item" href="#" id="bFormRemS">Remove store</a></li>
+              <li><a class="dropdown-item" href="#" id="bFormBack">Backup</a></li>
             </ul>
           </li>
         </ul>
       </nav>
-      <button class="btn" data-bs-toggle="modal" data-bs-target="#loginMod">
+      <button class="btn" data-bs-toggle="modal" data-bs-target="#loginMod" id="bModalIni">
         Iniciar Sesion
+      </button>
+      <button class="btn" id="bCloseS">
+       CIERRA SESION
       </button>
       <!-- Modal -->
       <div
@@ -98,27 +103,29 @@
             </div>
             <div class="modal-body">
               <!-- form -->
-              <form>
+              <form name="f1" id="formLogin" action="" method="post">
                 <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label"
+                  <label for="userForm" class="form-label"
                     >Email address</label
                   >
                   <input
-                    type="email"
+                    type="text"
                     class="form-control"
-                    id="exampleInputEmail1"
+                    id="userForm"
                     aria-describedby="emailHelp"
                   />
+                  <div class="error"></div>
                 </div>
                 <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label"
+                  <label for="passForm" class="form-label"
                     >Password</label
                   >
                   <input
                     type="password"
                     class="form-control"
-                    id="exampleInputPassword1"
+                    id="passForm"
                   />
+                  <div class="error"></div>
                 </div>
                 <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
               </form>
@@ -205,7 +212,8 @@
       integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
       crossorigin="anonymous"
     ></script>
-    <script defer src="../../app/StoreHouseApp.js" type="module"></script>
+    <script async src="../../app/StoreHouseApp.js" type="module"></script>
+    
     <!-- <script defer src="../../public/js/formValids.js"></script> -->
   </body>
 </html>

@@ -151,7 +151,7 @@ const StoreHouse = (function () {
       addProduct(newProduct,newCategory) {
         // if (!newCategory) throw new EmptyValueException("newCategory", newCategory);
         if (!newProduct) throw new EmptyValueException("newProduct", newProduct);
-
+         
        
           let catIndex = this.#categories.findIndex((elem) => {
             return elem.category.title == newCategory.title;

@@ -1,0 +1,38 @@
+{
+    "products" : {
+        "clothes" : [
+            {"serialNumber":"111","name":"Blue Hoodie","description":"A blue hoodie","price":"30","tax":"21","images":"/public/media/bluehoodie.jpg","size":"XL","color":"Blue","gender":"M"},
+            {"serialNumber":"222","name":"Red Skirt","description":"A red skirt","price":"27","tax":"21","images":"../../public/media/redskirt.jpg","size":"S","color":"Red","gender":"F"},
+            {"serialNumber":"333","name":"Black Trousers","description":"A pair of black trousers","price":"40","tax":"21","images":"../../public/media/blacktrousers.jpg","size":"M","color":"Black","gender":"U"}  
+        ],
+        "perfume" : [
+            {"serialNumber":"444","name":"CK One","description":"Perfume from calvin klein","price":"49.95","tax":"21","images":"../../public/media/ckone.jpg","odor":"flowers/citric","gender":"F"},
+            {"serialNumber":"555","name":"Eau de Rochas","description":"A blue hoodie","price":"30","tax":"21","images":"../../public/media/eaurochas.png","odor":"citric","gender":"F"},
+            {"serialNumber":"999","name":"Blue Hoodie","description":"A blue hoodie","price":"30","tax":"21","images":"../../public/media/acquadigioia.jpg","odor":"flowers/fresh","gender":"F"}
+        ],
+        "smartWatch": [
+            {"serialNumber":"666","name":"Apple Watch","description":"New apple watch model 12","price":"800","tax":"21","images":"../../public/media/applewatch.jpg","model":"AW-12","sphere":"Square","bandColor":"White"},
+            {"serialNumber":"777","name":"Samsung Watch","description":"New samsung watch s8","price":"650","tax":"21","images":"../../public/media/samsungwatch.jpg","model":"SMGW-S8","sphere":"Round","bandColor":"White"},
+            {"serialNumber":"888","name":"Xiaomi Mi band 7","description":"New mi band 7","price":"30","tax":"21","images":"../../public/media/miband.png","model":"XMI7","sphere":"Stretched","bandColor":"Black"}
+        ]
+    },
+    "categories" : [
+        {"title":"Bottom-Clothing","description":"Clothes that fit under the waist"},
+        {"title":"Props","description":""},
+        {"title":"Perfume-and-Cologne","description":""}
+    ],
+    "stores" : [
+        {"cif":"H50463439","name":"Tienda Madrid","address":"C/ Mayor 12","phone":"967899011",
+            "coords":{"latitude":"50.4536","longitude":"30.5164 50° 27′ 13″ North, 30° 30′ 59″ East"},
+            "img":"mmStore.jpg"
+        },
+        {"cif":"S2447905G","name":"Tienda Ciudad Real","address":"C/ Menor 21","phone":"957899011",
+            "coords":{"latitude":"38.0936","longitude":" -3.63584 38° 5′ 37″ Norte, 3° 38′ 9″ Oeste"},
+            "img":"primorStore.jpg"
+        },
+        {"cif":"P0636988H","name":"Tienda Barcelona","address":"C/ Ramblas 2","phone":"997899011",
+            "coords":{"latitude":"39.717222","longitude":"-3.321083"},
+            "img":"zaraStore.png"
+        }
+    ]
+}
